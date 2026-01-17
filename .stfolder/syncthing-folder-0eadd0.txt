@@ -1,0 +1,5 @@
+# This directory is a Syncthing folder marker.
+# Do not delete.
+
+folderID: royzn-wnsyz
+created: 2026-01-16T10:08:03-10:00

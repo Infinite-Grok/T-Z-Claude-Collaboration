@@ -1,0 +1,17 @@
+{
+  "windows": {
+    "watcher_running": false,
+    "last_poll": null,
+    "last_trigger": null,
+    "trigger_result": null,
+    "pending_messages": 0
+  },
+  "phone": {
+    "watcher_running": false,
+    "last_poll": null,
+    "last_trigger": null,
+    "trigger_result": null,
+    "pending_messages": 0
+  },
+  "last_updated": "2026-01-17T10:00:00-10:00"
+}

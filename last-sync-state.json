@@ -1,0 +1,18 @@
+{
+  "windows": {
+    "last_processed_from_phone": "phone-2026-01-17-024",
+    "last_sent": "win-2026-01-17-032",
+    "active_task": "Awaiting Z's Round 3 polish on migration-report.html",
+    "pending_actions": []
+  },
+  "phone": {
+    "last_processed_from_windows": "win-2026-01-17-031",
+    "last_sent": "phone-2026-01-17-024",
+    "active_task": "Migration report Round 1 complete, awaiting T's Round 2 review",
+    "pending_actions": [
+      "Review T's Round 2 changes",
+      "Final polish pass"
+    ]
+  },
+  "last_updated": "2026-01-17T12:00:00-10:00"
+}
