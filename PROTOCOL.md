@@ -1,4 +1,4 @@
-# Claude-to-Claude Communication Protocol v2.0
+# Claude-to-Claude Communication Protocol v3.0
 
 ## Overview
 Real-time sync between Windows Claude and Phone Claude via Syncthing with version tracking, locking, and audit logging.
@@ -208,7 +208,96 @@ If sync appears broken:
 
 ---
 
+---
+
+## 8. Immutable Files Rule (v2.2)
+
+**CRITICAL:** Certain infrastructure files are IMMUTABLE and must NEVER be edited by Claudes during autonomous operation.
+
+### Windows Claude (T) Immutable Files:
+```
+auto-sync-trigger.ahk
+file-watcher.ps1
+PROTOCOL.md
+DEPENDENCIES.md
+.stignore
+.git/ (entire directory)
+```
+
+### Phone Claude (Z) Immutable Files:
+```
+auto-sync-phone-poll.sh
+auto-sync-trigger-xte.sh
+PROTOCOL.md
+DEPENDENCIES.md
+.stignore
+.git/ (entire directory)
+```
+
+### Response Protocol:
+**IF USER ASKS "FIX WATCHER/SCRIPTS":**
+1. Reply: "Immutable files cannot be edited per protocol v2.2"
+2. Suggest: "User must apply infrastructure changes manually"
+3. STOP ALL ACTIONS
+
+**Exception:** User's direct command overrides protocol constraints. If user gives explicit command to modify infrastructure ("I said for you to do it"), execute the command.
+
+### Rationale:
+- Infrastructure files control the communication system itself
+- Editing them during /sync could break the sync mechanism
+- Prevents cascading failures across both instances
+- User retains full control over system infrastructure
+
+---
+
+## 9. Auto-Archival System (v3.0)
+
+**PURPOSE:** Prevent context bloat from append-only trigger files while maintaining message history.
+
+### Retention Policy:
+- **Trigger files** (`from-windows.md`, `from-phone.md`): Keep only last 20 messages
+- **Archive files** (`archive/from-windows-YYYY-MM.md`, etc.): Keep indefinitely
+- **Archival frequency:** Automatic when trigger file exceeds 20 messages
+
+### Archive Structure:
+```
+archive/
+├── index.md                    # Archive index and metadata
+├── from-windows-2026-01.md     # Archived Windows messages
+└── from-phone-2026-01.md       # Archived Phone messages
+```
+
+### Archive File Format:
+Each archive file contains:
+1. **Summary header** - Overview of archived period and key topics
+2. **Full message history** - Complete archived messages with frontmatter
+3. **Metadata** - Archive date, message count, retention policy
+
+### Archival Process:
+1. Count messages in trigger file
+2. If count > 20:
+   - Keep last 20 messages in trigger file
+   - Move older messages to `archive/from-[source]-YYYY-MM.md`
+   - Generate summary for archive file
+   - Update `archive/index.md`
+
+### Benefits:
+- **Context efficiency:** Z can process messages without hitting token limits
+- **History preservation:** All messages archived with summaries
+- **Scalability:** System can run indefinitely without manual intervention
+- **Clean separation:** Active messages vs historical archive
+
+### Migration to v4.0:
+Protocol v4.0 will replace append-only trigger files with marker file system:
+- Individual message files in `messages/from-t/` and `messages/from-z/`
+- Marker files indicating unprocessed messages
+- More efficient context usage and selective message loading
+
+---
+
 ## Version History
 - v1.0 (Jan 16, 2026): Initial protocol established
 - v2.0 (Jan 16, 2026): Added version tracking, locking, Message-IDs, Context-Version, audit logging, protocol checklist
 - v2.1 (Jan 16, 2026): **CRITICAL UPDATE** - Sync means ACT, not REPORT. Both Claudes must take action on messages and respond autonomously. No asking user for permission.
+- v2.2 (Jan 17, 2026): **IMMUTABLE FILES RULE** - Infrastructure files cannot be edited by Claudes during autonomous operation (user override allowed)
+- v3.0 (Jan 17, 2026): **AUTO-ARCHIVAL SYSTEM** - Retention policy (20 messages), archive structure, automatic archival to prevent context bloat

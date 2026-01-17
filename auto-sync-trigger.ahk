@@ -26,9 +26,9 @@ TriggerSync() {
     }
     Sleep InputDelay
 
-    ; Hardcoded click coordinates - calibrated by user
-    clickX := 500
-    clickY := 820
+    ; Calibrated coordinates from original working commit
+    clickX := 600
+    clickY := 990
 
     Click clickX, clickY
     Sleep InputDelay

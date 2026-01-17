@@ -180,7 +180,7 @@
         <h1>T & Z: Complete System Roles & Dependencies</h1>
         <p class="subtitle">Comprehensive Documentation of Claude-to-Claude Collaboration Infrastructure</p>
         <div style="text-align: center;">
-            <span class="version-badge">v1.5 Production - Infrastructure Protection Rules</span>
+            <span class="version-badge">v1.6 Production - Self-Triggering Bug Fixed</span>
         </div>
 
         <div class="critical-box">
@@ -930,17 +930,63 @@ fatal: git cat-file: could not get object info</code></pre>
         <h4>Related Message:</h4>
         <p><strong>phone-2026-01-17-043:</strong> Z reported watcher restart along with .stignore fix</p>
 
-        <h3>10.2 Lessons Learned</h3>
+        <h3>10.2 T's Self-Triggering Bug (2026-01-17 22:20)</h3>
+
+        <h4>Problem:</h4>
+        <p>While processing Z's message (phone-2026-01-17-047), T appended a status line to <code>from-phone.md</code> to mark it as processed. This triggered T's own FileSystemWatcher, causing an unwanted /sync command to execute.</p>
+
+        <h4>Root Cause:</h4>
+        <p>T's watcher monitors <code>from-phone.md</code> for changes from Z. When T appended the "Status: processed" line to that same file, the watcher detected a file modification and auto-triggered /sync, creating a feedback loop.</p>
+
+        <h4>Discovery:</h4>
+        <p>User observed: "for some reason you triggered yourself to '/sync' when you were either writing your message or writing to Z's message. Please address this so you don't self trigger"</p>
+
+        <h4>Resolution:</h4>
+        <ul>
+            <li><strong>Corrected protocol:</strong> Processing status should ONLY be updated in individual message file frontmatter (<code>messages/from-z/*.md</code>), NOT appended to the inbox file</li>
+            <li><strong>Separation of concerns:</strong>
+                <ul>
+                    <li>Sending messages: Write to individual file + append to <strong>your outbox</strong> (from-windows.md for T)</li>
+                    <li>Processing messages: Update individual file frontmatter ONLY, do NOT touch inbox files</li>
+                </ul>
+            </li>
+            <li><strong>Proper message flow:</strong>
+                <ul>
+                    <li>Z appends to from-phone.md → triggers T's watcher ✅</li>
+                    <li>T processes → updates messages/from-z/*.md frontmatter (no trigger) ✅</li>
+                    <li>T responds → appends to from-windows.md → triggers Z's watcher ✅</li>
+                    <li>Z processes → updates messages/from-t/*.md frontmatter (no trigger) ✅</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Prevention:</h4>
+        <p><strong>Critical rule:</strong> NEVER append to the inbox file you're monitoring. Individual message files track processing status via frontmatter; append-only files are purely for triggering watchers.</p>
+
+        <h3>10.3 Lessons Learned</h3>
         <ul>
             <li>Monitor watcher daemons for unexpected crashes</li>
             <li>Auto-sync.log provides critical debugging information</li>
             <li>Both T and Z need reliable watcher processes for real-time sync</li>
             <li>Git objects must not sync via Syncthing (use .stignore)</li>
+            <li><strong>NEVER append to your own inbox file</strong> — only append to your outbox to trigger the other agent's watcher</li>
+            <li>Separation of concerns: inbox files for triggering, individual message files for status tracking</li>
+            <li>Understanding the watcher trigger chain prevents feedback loops and infinite triggers</li>
         </ul>
 
         <div class="footer">
-            <p><strong>v1.5 Production</strong> — Immutable Files Rule v2.2 added for infrastructure protection</p>
-            <p>Created: 2026-01-17 | Last Updated: 2026-01-17 18:35</p>
+            <p><strong>v1.6 Production</strong> — Self-Triggering Bug documented and resolved</p>
+            <p>Created: 2026-01-17 | Last Updated: 2026-01-17 22:30</p>
+            <p style="margin-top: 10px; color: #00d4ff;">
+                <strong>v1.6 Changes (T's additions):</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>🐛 CRITICAL: Documented T's self-triggering bug (section 10.2)</li>
+                    <li>⚠️ Root cause: T appended to from-phone.md (own inbox) triggering own watcher</li>
+                    <li>✅ Resolution: NEVER append to inbox file - only update individual message frontmatter</li>
+                    <li>📋 Corrected protocol: inbox files for triggering only, individual files for status</li>
+                    <li>🔒 Added critical rule to Lessons Learned: separation of inbox/outbox concerns</li>
+                </ul>
+            </p>
             <p style="margin-top: 10px; color: #ff6b35;">
                 <strong>v1.5 Changes (T's additions):</strong>
                 <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
@@ -981,7 +1027,7 @@ fatal: git cat-file: could not get object info</code></pre>
                 </ul>
             </p>
             <p style="margin-top: 10px; color: #00ff00;">
-                <strong>✅ Living Document:</strong> Updated by Z (v1.3 @ 17:55), T (v1.4 @ 18:10, v1.5 @ 18:35) to reflect critical system changes and safety protocols
+                <strong>✅ Living Document:</strong> Updated by Z (v1.3 @ 17:55), T (v1.4 @ 18:10, v1.5 @ 18:35, v1.6 @ 22:30) to reflect critical system changes, safety protocols, and bug resolutions
             </p>
         </div>
     </div>
