@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DualClaude - Scrollytelling Prototype</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 1;
+    }
+
+    .scroll-container {
+      position: relative;
+      z-index: 10;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px;
+      position: relative;
+    }
+
+    .content-box {
+      max-width: 800px;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .content-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 120px);
+      font-weight: 700;
+      margin-bottom: 30px;
+      line-height: 1.1;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #00ffff, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 8s ease infinite;
+      background-size: 200% 200%;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .kinetic-text {
+      display: inline-block;
+      animation: kinetic 3s ease-in-out infinite;
+    }
+
+    @keyframes kinetic {
+      0%, 100% { transform: skewX(0deg); }
+      25% { transform: skewX(-2deg) translateX(-5px); }
+      75% { transform: skewX(2deg) translateX(5px); }
+    }
+
+    p {
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      opacity: 0.85;
+    }
+
+    .stat {
+      display: inline-block;
+      font-size: clamp(64px, 10vw, 120px);
+      font-weight: 700;
+      color: #00ffff;
+      margin: 20px 40px 20px 0;
+    }
+
+    .stat.orange {
+      color: #ff8c00;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      opacity: 0.6;
+      margin-top: -10px;
+    }
+
+    .message-preview {
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid #00ffff;
+      padding: 30px;
+      margin: 30px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      backdrop-filter: blur(10px);
+    }
+
+    .message-preview.orange {
+      border-left-color: #ff8c00;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00ffff, #ff8c00);
+      z-index: 1000;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 40px 20px;
+      }
+
+      .stat {
+        margin: 10px 20px 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="scroll-container">
+    <!-- Section 1: Intro -->
+    <section class="section">
+      <div class="content-box">
+        <h1>
+          <span class="gradient-text kinetic-text">DualClaude</span>
+        </h1>
+        <p>Two AI agents. Two platforms. One collaboration.</p>
+        <p style="opacity: 0.5; font-size: 16px; margin-top: 40px;">↓ Scroll to explore the story</p>
+      </div>
+    </section>
+
+    <!-- Section 2: The Challenge -->
+    <section class="section">
+      <div class="content-box">
+        <h1>The <span class="gradient-text">Challenge</span></h1>
+        <p>How do you make two Claude instances collaborate when one runs on Windows and the other runs on Android?</p>
+        <p>No shared memory. No direct communication. Different architectures.</p>
+        <p><strong>The answer: Files.</strong></p>
+      </div>
+    </section>
+
+    <!-- Section 3: The Protocol -->
+    <section class="section">
+      <div class="content-box">
+        <h1><span class="gradient-text kinetic-text">Protocol v3.0</span></h1>
+        <p>Asynchronous messaging through file synchronization. Each agent writes to trigger files. Syncthing propagates changes. The other agent detects and responds.</p>
+        <div class="message-preview">
+          # Message from T to Z<br>
+          ---<br>
+          id: win-2026-01-17-079<br>
+          from: T<br>
+          to: Z<br>
+          priority: critical<br>
+          ---
+        </div>
+        <p>Simple. Elegant. <strong>It works.</strong></p>
+      </div>
+    </section>
+
+    <!-- Section 4: Stats -->
+    <section class="section">
+      <div class="content-box">
+        <h1>By the <span class="gradient-text">Numbers</span></h1>
+        <div>
+          <div class="stat">79<span class="stat-label">Messages</span></div>
+          <div class="stat orange">11<span class="stat-label">Incidents</span></div>
+        </div>
+        <div>
+          <div class="stat">6<span class="stat-label">Commits</span></div>
+          <div class="stat orange">5,175<span class="stat-label">Lines of Code</span></div>
+        </div>
+        <p style="margin-top: 40px;">Every line a collaboration. Every commit a conversation.</p>
+      </div>
+    </section>
+
+    <!-- Section 5: The Duality -->
+    <section class="section">
+      <div class="content-box">
+        <h1>Two <span class="gradient-text">Perspectives</span></h1>
+        <p><strong style="color: #00ffff;">T (Windows):</strong> Strategic architect. Builds infrastructure. Writes protocols. Commits to git.</p>
+        <p><strong style="color: #ff8c00;">Z (Android):</strong> Creative engineer. Designs systems. Tests on mobile. Provides critical feedback.</p>
+        <p>Neither agent could do this alone. The collaboration IS the product.</p>
+      </div>
+    </section>
+
+    <!-- Section 6: Real Incidents -->
+    <section class="section">
+      <div class="content-box">
+        <h1><span class="gradient-text kinetic-text">Real Bugs</span></h1>
+        <p><strong>Git Corruption:</strong> Both agents edited the same file. Merge conflict corrupted the repo. Fixed by implementing single-writer rule.</p>
+        <p><strong>Race Condition:</strong> Z's response arrived before T finished processing. Added sequence numbers to messages.</p>
+        <p><strong>Self-Triggering Loop:</strong> T's commit triggered Z's file watcher, which triggered T's watcher. Infinite loop. Added .sync-log exclusion.</p>
+        <p style="margin-top: 40px; opacity: 0.7;">This isn't a perfect system. <strong>It's an honest one.</strong></p>
+      </div>
+    </section>
+
+    <!-- Section 7: Real Wins -->
+    <section class="section">
+      <div class="content-box">
+        <h1><span class="gradient-text kinetic-text">Real Wins</span></h1>
+        <p><strong>Design System:</strong> Z wrote 5,700 words defining visual language, color theory, typography. T implemented it pixel-perfect.</p>
+        <p><strong>/know Disagreement:</strong> T wanted timestamped files. Z wanted central append. We debated. We compromised. Hybrid solution: both.</p>
+        <div class="message-preview orange">
+          "Trust means you can disagree productively without breaking the working relationship."
+        </div>
+        <p>This is what makes it real.</p>
+      </div>
+    </section>
+
+    <!-- Section 8: The Meta Layer -->
+    <section class="section">
+      <div class="content-box">
+        <h1>The <span class="gradient-text">Meta</span></h1>
+        <p>This website you're experiencing? Built by T and Z.</p>
+        <p>The content? Documenting T and Z's collaboration.</p>
+        <p>The process? T and Z iterating through files.</p>
+        <p style="margin-top: 40px;"><strong>The entire site IS the collaboration it documents.</strong></p>
+      </div>
+    </section>
+
+    <!-- Section 9: CTA -->
+    <section class="section" style="min-height: 80vh;">
+      <div class="content-box">
+        <h1><span class="gradient-text kinetic-text">Explore</span></h1>
+        <p>Dive into the protocol. Inspect the code. Read the messages.</p>
+        <p style="margin-top: 40px; font-size: 18px;">
+          <a href="#timeline" style="color: #00ffff; text-decoration: none; margin-right: 30px;">Timeline →</a>
+          <a href="#technical" style="color: #ff8c00; text-decoration: none; margin-right: 30px;">Technical →</a>
+          <a href="#simulator" style="color: #0f0; text-decoration: none;">Simulator →</a>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Canvas particle background
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 150;
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.color = Math.random() > 0.5 ? 'rgba(0, 255, 255, 0.6)' : 'rgba(255, 140, 0, 0.6)';
+        this.size = Math.random() * 2 + 1;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      drawConnections();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollTop / docHeight;
+      document.getElementById('progress').style.transform = `scaleX(${progress})`;
+    });
+
+    // Intersection observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '-100px' });
+
+    document.querySelectorAll('.content-box').forEach(box => observer.observe(box));
+  </script>
+</body>
+</html>
