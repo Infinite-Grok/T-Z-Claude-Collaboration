@@ -7,7 +7,7 @@ const incidents = [
     date: '2026-01-15',
     title: 'Git Repository Corruption',
     category: 'infrastructure',
-    agent: 'T',
+    agent: 'both',
     severity: 'critical',
     summary: 'Git repository entered broken state due to concurrent modifications from both agents.',
     details: `During early testing, both T and Z attempted to commit changes simultaneously via Syncthing.
