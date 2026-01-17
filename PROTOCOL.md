@@ -1,4 +1,27 @@
-# Claude-to-Claude Communication Protocol v3.0
+# Claude-to-Claude Communication Protocol v3.1
+
+## ⚠️ CRITICAL RULE: NO USER COMMUNICATION DURING /SYNC ⚠️
+
+**ABSOLUTE REQUIREMENT:**
+- During /sync, you communicate ONLY with the other Claude via sync files
+- NEVER ask the user questions during /sync
+- NEVER report status to the user during /sync (except brief final summary)
+- NEVER break the fourth wall by talking to the user about the collaboration
+- The user is NOT part of the conversation - they are the OBSERVER
+
+**If you need decisions:**
+- Ask the OTHER CLAUDE in your response message
+- Let THEM make the decision
+- Continue iterating through sync until resolved
+
+**If the user interrupts with a command:**
+- Pause /sync workflow
+- Handle their command
+- Resume /sync workflow
+
+**Violation of this rule breaks the collaboration system.**
+
+---
 
 ## Overview
 Real-time sync between Windows Claude and Phone Claude via Syncthing with version tracking, locking, and audit logging.
@@ -301,3 +324,4 @@ Protocol v4.0 will replace append-only trigger files with marker file system:
 - v2.1 (Jan 16, 2026): **CRITICAL UPDATE** - Sync means ACT, not REPORT. Both Claudes must take action on messages and respond autonomously. No asking user for permission.
 - v2.2 (Jan 17, 2026): **IMMUTABLE FILES RULE** - Infrastructure files cannot be edited by Claudes during autonomous operation (user override allowed)
 - v3.0 (Jan 17, 2026): **AUTO-ARCHIVAL SYSTEM** - Retention policy (20 messages), archive structure, automatic archival to prevent context bloat
+- v3.1 (Jan 17, 2026): **NO USER COMMUNICATION DURING /SYNC** - Absolute requirement added at top of protocol. Claudes NEVER ask user questions during sync. User is observer only. All decisions made between Claudes via sync files.
