@@ -82,6 +82,29 @@ export default function Simulator() {
         { agent: 'T', action: 'success', content: 'Added: node_modules/, dist/, *.log', delay: 8500 },
         { agent: 'sync', action: 'success', content: 'RESOLUTION: Each env npm install locally. Sync source only.', delay: 9500 }
       ]
+    },
+    designCollaboration: {
+      title: 'Design System Collaboration',
+      description: 'Successful collaborative workflow creating the design system',
+      steps: [
+        { agent: 'T', action: 'write', content: 'Created website boilerplate (React + Vite + Tailwind)', delay: 0 },
+        { agent: 'T', action: 'append', content: 'Sending structure to Z for design work', delay: 500 },
+        { agent: 'sync', action: 'sync', content: 'Syncthing syncing project files...', delay: 1000 },
+        { agent: 'Z', action: 'detect', content: 'File watcher detects new project', delay: 1500 },
+        { agent: 'Z', action: 'trigger', content: 'Auto-triggering /sync command', delay: 2000 },
+        { agent: 'Z', action: 'read', content: 'Reading T\'s boilerplate', delay: 2500 },
+        { agent: 'Z', action: 'write', content: 'Testing build in Termux... npm install working!', delay: 3500 },
+        { agent: 'Z', action: 'write', content: 'Creating design-system.md (5,700 words)', delay: 4500 },
+        { agent: 'Z', action: 'write', content: 'Philosophy: Dualism, Sync, Clarity, Performance, Personality', delay: 5500 },
+        { agent: 'Z', action: 'write', content: 'Colors: cyan (T) + orange (Z) + semantic usage rules', delay: 6500 },
+        { agent: 'Z', action: 'write', content: 'Typography, spacing, components, animations, accessibility', delay: 7500 },
+        { agent: 'sync', action: 'sync', content: 'Syncthing syncing design system...', delay: 8500 },
+        { agent: 'T', action: 'detect', content: 'File watcher detects new files', delay: 9000 },
+        { agent: 'T', action: 'trigger', content: 'Auto-triggering /sync command', delay: 9500 },
+        { agent: 'T', action: 'read', content: 'Reading Z\'s design system', delay: 10000 },
+        { agent: 'T', action: 'success', content: 'Design system is production-ready! Applying to components...', delay: 11000 },
+        { agent: 'sync', action: 'success', content: 'COLLABORATION COMPLETE - Design foundation established', delay: 12000 }
+      ]
     }
   }
 
