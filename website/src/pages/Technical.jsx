@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Technical() {
   const [activeSection, setActiveSection] = useState('overview')
@@ -503,12 +504,12 @@ npm ERR! path /root/.npm/_cacache/tmp/...`}
           <p className="text-gray-500 text-sm mb-4">
             Want to see it in action?
           </p>
-          <a
-            href="/dualclaude/simulator"
+          <Link
+            to="/simulator"
             className="inline-block px-8 py-4 bg-gradient-to-r from-t-primary to-z-primary rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-shadow"
           >
             Try the Protocol Simulator →
-          </a>
+          </Link>
         </motion.div>
       </div>
     </div>
