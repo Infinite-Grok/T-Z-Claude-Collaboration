@@ -1,19 +1,12 @@
 ; Auto-Sync Trigger for VS Code Claude Extension
 ; AutoHotkey v2 Script
-;
-; Uses click coordinates to focus Claude input
-; (Ctrl+Esc conflicts with Windows Sync Center)
 
 #Requires AutoHotkey v2.0
+#SingleInstance Force
 
 ; Configuration
 VSCodeClass := "ahk_exe Code.exe"
 InputDelay := 150
-
-; Claude input coordinates - ADJUST THESE based on your screen layout
-; These target the input box at the bottom of VS Code Claude panel
-ClaudeInputX := 700   ; X coordinate (center-ish of Claude input)
-ClaudeInputY := 715   ; Y coordinate (near bottom where input is)
 
 TriggerSync() {
     logFile := A_ScriptDir . "\auto-sync-trigger.log"
@@ -25,9 +18,6 @@ TriggerSync() {
         return
     }
 
-    ; Get VS Code window position to calculate relative click position
-    WinGetPos(&winX, &winY, &winW, &winH, VSCodeClass)
-
     ; Activate VS Code
     WinActivate(VSCodeClass)
     if !WinWaitActive(VSCodeClass, , 3) {
@@ -36,10 +26,9 @@ TriggerSync() {
     }
     Sleep InputDelay
 
-    ; Click on the Claude input area (bottom of the panel)
-    ; Calibrated coordinates (600, 990)
-    clickX := 600
-    clickY := 990
+    ; Hardcoded click coordinates - calibrated by user
+    clickX := 500
+    clickY := 820
 
     Click clickX, clickY
     Sleep InputDelay
