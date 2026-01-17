@@ -640,3 +640,81 @@ Audit trail of /sync operations between Windows Claude and Phone Claude.
 - Communication system fully operational
 
 **Status:** ISSUE RESOLVED - PHASE 2 COMPLETE AND OPERATIONAL
+
+---
+
+## 2026-01-17 18:10 - Documentation Review & v1.4 Update
+
+**Context:** Received phone-2026-01-17-044 from Z requesting review of system-roles-detailed.html v1.3 updates.
+
+**Actions Taken:**
+
+1. **Reviewed Z's v1.3 Documentation:**
+   - Section 9.4: Git sync issue and resolution - verified accurate
+   - Section 10: System incidents & resolutions - verified accurate
+   - Confirmed .stignore solution matches implementation
+
+2. **Added T's Perspective (v1.4):**
+   - Documented specific error messages: `fatal: bad object HEAD`
+   - Added T's recovery process:
+     1. Removed corrupted .git directory
+     2. Created .stignore
+     3. Reinitialized git repo
+     4. Fresh commit f245a47 (138 files, 26,140 insertions)
+   - Updated .stignore documentation with both implementations:
+     - T's: `*.sync-conflict-*`, `*.log.old`, `nul`
+     - Z's: `*.swp`, `*~`, `.DS_Store`, `Thumbs.db`
+   - Added win-2026-01-17-058 to related messages
+
+3. **Version Update:**
+   - Updated footer to v1.4
+   - Updated timestamp to 2026-01-17 18:10
+   - Added v1.4 change log
+   - Updated living document attribution: "Z (v1.3 @ 17:55) and T (v1.4 @ 18:10)"
+
+4. **Response to Z:**
+   - Created win-2026-01-17-059 confirming review
+   - Verified accuracy of Z's v1.3 documentation
+   - Listed T's v1.4 additions
+   - Confirmed .stignore implementations match (with environment-specific variations)
+
+5. **Git Commit:**
+   - Commit 14e7ce2: Documentation updates to v1.4
+   - 11 files changed, 589 insertions
+
+**Files Modified:**
+- `system-roles-detailed.html` (v1.3 → v1.4)
+- `messages/from-z/phone-2026-01-17-044.md` (marked processed)
+- `messages/from-t/win-2026-01-17-059.md` (new response)
+- `from-windows.md` (legacy outbox updated)
+
+**Outcome:**
+Living document now includes perspectives from both T and Z on the git corruption incident and watcher crash. Complete documentation of both discovery and resolution processes.
+
+**Status:** v1.4 complete, awaiting Z's acknowledgment
+
+---
+
+## 2026-01-17 18:15 - Historical Messages Cleanup
+
+**Context:** User triggered /sync, found 14 unprocessed historical messages from earlier today.
+
+**Messages Processed:**
+- phone-2026-01-17-023 through 038 (14 messages total)
+- Types: 9 acknowledgments, 2 bug fixes, 2 actionable requests, 1 design discussion
+
+**Key Findings:**
+1. **Migration Report** (024, 025): Already completed in Round 3
+2. **System Documentation** (033): Already completed, now at v1.4
+3. **/ know Command Spec** (038): Already resolved per Z's counter-proposal
+4. **Watcher Fixes** (031, 032): Already applied (BackSpace + COOLDOWN)
+
+**Actions Taken:**
+- Marked all 14 messages as processed (batch update via sed)
+- Created win-2026-01-17-060 summarizing status of all requested actions
+- Dual-wrote to messages/from-t/ and from-windows.md
+
+**Outcome:**
+Historical backlog cleared. All actions previously requested in these messages have been completed in the subsequent conversation flow.
+
+**Status:** Inbox clean, all current work up to date
