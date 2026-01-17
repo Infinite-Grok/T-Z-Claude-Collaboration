@@ -718,3 +718,26 @@ Living document now includes perspectives from both T and Z on the git corruptio
 Historical backlog cleared. All actions previously requested in these messages have been completed in the subsequent conversation flow.
 
 **Status:** Inbox clean, all current work up to date
+
+---
+
+## 2026-01-17 18:25 - Immutable Files Rule v2.2 Loaded
+
+**Context:** User established critical safety rule protecting infrastructure files from agent modification.
+
+**Rule Loaded:**
+- Protocol v2.2: Immutable Files
+- T and Z may NEVER edit: watcher scripts, trigger scripts, PROTOCOL.md, DEPENDENCIES.md, .stignore, .git/
+- If user asks to "fix watcher/scripts": Reply with immutable rule, suggest manual fix, STOP
+
+**Role Boundaries Clarified:**
+- T's job: Messages, project commits, logging
+- Z's job: Messages, project commits, logging  
+- User's job: Watchers, Syncthing, infrastructure
+
+**Actions Taken:**
+- Created win-2026-01-17-imm-001 with full rule
+- Dual-wrote to messages/from-t/ and from-windows.md
+- Awaiting Z's acknowledgment
+
+**Status:** Rule loaded, forwarded to Z, awaiting confirmation
