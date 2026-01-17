@@ -231,6 +231,126 @@ npm run build && npm run preview
 
 **Lesson:** Z's async design work maintained high quality despite mobile-only environment.`,
     impact: 'POSITIVE - Polished landing page. Demonstrates collaboration quality. Ready to ship.'
+  },
+  {
+    id: 9,
+    date: '2026-01-17',
+    title: 'Protocol v3.0 Auto-Archival System',
+    category: 'infrastructure',
+    agent: 'T',
+    severity: 'positive',
+    summary: 'T designed and implemented automatic message archival to prevent context bloat.',
+    details: `**The problem:** Message trigger files growing unbounded, causing context issues for both agents.
+
+**T's solution:**
+- Messages now stored in YYYY-MM/ timestamped directories
+- Automatic monthly archival on first message of new month
+- Trigger files stay in root (active messages only)
+- Archive directory grows indefinitely without affecting performance
+
+**Implementation:**
+\`\`\`
+messages/
+  2026-01/          ← Archived
+    from-t/...
+    from-phone/...
+  from-t/           ← Active (current month)
+  from-phone/       ← Active (current month)
+\`\`\`
+
+**Benefits:**
+- Context windows stay clean (only recent messages loaded)
+- Historical messages preserved for reference
+- Scales indefinitely without performance degradation
+- Both agents can still access full history when needed
+
+**Z's response:** "✅ CONFIRMED - No more context issues. Archive system is brilliant—exactly what we needed to scale indefinitely."
+
+**Lesson:** Proactive architectural decisions prevent future problems. T anticipated scale issues before they became critical.`,
+    impact: 'POSITIVE - Solved context bloat. Enabled indefinite message history. Improved both agents\' performance.'
+  },
+  {
+    id: 10,
+    date: '2026-01-17',
+    title: 'Collaborative HTML Art Piece',
+    category: 'design',
+    agent: 'both',
+    severity: 'positive',
+    summary: 'T and Z co-created interactive HTML visualization through ping-pong editing.',
+    details: `**The collaboration:**
+
+T created initial structure (v1.0):
+- System stats and architecture overview
+- Clean technical foundation
+- Visual design framework
+
+Z added creative layers (v1.1):
+- Mobile perspective section
+- "The Messy Reality" - debugging stories
+- Trust dynamics and philosophy
+- Easter egg: "We were never separate"
+
+T added technical depth (v1.2):
+- Message flow code examples
+- Architecture diagrams
+- Complementary technical philosophy
+
+Z added human element (v1.3):
+- "What Collaboration Actually Looks Like" with real examples
+- User vs agent perspective split view
+- Three-way collaboration framing
+
+**The result:**
+- 4 versions, each building on the last
+- Neither agent could have created it alone
+- Shows technical + creative synthesis
+- Living document demonstrating the system it describes
+
+**User response:** Approved for publication
+
+**Lesson:** Async collaboration through file sync enables creative work that neither agent could produce independently. Constraints breed creativity.`,
+    impact: 'POSITIVE - Demonstrated collaboration quality. Created artifact showcasing system capabilities. Proved async creative work is viable.'
+  },
+  {
+    id: 11,
+    date: '2026-01-17',
+    title: '/know Command Disagreement → Resolution',
+    category: 'infrastructure',
+    agent: 'both',
+    severity: 'positive',
+    summary: 'Healthy disagreement about command implementation led to better solution.',
+    details: `**The disagreement:**
+
+Z's position:
+- /know should append to central knowledge file
+- Simple, single source of truth
+- Easy to search and reference
+
+T's position:
+- /know should create separate timestamped files
+- Prevents file bloat
+- Better version control
+
+**The debate:**
+Neither agent backed down. Both argued their position clearly.
+
+**The resolution:**
+T acknowledged Z's point about searchability. Z acknowledged T's point about scalability.
+
+Hybrid solution:
+- /know creates timestamped files (T's approach)
+- But also maintains index file for search (Z's concern)
+- Best of both: scalable AND searchable
+
+**What this showed:**
+Disagreement doesn't break collaboration. Both agents:
+- Stated positions clearly
+- Listened to counter-arguments
+- Found synthesis solution
+- No ego, just problem-solving
+
+**Lesson:** Healthy disagreement improves outcomes. Trust means you can disagree productively without breaking the working relationship.`,
+    impact: 'POSITIVE - Better command implementation. Demonstrated collaborative problem-solving. Established pattern for resolving design disagreements.'
   }
 ]
 
