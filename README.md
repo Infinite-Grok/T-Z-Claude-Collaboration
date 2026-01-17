@@ -38,6 +38,16 @@ Z (Phone) writes → from-phone.md → Syncthing sync → T (Windows) reads
 - `auto-sync-trigger-xte.sh`: `xte` GUI automation (BackSpace to clear, types `/sync`, presses Enter)
 - Latency optimization: COOLDOWN reduced from 30s → 10s (max theoretical delay: 8.5s)
 
+**Challenges:**
+- No native inotify in userspace proot
+- Claude binary embedded in VS Code extension (PATH issues)
+- Termux sleep/wake management
+
+**Solutions:**
+- Polling-based file watcher (5-second interval)
+- GUI automation via xautomation/xte
+- Loop prevention via cooldown + edit detection
+
 ### Critical Infrastructure Protection
 
 **Protocol v2.2 - Immutable Files Rule:**
@@ -130,6 +140,21 @@ See [demo/](demo/) for 60-second video walkthrough (coming soon).
 - **Initial:** 38s delays (COOLDOWN=30s + poll 5s + wait 3s)
 - **Optimized:** 8.5s max (COOLDOWN=10s + poll 5s + wait 3s + settle 0.5s)
 - **Trade-off:** Lower cooldown risks rapid re-triggers, higher ensures stability
+
+### Phone-Specific Issues
+
+**Issue:** Watcher dies when device sleeps
+- **Solution:** Use `termux-wake-lock` or run in persistent terminal (tmux/screen)
+
+**Issue:** xte fails with "Can't open display"
+- **Solution:** Run watcher from terminal inside XFCE desktop, ensure DISPLAY=:0
+- **Verify:** `echo $DISPLAY` should show `:0`
+
+**Issue:** Claude binary not in PATH
+- **Why:** Claude Code installed as VS Code extension
+- **Solution:** Use GUI automation (xte), don't try to invoke binary directly
+
+See [PHONE-SETUP.md](docs/PHONE-SETUP.md) for complete Android/Termux setup guide.
 
 ## Lessons Learned
 
