@@ -1,0 +1,36 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+*.log.old
+*~
+
+# Git (local only - DO NOT sync .git/)
+.git/
+
+# Syncthing
+.stversions/
+*.sync-conflict-*
+~syncthing~*.tmp
+
+# Temporary files
+*.tmp
+*.swp
+nul
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+auto-sync.log
+auto-sync-trigger.log
+claude-log.md
+
+# Message files (don't commit actual messages)
+from-windows.md
+from-phone.md
+messages/
+
+# Local configuration
+shared-context.md

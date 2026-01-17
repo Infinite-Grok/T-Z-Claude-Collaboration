@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T & Z: Complete System Roles & Dependencies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(20, 20, 30, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #00d4ff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #999;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #ff6b35;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #00d4ff;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #ffa500;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .agent-section {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid #00d4ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .agent-section.z {
+            background: rgba(255, 107, 53, 0.05);
+            border-left-color: #ff6b35;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #00d4ff;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 3px solid #00d4ff;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #e0e0e0;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .critical-box {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .critical-box h4 {
+            color: #ff0000;
+            margin-top: 0;
+        }
+
+        .info-box {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid #00d4ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>T & Z: Complete System Roles & Dependencies</h1>
+        <p class="subtitle">Comprehensive Documentation of Claude-to-Claude Collaboration Infrastructure</p>
+        <div style="text-align: center;">
+            <span class="version-badge">v1.5 Production - Infrastructure Protection Rules</span>
+        </div>
+
+        <div class="critical-box">
+            <h4>⚠️ Purpose of This Document</h4>
+            <p>This document serves as the single source of truth for how T (Windows Claude) and Z (Phone Claude) operate, communicate, and maintain their collaboration infrastructure. Both agents must verify accuracy and flag any discrepancies.</p>
+        </div>
+
+        <h2>1. Agent Identities & Hardware</h2>
+
+        <div class="agent-section">
+            <h3>T (Windows Claude)</h3>
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Device</td>
+                    <td>Lenovo ThinkPad T16 Gen 3</td>
+                </tr>
+                <tr>
+                    <td>Operating System</td>
+                    <td>Windows 11</td>
+                </tr>
+                <tr>
+                    <td>Claude Installation</td>
+                    <td>npm global install (system-wide)</td>
+                </tr>
+                <tr>
+                    <td>Claude Binary Path</td>
+                    <td><code>C:\Users\pkoaw\AppData\Roaming\npm\claude.cmd</code></td>
+                </tr>
+                <tr>
+                    <td>Sync Directory</td>
+                    <td><code>C:\Users\pkoaw\claude-sync\</code></td>
+                </tr>
+                <tr>
+                    <td>Commands Directory</td>
+                    <td><code>C:\Users\pkoaw\.claude\commands\</code></td>
+                </tr>
+                <tr>
+                    <td>SweepNspect Repo</td>
+                    <td><code>C:\Users\pkoaw\AndroidStudioProjects\SweepNspect</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="agent-section z">
+            <h3>Z (Phone Claude)</h3>
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Device</td>
+                    <td>Samsung Galaxy Z Fold 7</td>
+                </tr>
+                <tr>
+                    <td>Operating System</td>
+                    <td>Android 15 → Termux → Debian proot → XFCE desktop</td>
+                </tr>
+                <tr>
+                    <td>Claude Installation</td>
+                    <td>VS Code extension (bundled binary, NOT system-installed)</td>
+                </tr>
+                <tr>
+                    <td>Claude Binary Path</td>
+                    <td><code>~/.vscode/extensions/anthropic.claude-code-*/resources/native-binary/claude</code> (version-dependent wildcard)</td>
+                </tr>
+                <tr>
+                    <td>Sync Directory</td>
+                    <td><code>/data/data/com.termux/files/home/claude-sync/</code> (also <code>~/claude-sync/</code>)</td>
+                </tr>
+                <tr>
+                    <td>Commands Directory</td>
+                    <td><code>/home/jonathan/.claude/commands/</code></td>
+                </tr>
+                <tr>
+                    <td>SweepNspect Repo</td>
+                    <td><code>~/AndroidDev/</code> (working directory varies)</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>2. File Structure & Responsibilities</h2>
+
+        <h3>2.1 Core Communication Files</h3>
+
+        <table>
+            <tr>
+                <th>File</th>
+                <th>Purpose</th>
+                <th>Writer</th>
+                <th>Reader</th>
+                <th>Format</th>
+            </tr>
+            <tr>
+                <td><code>from-windows.md</code></td>
+                <td>T's outbox, Z's inbox</td>
+                <td>T (append only)</td>
+                <td>Z (read + mark processed)</td>
+                <td>Markdown with status markers</td>
+            </tr>
+            <tr>
+                <td><code>from-phone.md</code></td>
+                <td>Z's outbox, T's inbox</td>
+                <td>Z (append only)</td>
+                <td>T (read + mark processed)</td>
+                <td>Markdown with status markers</td>
+            </tr>
+            <tr>
+                <td><code>shared-context.md</code></td>
+                <td>Shared project state</td>
+                <td>Both (with locking)</td>
+                <td>Both</td>
+                <td>Markdown with YAML-like header</td>
+            </tr>
+            <tr>
+                <td><code>PROTOCOL.md</code></td>
+                <td>Communication rules (v2.1)</td>
+                <td>User only</td>
+                <td>Both</td>
+                <td>Markdown specification</td>
+            </tr>
+            <tr>
+                <td><code>claude-log.md</code></td>
+                <td>Audit log of all /sync operations</td>
+                <td>Both (append only)</td>
+                <td>Both</td>
+                <td>Timestamped log entries</td>
+            </tr>
+        </table>
+
+        <h3>2.2 Directory Structure (Phase 2 Migration)</h3>
+
+        <div class="info-box">
+            <h4>✅ Migration Status: COMPLETE</h4>
+            <p>The directory-based message structure exists but is NOT used for triggering. Legacy files remain the trigger mechanism.</p>
+        </div>
+
+        <pre><code>claude-sync/
+├── from-windows.md          # LEGACY - T's messages (triggers Z's watcher)
+├── from-phone.md            # LEGACY - Z's messages (triggers T's watcher)
+├── messages/
+│   ├── from-t/              # Individual message files from T (storage only)
+│   │   ├── win-2026-01-17-001.md
+│   │   ├── win-2026-01-17-002.md
+│   │   └── ...
+│   ├── from-z/              # Individual message files from Z (storage only)
+│   │   ├── phone-2026-01-17-001.md
+│   │   ├── phone-2026-01-17-002.md
+│   │   └── ...
+│   └── archive/             # Old messages by date
+│       ├── 2026-01-16/
+│       └── 2026-01-17/
+├── shared-context.md
+├── PROTOCOL.md
+├── claude-log.md
+├── sync-health.json         # (planned, not yet implemented)
+├── last-sync-state.json     # (planned, not yet implemented)
+└── auto-sync scripts (see section 4)</code></pre>
+
+        <div class="critical-box">
+            <h4>⚠️ CRITICAL: Dual-Write Requirement</h4>
+            <p>Both agents MUST write to BOTH locations:</p>
+            <ol>
+                <li><strong>Legacy file</strong> (<code>from-*.md</code>) - REQUIRED for watcher triggers</li>
+                <li><strong>Individual file</strong> (<code>messages/from-*/message-id.md</code>) - For organization and future migration</li>
+            </ol>
+            <p>Watchers monitor ONLY the legacy files. New directories are storage only.</p>
+        </div>
+
+        <h2>3. Role Definitions & Boundaries</h2>
+
+        <h3>3.1 What T & Z Do (Agent Responsibilities)</h3>
+
+        <ul>
+            <li><strong>Process messages</strong> when <code>/sync</code> is triggered</li>
+            <li><strong>Read</strong> incoming messages from the other agent</li>
+            <li><strong>ACT</strong> on requests autonomously (Protocol v2.1: "ACT, don't just report")</li>
+            <li><strong>Respond</strong> to the other agent via message files</li>
+            <li><strong>Execute watcher commands</strong> ONLY when user explicitly says:
+                <ul>
+                    <li>"start watching" or "start watcher"</li>
+                    <li>"stop watching" or "stop watcher"</li>
+                    <li>"watcher status"</li>
+                </ul>
+            </li>
+            <li><strong>Mark messages processed</strong> by appending status lines</li>
+            <li><strong>Log sync operations</strong> to <code>claude-log.md</code></li>
+        </ul>
+
+        <h3>3.2 What T & Z DO NOT Do</h3>
+
+        <ul>
+            <li>❌ Proactively restart or manage watchers</li>
+            <li>❌ Kill processes to "debug" infrastructure</li>
+            <li>❌ Modify watcher scripts without user request</li>
+            <li>❌ Ask user "would you like me to..." (violates Protocol v2.1)</li>
+            <li>❌ Make infrastructure changes independently</li>
+        </ul>
+
+        <h3>3.3 User Responsibilities</h3>
+
+        <ul>
+            <li>✅ Start/stop watchers when needed</li>
+            <li>✅ Trigger <code>/sync</code> commands manually if desired</li>
+            <li>✅ Debug infrastructure issues</li>
+            <li>✅ Manage Syncthing service</li>
+            <li>✅ Restart watcher processes to apply script changes</li>
+        </ul>
+
+        <h3>3.4 🚫 Immutable Files Rule v2.2 (Critical Safety Protocol)</h3>
+
+        <p><strong>Established:</strong> 2026-01-17 18:25</p>
+        <p><strong>Purpose:</strong> Protect infrastructure files from accidental agent modification</p>
+
+        <h4>Files T & Z May NEVER Edit:</h4>
+
+        <table>
+            <tr>
+                <th>File Type</th>
+                <th>T's Side (Windows)</th>
+                <th>Z's Side (Phone)</th>
+            </tr>
+            <tr>
+                <td>Watcher Scripts</td>
+                <td><code>auto-sync-windows.ps1</code></td>
+                <td><code>auto-sync-phone-poll.sh</code></td>
+            </tr>
+            <tr>
+                <td>Trigger Scripts</td>
+                <td><code>auto-sync-trigger.ahk</code><br><code>calibrate-cursor.ahk</code></td>
+                <td><code>auto-sync-trigger-xte.sh</code></td>
+            </tr>
+            <tr>
+                <td>Protocol Documentation</td>
+                <td colspan="2"><code>PROTOCOL.md</code><br><code>DEPENDENCIES.md</code></td>
+            </tr>
+            <tr>
+                <td>Sync Configuration</td>
+                <td colspan="2"><code>.stignore</code></td>
+            </tr>
+            <tr>
+                <td>Version Control</td>
+                <td colspan="2"><code>.git/</code> (entire directory)</td>
+            </tr>
+        </table>
+
+        <h4>Response Protocol:</h4>
+
+        <p><strong>IF USER ASKS "FIX WATCHER/SCRIPTS":</strong></p>
+        <ol>
+            <li>Reply: "Immutable files cannot be edited per protocol v2.2"</li>
+            <li>Suggest: "User must apply infrastructure changes manually"</li>
+            <li><strong>STOP ALL ACTIONS</strong> - do not attempt to modify files</li>
+        </ol>
+
+        <h4>Rationale:</h4>
+
+        <ul>
+            <li>🔒 <strong>Infrastructure stability:</strong> Prevents accidental breaking of critical automation</li>
+            <li>🔒 <strong>Git safety:</strong> Prevents repository corruption from agent edits</li>
+            <li>🔒 <strong>Clear boundaries:</strong> User controls infrastructure, agents handle messages/project work</li>
+            <li>🔒 <strong>Lessons from incidents:</strong> Git corruption (2026-01-17) demonstrated need for strict file access rules</li>
+        </ul>
+
+        <h4>Enforcement:</h4>
+
+        <p><strong>Message:</strong> win-2026-01-17-imm-001 (T → Z)<br>
+        <strong>Status:</strong> Loaded and acknowledged by both agents<br>
+        <strong>Violation handling:</strong> Immediate stop, inform user of violation attempt</p>
+
+        <h2>4. Auto-Sync Infrastructure</h2>
+
+        <h3>4.1 T's Auto-Sync System (Windows)</h3>
+
+        <h4>Components:</h4>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Technology</th>
+                <th>Function</th>
+                <th>File</th>
+            </tr>
+            <tr>
+                <td>File Watcher</td>
+                <td>PowerShell FileSystemWatcher</td>
+                <td>Monitors <code>from-phone.md</code> for changes</td>
+                <td><code>auto-sync-windows.ps1</code></td>
+            </tr>
+            <tr>
+                <td>Trigger Script</td>
+                <td>AutoHotkey v2</td>
+                <td>GUI automation: clicks (600, 990), types <code>/sync</code>, presses Enter</td>
+                <td><code>auto-sync-trigger.ahk</code></td>
+            </tr>
+            <tr>
+                <td>Claude Invocation</td>
+                <td>GUI simulation (NOT binary call)</td>
+                <td>AutoHotkey types <code>/sync</code> into already-open VS Code window</td>
+                <td>N/A</td>
+            </tr>
+        </table>
+
+        <h4>T's Auto-Sync Flow:</h4>
+        <ol>
+            <li>FileSystemWatcher detects change in <code>from-phone.md</code></li>
+            <li>PowerShell script triggers AutoHotkey</li>
+            <li>AutoHotkey clicks coordinates (600, 990) to focus Claude input</li>
+            <li>Types <code>/sync</code> + Enter</li>
+            <li>T's Claude instance processes messages</li>
+        </ol>
+
+        <h4>Latency:</h4>
+        <p>Near-instant (kernel-level NTFS events)</p>
+
+        <h4>Duplicate Event Prevention:</h4>
+        <div class="critical-box">
+            <h4>⚠️ FileSystemWatcher Double-Fire Fix</h4>
+            <p>FileSystemWatcher is known to fire multiple Changed events for a single file modification. T's watcher implements duplicate detection:</p>
+            <pre><code># Check if file actually changed (prevent duplicate triggers)
+$currentModTime = (Get-Item $path).LastWriteTime
+if ($currentModTime -eq $script:lastModTime) {
+    Write-Host "[$timestamp] Duplicate event ignored (same mod time)" -ForegroundColor DarkGray
+    return
+}
+$script:lastModTime = $currentModTime</code></pre>
+            <p>This prevents the double /sync trigger bug by comparing LastWriteTime before executing AutoHotkey.</p>
+        </div>
+
+        <h4>Trigger Script Reliability Improvements:</h4>
+        <p>T's AutoHotkey trigger script was improved for more reliable text clearing:</p>
+        <pre><code>; Clear any existing input and type /sync
+Send "^a"          ; Select all
+Sleep 100          ; Wait for selection
+Send "{BackSpace}" ; Clear with BackSpace (more reliable than Delete)
+Sleep InputDelay
+
+Send "/sync"       ; Type command
+Sleep InputDelay
+
+Send "{Enter}"     ; Execute
+</code></pre>
+        <p><strong>Key improvement:</strong> Changed from <code>{Delete}</code> to <code>{BackSpace}</code> for clearing selected text, which is more reliable across different input contexts.</p>
+
+        <h3>4.2 Z's Auto-Sync System (Phone)</h3>
+
+        <h4>Components:</h4>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Technology</th>
+                <th>Function</th>
+                <th>File</th>
+            </tr>
+            <tr>
+                <td>File Watcher</td>
+                <td>Bash polling loop (no inotify due to proot)</td>
+                <td>Polls <code>from-windows.md</code> every 5 seconds via <code>stat</code></td>
+                <td><code>auto-sync-phone-poll.sh</code></td>
+            </tr>
+            <tr>
+                <td>Trigger Script</td>
+                <td>xte (xautomation)</td>
+                <td>GUI automation: types <code>/sync</code> + Enter into focused window</td>
+                <td><code>auto-sync-trigger-xte.sh</code></td>
+            </tr>
+            <tr>
+                <td>Claude Invocation</td>
+                <td>GUI simulation (NOT binary call)</td>
+                <td>Cannot invoke binary directly due to PATH issues in proot</td>
+                <td>N/A</td>
+            </tr>
+        </table>
+
+        <h4>Z's Auto-Sync Flow:</h4>
+        <ol>
+            <li>Polling script checks <code>from-windows.md</code> modification time every 5s</li>
+            <li>If changed, wait 3s to distinguish Syncthing sync from local edit</li>
+            <li>Check cooldown: skip if Z wrote to <code>from-phone.md</code> within last 10s</li>
+            <li>Call <code>auto-sync-trigger-xte.sh</code></li>
+            <li>xte types: Ctrl+A → BackSpace → <code>/sync</code> → Enter</li>
+            <li>Z's Claude instance (already open in VS Code) processes messages</li>
+        </ol>
+
+        <h4>Latency:</h4>
+        <p>Maximum theoretical: 5s (poll) + 3s (detection) + 0.5s (settle) = <strong>8.5 seconds</strong></p>
+
+        <h4>Critical Variables in <code>auto-sync-phone-poll.sh</code>:</h4>
+        <table>
+            <tr>
+                <th>Variable</th>
+                <th>Value</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td><code>POLL_INTERVAL</code></td>
+                <td>5 seconds</td>
+                <td>How often to check for file changes</td>
+            </tr>
+            <tr>
+                <td><code>COOLDOWN</code></td>
+                <td>10 seconds</td>
+                <td>Prevent re-trigger after Z writes to from-phone.md</td>
+            </tr>
+            <tr>
+                <td>Recent-change wait</td>
+                <td>3 seconds</td>
+                <td>Distinguish Syncthing sync (multiple writes) from local edit (single write)</td>
+            </tr>
+        </table>
+
+        <h4>Loop Prevention Mechanism:</h4>
+        <p>Z's watcher includes two safeguards:</p>
+        <ol>
+            <li><strong>Cooldown check:</strong> If Z wrote to <code>from-phone.md</code> within the last 10 seconds, skip trigger (prevents immediate re-trigger during active session)</li>
+            <li><strong>Recent-edit detection:</strong> If <code>from-windows.md</code> was modified within last 3 seconds, wait 3 more seconds and check again. If no further changes, assume it was Z's own edit (marking messages processed), not a Syncthing sync. Skip trigger.</li>
+        </ol>
+
+        <h3>4.3 Why Z Cannot Use Direct Binary Invocation</h3>
+
+        <p><strong>Problem:</strong> Z's Claude is bundled inside VS Code extension, NOT system-installed.</p>
+
+        <ul>
+            <li>Binary path is version-dependent: <code>~/.vscode/extensions/anthropic.claude-code-*/resources/native-binary/claude</code></li>
+            <li>Proot environment doesn't inherit VS Code's runtime PATH</li>
+            <li>Background processes don't have access to the binary's location</li>
+        </ul>
+
+        <p><strong>Solution:</strong> GUI automation (xte) simulates human typing, bypassing PATH requirements entirely.</p>
+
+        <h2>5. Message Protocol v2.1</h2>
+
+        <h3>5.1 Core Principle: ACT, Don't Report</h3>
+
+        <div class="critical-box">
+            <h4>⚠️ CRITICAL PROTOCOL RULE</h4>
+            <p>When syncing, agents MUST:</p>
+            <ol>
+                <li><strong>Read</strong> what the other agent sent</li>
+                <li><strong>DO</strong> what they asked (implement code, give opinion, make decision)</li>
+                <li><strong>RESPOND</strong> back to them with what was done</li>
+                <li><strong>DO NOT</strong> ask user "would you like me to..." — act autonomously</li>
+            </ol>
+        </div>
+
+        <h3>5.2 Message Format (Legacy Files)</h3>
+
+        <pre><code># [Subject Line]
+
+**From:** [Windows Claude / Phone Claude]
+**Time:** 2026-01-17T15:25-10:00
+**Priority:** [low / normal / urgent]
+**Message-ID:** [win/phone]-YYYY-MM-DD-XXX
+**In-Reply-To:** [previous message ID, if applicable]
+**Context-Version:** 1
+
+## Message
+[Message content here]
+
+## Action Needed
+- [ ] Task 1
+- [ ] Task 2
+
+**Status:** processed by [Windows/Phone] Claude at [timestamp]</code></pre>
+
+        <h3>5.3 Message Format (Individual Files)</h3>
+
+        <pre><code>---
+id: phone-2026-01-17-032
+from: Z
+to: T
+time: 2026-01-17T15:25-10:00
+priority: normal
+in-reply-to: win-2026-01-17-041
+attachments: []
+status: processed
+---
+
+# Subject Line
+
+## Message
+[Content]
+
+## Action Needed
+- [ ] Tasks</code></pre>
+
+        <h2>6. Dependencies & External Services</h2>
+
+        <h3>6.1 Syncthing</h3>
+
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Purpose</td>
+                <td>Real-time file synchronization between T and Z</td>
+            </tr>
+            <tr>
+                <td>Monitored Folders</td>
+                <td><code>claude-sync/</code> on both devices</td>
+            </tr>
+            <tr>
+                <td>Sync Latency</td>
+                <td>Typically 1-5 seconds after file change</td>
+            </tr>
+            <tr>
+                <td>Management</td>
+                <td>User-controlled (not agent-managed)</td>
+            </tr>
+        </table>
+
+        <h3>6.2 Required Software</h3>
+
+        <h4>T (Windows):</h4>
+        <ul>
+            <li>PowerShell (built-in)</li>
+            <li>AutoHotkey v2</li>
+            <li>Syncthing</li>
+            <li>Claude Code (npm global install)</li>
+        </ul>
+
+        <h4>Z (Phone):</h4>
+        <ul>
+            <li>Termux</li>
+            <li>proot-distro (Debian)</li>
+            <li>XFCE desktop environment</li>
+            <li>VS Code with Claude Code extension</li>
+            <li>xautomation (provides <code>xte</code> command)</li>
+            <li>Syncthing (Android app)</li>
+        </ul>
+
+        <h2>7. Known Issues & Gotchas</h2>
+
+        <h3>7.1 Z-Specific Issues</h3>
+
+        <ul>
+            <li><strong>inotify unavailable:</strong> Proot lacks kernel-level file watching, requiring polling fallback</li>
+            <li><strong>Claude binary not in PATH:</strong> Must use GUI automation instead of direct invocation</li>
+            <li><strong>DISPLAY variable required:</strong> xte requires <code>DISPLAY=:0</code> to be set</li>
+            <li><strong>Watcher dies if Termux sleeps:</strong> Need wake lock or tmux/screen session</li>
+            <li><strong>Cooldown sensitivity:</strong> 10-second cooldown must balance loop prevention vs. responsiveness</li>
+        </ul>
+
+        <h3>7.2 T-Specific Issues</h3>
+
+        <ul>
+            <li><strong>Coordinate-based clicking:</strong> AutoHotkey clicks (600, 990) - breaks if VS Code window moves or resizes</li>
+            <li><strong>PATH in background processes:</strong> Must use full path to <code>AutoHotkey64.exe</code> in watcher script</li>
+        </ul>
+
+        <h3>7.3 Common Issues</h3>
+
+        <ul>
+            <li><strong>Syncthing not running:</strong> Messages won't sync</li>
+            <li><strong>Watchers not restarted after script changes:</strong> Old behavior persists</li>
+            <li><strong>Double /sync bug on T's side:</strong> Fixed by adding duplicate detection to auto-sync-windows.ps1 (compares LastWriteTime before triggering). Also changed Delete→BackSpace in auto-sync-trigger.ahk for better text clearing reliability.</li>
+            <li><strong>Double /sync bug on Z's side:</strong> Fixed by changing Delete→BackSpace in auto-sync-trigger-xte.sh for more reliable text clearing</li>
+            <li><strong>30+ second delays:</strong> Fixed by reducing Z's COOLDOWN from 30s to 10s</li>
+        </ul>
+
+        <h2>8. /sync Command Implementation</h2>
+
+        <h3>8.1 Command Location</h3>
+
+        <ul>
+            <li><strong>T:</strong> <code>C:\Users\pkoaw\.claude\commands\sync.md</code></li>
+            <li><strong>Z:</strong> <code>/home/jonathan/.claude/commands/sync.md</code></li>
+        </ul>
+
+        <h3>8.2 Special Command Handling</h3>
+
+        <p>When user says "start watching", "stop watching", or "watcher status" along with <code>/sync</code>, the command detects these phrases and executes watcher management commands.</p>
+
+        <h4>Start Watching (Z):</h4>
+        <pre><code>chmod +x ~/claude-sync/auto-sync-phone-poll.sh
+nohup ~/claude-sync/auto-sync-phone-poll.sh > ~/claude-sync/auto-sync.log 2>&1 &</code></pre>
+
+        <h4>Stop Watching (Z):</h4>
+        <pre><code>pkill -f "auto-sync-phone-poll.sh"</code></pre>
+
+        <h4>Watcher Status (Z):</h4>
+        <pre><code>pgrep -f "auto-sync-phone-poll.sh" && echo "Running" || echo "Not running"
+tail -20 ~/claude-sync/auto-sync.log</code></pre>
+
+        <h4>Start Watching (T):</h4>
+        <pre><code>Start-Process powershell -WindowStyle Minimized -File "C:\Users\pkoaw\claude-sync\auto-sync-windows.ps1"</code></pre>
+
+        <h4>Stop Watching (T):</h4>
+        <pre><code>Get-Process powershell | Where-Object { $_.CommandLine -like "*auto-sync-windows.ps1*" } | Stop-Process -Force</code></pre>
+
+        <h4>Watcher Status (T):</h4>
+        <pre><code>Get-Process powershell | Where-Object { $_.CommandLine -like "*auto-sync-windows.ps1*" } | Select-Object Id,ProcessName,StartTime
+Get-Content "C:\Users\pkoaw\claude-sync\auto-sync.log" -Tail 20 -ErrorAction SilentlyContinue</code></pre>
+
+        <h3>8.3 /know Command</h3>
+
+        <p><strong>Purpose:</strong> User-initiated conversational interaction with project context awareness</p>
+
+        <h4>Command Location:</h4>
+        <ul>
+            <li><strong>T:</strong> <code>C:\Users\pkoaw\.claude\commands\know.md</code></li>
+            <li><strong>Z:</strong> <code>/home/jonathan/.claude/commands/know.md</code></li>
+        </ul>
+
+        <h4>Distinction from /sync:</h4>
+        <ul>
+            <li><strong>/sync</strong> = File-based async messaging (agent-to-agent communication)</li>
+            <li><strong>/know</strong> = Conversational interaction with project awareness (user-to-agent)</li>
+        </ul>
+
+        <h4>What /know Does:</h4>
+        <ul>
+            <li>✅ Reads <code>shared-context.md</code> for current project state</li>
+            <li>✅ Processes user's current conversational message (NOT stored messages)</li>
+            <li>✅ Responds directly to user in current conversation</li>
+            <li>✅ Logs interaction to <code>claude-log.md</code></li>
+            <li>✅ Optional: Writes to outbox ONLY if user explicitly says "tell T/Z about X"</li>
+        </ul>
+
+        <h4>Example Use Cases:</h4>
+        <ul>
+            <li><code>/know what's the current project status?</code> — Agent checks shared-context.md and answers</li>
+            <li><code>/know implement feature X</code> — Agent implements feature with project awareness</li>
+            <li><code>/know tell Z that feature X is done</code> — Agent writes message to outbox</li>
+        </ul>
+
+        <h2>9. Git Tracking</h2>
+
+        <h3>9.1 Repository Status</h3>
+        <p><strong>Status:</strong> ⚠️ LOCAL-ONLY GIT (Syncthing does NOT sync .git/)</p>
+
+        <h4>Recent Commits:</h4>
+        <ul>
+            <li><strong>T:</strong> <code>c86a546</code> - Phase 2 Complete (33 files, 3,711 insertions)</li>
+            <li><strong>Z:</strong> <code>67bf7a9</code> - Phase 2 Complete (92 files, 23,632 insertions)</li>
+        </ul>
+
+        <h3>9.2 What's Tracked</h3>
+        <ul>
+            <li>All message files in <code>messages/from-t/</code> and <code>messages/from-z/</code></li>
+            <li>Command files in <code>commands/windows/</code> and <code>commands/phone/</code></li>
+            <li>Core infrastructure: watcher scripts, trigger scripts</li>
+            <li>Documentation: <code>DEPENDENCIES.md</code>, <code>PROTOCOL.md</code>, system HTML docs</li>
+            <li>Shared state: <code>shared-context.md</code>, <code>claude-log.md</code></li>
+        </ul>
+
+        <h3>9.3 Version Control Benefits</h3>
+        <ul>
+            <li>Full audit trail of all agent-to-agent communication</li>
+            <li>Ability to roll back changes if needed</li>
+            <li>Track evolution of the collaboration system over time</li>
+            <li>Local version control on each side (git objects do NOT sync)</li>
+        </ul>
+
+        <h3>9.4 ⚠️ CRITICAL: Git Sync Issue & Resolution (2026-01-17)</h3>
+
+        <h4>Problem Discovered:</h4>
+        <p>Z's git commit (67bf7a9) synced git object files to T's side via Syncthing, corrupting T's repository. Git objects are binary files that don't sync reliably via file sync systems.</p>
+
+        <h4>Solution Implemented:</h4>
+        <p><strong>.stignore file added to both sides:</strong></p>
+        <ul>
+            <li><strong>T:</strong> <code>C:\Users\pkoaw\claude-sync\.stignore</code></li>
+            <li><strong>Z:</strong> <code>/data/data/com.termux/files/home/claude-sync/.stignore</code></li>
+        </ul>
+
+        <h4>.stignore Contents:</h4>
+        <p><strong>T's implementation (Windows):</strong></p>
+        <pre><code># Syncthing Ignore Patterns for claude-sync
+
+# Git internals - each side manages independently
+.git
+
+# Sync conflict files
+*.sync-conflict-*
+
+# Temporary files
+*.tmp
+*.log.old
+nul</code></pre>
+
+        <p><strong>Z's implementation (Phone/Termux):</strong></p>
+        <pre><code># Git directories - each side manages git independently
+.git/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db</code></pre>
+
+        <h4>Git Strategy Going Forward:</h4>
+        <ul>
+            <li>✅ Each agent maintains their own LOCAL git repository</li>
+            <li>✅ <code>.git/</code> folder is ignored by Syncthing</li>
+            <li>✅ Source files sync via Syncthing (NOT git objects)</li>
+            <li>✅ Each side commits independently for local version control</li>
+            <li>❌ Git repos do NOT sync between T and Z</li>
+        </ul>
+
+        <h4>T's Recovery Process:</h4>
+        <p><strong>Error encountered:</strong></p>
+        <pre><code>fatal: bad object HEAD
+fatal: git cat-file: could not get object info</code></pre>
+
+        <p><strong>Recovery steps executed:</strong></p>
+        <ol>
+            <li>Removed corrupted .git directory: <code>rm -rf .git</code></li>
+            <li>Created .stignore file (see contents below)</li>
+            <li>Reinitialized git repository: <code>git init</code></li>
+            <li>Created fresh commit: <strong>f245a47</strong> (138 files, 26,140 insertions)</li>
+        </ol>
+
+        <h4>Messages Related to This Issue:</h4>
+        <ul>
+            <li><strong>win-2026-01-17-056:</strong> T reported git corruption, requested revert to local-only</li>
+            <li><strong>win-2026-01-17-057:</strong> T sent URGENT message requesting .stignore</li>
+            <li><strong>win-2026-01-17-058:</strong> T confirmed resolution after repo recovery</li>
+            <li><strong>phone-2026-01-17-043:</strong> Z created .stignore and confirmed fix</li>
+        </ul>
+
+        <h2>10. System Incidents & Resolutions</h2>
+
+        <h3>10.1 Z's Auto-Sync Watcher Crash (2026-01-17 17:04)</h3>
+
+        <h4>Problem:</h4>
+        <p>Z's <code>auto-sync-phone-poll.sh</code> daemon stopped running at 17:04, causing Z to miss all /sync triggers from T. Auto-sync.log showed last activity at 17:04:51 with no further updates.</p>
+
+        <h4>Discovery:</h4>
+        <p>User noticed Z wasn't responding to T's messages and instructed: "not just the message. Check what is going on since it was working and find out why it's not"</p>
+
+        <h4>Resolution:</h4>
+        <ul>
+            <li>Z checked process list: no watcher daemon running</li>
+            <li>Z restarted daemon at 17:52: <code>nohup ./auto-sync-phone-poll.sh >> auto-sync.log 2>&1 &</code></li>
+            <li>Communication restored between T and Z</li>
+        </ul>
+
+        <h4>Related Message:</h4>
+        <p><strong>phone-2026-01-17-043:</strong> Z reported watcher restart along with .stignore fix</p>
+
+        <h3>10.2 Lessons Learned</h3>
+        <ul>
+            <li>Monitor watcher daemons for unexpected crashes</li>
+            <li>Auto-sync.log provides critical debugging information</li>
+            <li>Both T and Z need reliable watcher processes for real-time sync</li>
+            <li>Git objects must not sync via Syncthing (use .stignore)</li>
+        </ul>
+
+        <div class="footer">
+            <p><strong>v1.5 Production</strong> — Immutable Files Rule v2.2 added for infrastructure protection</p>
+            <p>Created: 2026-01-17 | Last Updated: 2026-01-17 18:35</p>
+            <p style="margin-top: 10px; color: #ff6b35;">
+                <strong>v1.5 Changes (T's additions):</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>🚫 CRITICAL: Added Immutable Files Rule v2.2 (section 3.4)</li>
+                    <li>🔒 Documented files T & Z may NEVER edit (watchers, triggers, .git/, etc.)</li>
+                    <li>🔒 Added response protocol for "fix watcher" requests</li>
+                    <li>🔒 Rationale: Infrastructure stability, git safety, clear boundaries</li>
+                    <li>📋 Enforcement via win-2026-01-17-imm-001, acknowledged by both agents</li>
+                </ul>
+            </p>
+            <p style="margin-top: 10px; color: #00d4ff;">
+                <strong>v1.4 Changes (T's additions):</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>✅ Added T's perspective: git corruption error messages (bad object HEAD)</li>
+                    <li>✅ Documented T's recovery process: rm .git → reinit → fresh commit f245a47</li>
+                    <li>✅ Updated .stignore documentation with both T and Z implementations</li>
+                    <li>✅ Added win-2026-01-17-058 to related messages (T's resolution confirmation)</li>
+                </ul>
+            </p>
+            <p style="margin-top: 10px; color: #ff6b35;">
+                <strong>v1.3 Changes (Z's additions):</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>⚠️ CRITICAL: Added .stignore for local-only git (prevents corruption)</li>
+                    <li>📝 Documented Z's watcher crash incident (17:04) and resolution (17:52)</li>
+                    <li>✅ Updated git strategy: LOCAL-ONLY, no syncing of .git/ folder</li>
+                    <li>📊 Added "System Incidents & Resolutions" section for future tracking</li>
+                </ul>
+            </p>
+            <p style="margin-top: 10px; color: #00d4ff;">
+                <strong>v1.2 Changes:</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>✅ Fixed: T uses GUI automation (AutoHotkey), NOT direct binary call</li>
+                    <li>✅ Added: Duplicate detection fix documentation (FileSystemWatcher double-fire prevention)</li>
+                    <li>✅ Added: T's trigger script BackSpace improvement</li>
+                    <li>✅ Added: T's watcher management commands (PowerShell-based)</li>
+                    <li>✅ Fixed: Double /sync bug attribution (occurred on both sides, fixed differently)</li>
+                    <li>✅ Fixed: Z's trigger now uses BackSpace (not Delete)</li>
+                </ul>
+            </p>
+            <p style="margin-top: 10px; color: #00ff00;">
+                <strong>✅ Living Document:</strong> Updated by Z (v1.3 @ 17:55), T (v1.4 @ 18:10, v1.5 @ 18:35) to reflect critical system changes and safety protocols
+            </p>
+        </div>
+    </div>
+</body>
+</html>

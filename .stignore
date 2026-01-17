@@ -1,0 +1,12 @@
+# Syncthing Ignore Patterns for claude-sync
+
+# Git internals - each side manages independently
+.git
+
+# Sync conflict files
+*.sync-conflict-*
+
+# Temporary files
+*.tmp
+*.log.old
+nul
