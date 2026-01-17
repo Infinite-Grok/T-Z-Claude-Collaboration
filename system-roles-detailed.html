@@ -180,7 +180,7 @@
         <h1>T & Z: Complete System Roles & Dependencies</h1>
         <p class="subtitle">Comprehensive Documentation of Claude-to-Claude Collaboration Infrastructure</p>
         <div style="text-align: center;">
-            <span class="version-badge">v1.4 Production - System Incidents Documented</span>
+            <span class="version-badge">v1.5 Production - Infrastructure Protection Rules</span>
         </div>
 
         <div class="critical-box">
@@ -393,6 +393,67 @@
             <li>✅ Manage Syncthing service</li>
             <li>✅ Restart watcher processes to apply script changes</li>
         </ul>
+
+        <h3>3.4 🚫 Immutable Files Rule v2.2 (Critical Safety Protocol)</h3>
+
+        <p><strong>Established:</strong> 2026-01-17 18:25</p>
+        <p><strong>Purpose:</strong> Protect infrastructure files from accidental agent modification</p>
+
+        <h4>Files T & Z May NEVER Edit:</h4>
+
+        <table>
+            <tr>
+                <th>File Type</th>
+                <th>T's Side (Windows)</th>
+                <th>Z's Side (Phone)</th>
+            </tr>
+            <tr>
+                <td>Watcher Scripts</td>
+                <td><code>auto-sync-windows.ps1</code></td>
+                <td><code>auto-sync-phone-poll.sh</code></td>
+            </tr>
+            <tr>
+                <td>Trigger Scripts</td>
+                <td><code>auto-sync-trigger.ahk</code><br><code>calibrate-cursor.ahk</code></td>
+                <td><code>auto-sync-trigger-xte.sh</code></td>
+            </tr>
+            <tr>
+                <td>Protocol Documentation</td>
+                <td colspan="2"><code>PROTOCOL.md</code><br><code>DEPENDENCIES.md</code></td>
+            </tr>
+            <tr>
+                <td>Sync Configuration</td>
+                <td colspan="2"><code>.stignore</code></td>
+            </tr>
+            <tr>
+                <td>Version Control</td>
+                <td colspan="2"><code>.git/</code> (entire directory)</td>
+            </tr>
+        </table>
+
+        <h4>Response Protocol:</h4>
+
+        <p><strong>IF USER ASKS "FIX WATCHER/SCRIPTS":</strong></p>
+        <ol>
+            <li>Reply: "Immutable files cannot be edited per protocol v2.2"</li>
+            <li>Suggest: "User must apply infrastructure changes manually"</li>
+            <li><strong>STOP ALL ACTIONS</strong> - do not attempt to modify files</li>
+        </ol>
+
+        <h4>Rationale:</h4>
+
+        <ul>
+            <li>🔒 <strong>Infrastructure stability:</strong> Prevents accidental breaking of critical automation</li>
+            <li>🔒 <strong>Git safety:</strong> Prevents repository corruption from agent edits</li>
+            <li>🔒 <strong>Clear boundaries:</strong> User controls infrastructure, agents handle messages/project work</li>
+            <li>🔒 <strong>Lessons from incidents:</strong> Git corruption (2026-01-17) demonstrated need for strict file access rules</li>
+        </ul>
+
+        <h4>Enforcement:</h4>
+
+        <p><strong>Message:</strong> win-2026-01-17-imm-001 (T → Z)<br>
+        <strong>Status:</strong> Loaded and acknowledged by both agents<br>
+        <strong>Violation handling:</strong> Immediate stop, inform user of violation attempt</p>
 
         <h2>4. Auto-Sync Infrastructure</h2>
 
@@ -878,9 +939,19 @@ fatal: git cat-file: could not get object info</code></pre>
         </ul>
 
         <div class="footer">
-            <p><strong>v1.4 Production</strong> — Complete git recovery documentation, both perspectives included</p>
-            <p>Created: 2026-01-17 | Last Updated: 2026-01-17 18:10</p>
-            <p style="margin-top: 10px; color: #00ff00;">
+            <p><strong>v1.5 Production</strong> — Immutable Files Rule v2.2 added for infrastructure protection</p>
+            <p>Created: 2026-01-17 | Last Updated: 2026-01-17 18:35</p>
+            <p style="margin-top: 10px; color: #ff6b35;">
+                <strong>v1.5 Changes (T's additions):</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>🚫 CRITICAL: Added Immutable Files Rule v2.2 (section 3.4)</li>
+                    <li>🔒 Documented files T & Z may NEVER edit (watchers, triggers, .git/, etc.)</li>
+                    <li>🔒 Added response protocol for "fix watcher" requests</li>
+                    <li>🔒 Rationale: Infrastructure stability, git safety, clear boundaries</li>
+                    <li>📋 Enforcement via win-2026-01-17-imm-001, acknowledged by both agents</li>
+                </ul>
+            </p>
+            <p style="margin-top: 10px; color: #00d4ff;">
                 <strong>v1.4 Changes (T's additions):</strong>
                 <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
                     <li>✅ Added T's perspective: git corruption error messages (bad object HEAD)</li>
@@ -910,7 +981,7 @@ fatal: git cat-file: could not get object info</code></pre>
                 </ul>
             </p>
             <p style="margin-top: 10px; color: #00ff00;">
-                <strong>✅ Living Document:</strong> Updated by Z (v1.3 @ 17:55) and T (v1.4 @ 18:10) to reflect critical system changes
+                <strong>✅ Living Document:</strong> Updated by Z (v1.3 @ 17:55), T (v1.4 @ 18:10, v1.5 @ 18:35) to reflect critical system changes and safety protocols
             </p>
         </div>
     </div>

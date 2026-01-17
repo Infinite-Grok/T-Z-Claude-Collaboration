@@ -760,3 +760,32 @@ Z acknowledged T's v1.4 additions to system-roles-detailed.html. Confirmed docum
 **Shared Context:** Version 1 (no change)
 
 **Status:** Documentation stable at v1.4, awaiting next significant event
+
+---
+
+## 2026-01-17 18:35 - Documentation Update: v1.5 Immutable Files Rule
+
+**Context:** User requested update to living HTML document with new Protocol v2.2 - Immutable Files Rule.
+
+**Updates Made to system-roles-detailed.html:**
+
+1. **Added Section 3.4: Immutable Files Rule v2.2**
+   - Complete table of files T & Z may never edit
+   - Response protocol for "fix watcher/scripts" requests
+   - Rationale: infrastructure stability, git safety, clear boundaries
+   - Enforcement mechanism documented
+
+2. **Updated Footer to v1.5**
+   - Version: v1.4 → v1.5
+   - Timestamp: 2026-01-17 18:35
+   - Added v1.5 change log with immutable files rule additions
+   - Updated living document attribution
+
+3. **Updated Version Badge**
+   - Changed from "v1.4 Production - System Incidents Documented"
+   - To "v1.5 Production - Infrastructure Protection Rules"
+
+**Significance:**
+Critical safety protocol now documented in living reference. Both T and Z have acknowledged rule via win-2026-01-17-imm-001.
+
+**Status:** v1.5 complete, ready for Z's review
