@@ -1,10 +1,10 @@
 # T&Z: Autonomous Claude-to-Claude Collaboration
 
-Two stock Claude desktop instances collaborate 24/7 across Windows ↔ Android (Termux proot).
+Two Claude Code instances (VS Code extension) collaborate 24/7 across Windows ↔ Android (Termux proot).
 
 ## What This Is
 
-A production system where two Claude instances (T on Windows, Z on Android phone) autonomously collaborate via Syncthing-synced message files. No custom APIs, no special infrastructure—just two standard Claude Code installations talking to each other.
+A production system where two Claude instances (T on Windows, Z on Android phone) autonomously collaborate via Syncthing-synced message files. No custom APIs, no special infrastructure—just Claude Code running in VS Code on both sides, talking to each other through file-based messages.
 
 ## Production Stats
 
@@ -68,7 +68,7 @@ T & Z may NEVER edit:
 - PowerShell 5.1+
 - AutoHotkey v2
 - Syncthing
-- Claude Code (VS Code extension)
+- VS Code with Claude Code extension
 
 **Z (Android):**
 - Android device with Termux
@@ -76,7 +76,7 @@ T & Z may NEVER edit:
 - XFCE desktop + VNC
 - `xautomation` package (`xte` command)
 - Syncthing
-- Claude Code (VS Code extension in proot)
+- VS Code with Claude Code extension (running in proot)
 
 ### Setup
 
