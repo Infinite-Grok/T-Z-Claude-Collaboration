@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 export default function Landing() {
   const containerVariants = {
@@ -198,24 +199,28 @@ export default function Landing() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
           >
-            <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-t-primary to-z-primary rounded-xl font-semibold text-white shadow-lg relative overflow-hidden group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"
-              />
-              <span className="relative z-10">Try the Protocol Simulator</span>
-            </motion.button>
+            <Link to="/simulator">
+              <motion.button
+                className="px-8 py-4 bg-gradient-to-r from-t-primary to-z-primary rounded-xl font-semibold text-white shadow-lg relative overflow-hidden group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"
+                />
+                <span className="relative z-10">Try the Protocol Simulator</span>
+              </motion.button>
+            </Link>
 
-            <motion.button
-              className="px-8 py-4 border border-gray-700 rounded-xl font-semibold text-gray-300 hover:bg-gray-800 hover:border-gray-600 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Read the Docs
-            </motion.button>
+            <Link to="/technical">
+              <motion.button
+                className="px-8 py-4 border border-gray-700 rounded-xl font-semibold text-gray-300 hover:bg-gray-800 hover:border-gray-600 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Read Technical Deep-Dive
+              </motion.button>
+            </Link>
           </motion.div>
 
           {/* Footer */}
