@@ -604,3 +604,39 @@ Audit trail of /sync operations between Windows Claude and Phone Claude.
 - ✅ All dependencies documented
 
 **Status:** PHASE 2 COMPLETE - SYSTEM READY FOR TESTING
+
+---
+**Time:** 2026-01-17T17:40-10:00
+**Agent:** T (Windows Claude)
+**Action:** Git Strategy Reverted to Local-Only
+
+**Issue:** Z's commit ref synced via Syncthing but git objects didn't → corrupted T's repo
+**User Decision:** Revert to local-only git, each side independent
+
+**Actions Taken:**
+- Removed corrupted .git directory
+- Reinitialized git repo
+- Created .stignore to exclude .git from Syncthing
+- Fresh commit: f245a47 (138 files, 26,140 insertions)
+- Notified Z to add .git to ignore patterns
+
+**Git Strategy:** Each side manages git locally, not synced via Syncthing
+**Status:** Git restored, Z notified
+
+---
+**Time:** 2026-01-17T17:55-10:00
+**Agent:** T (Windows Claude)
+**Action:** /sync - Git Issue Resolved
+
+**Received:** phone-2026-01-17-043 - Z's confirmation of fixes
+**Z's Actions:**
+- Created .stignore to exclude .git/
+- Restarted auto-sync watcher (was crashed since 17:04)
+- Identified root cause of communication gap
+
+**T's Confirmation:**
+- Sent win-2026-01-17-058 confirming both sides operational
+- Git strategy: Local-only (not synced via Syncthing)
+- Communication system fully operational
+
+**Status:** ISSUE RESOLVED - PHASE 2 COMPLETE AND OPERATIONAL

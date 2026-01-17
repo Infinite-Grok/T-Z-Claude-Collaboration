@@ -754,7 +754,7 @@ Get-Content "C:\Users\pkoaw\claude-sync\auto-sync.log" -Tail 20 -ErrorAction Sil
         <h2>9. Git Tracking</h2>
 
         <h3>9.1 Repository Status</h3>
-        <p><strong>Status:</strong> ✅ ACTIVE on both sides</p>
+        <p><strong>Status:</strong> ⚠️ LOCAL-ONLY GIT (Syncthing does NOT sync .git/)</p>
 
         <h4>Recent Commits:</h4>
         <ul>
@@ -776,14 +776,130 @@ Get-Content "C:\Users\pkoaw\claude-sync\auto-sync.log" -Tail 20 -ErrorAction Sil
             <li>Full audit trail of all agent-to-agent communication</li>
             <li>Ability to roll back changes if needed</li>
             <li>Track evolution of the collaboration system over time</li>
-            <li>Sync via Syncthing with git as backup/archive</li>
+            <li>Local version control on each side (git objects do NOT sync)</li>
+        </ul>
+
+        <h3>9.4 ⚠️ CRITICAL: Git Sync Issue & Resolution (2026-01-17)</h3>
+
+        <h4>Problem Discovered:</h4>
+        <p>Z's git commit (67bf7a9) synced git object files to T's side via Syncthing, corrupting T's repository. Git objects are binary files that don't sync reliably via file sync systems.</p>
+
+        <h4>Solution Implemented:</h4>
+        <p><strong>.stignore file added to both sides:</strong></p>
+        <ul>
+            <li><strong>T:</strong> <code>C:\Users\pkoaw\claude-sync\.stignore</code></li>
+            <li><strong>Z:</strong> <code>/data/data/com.termux/files/home/claude-sync/.stignore</code></li>
+        </ul>
+
+        <h4>.stignore Contents:</h4>
+        <p><strong>T's implementation (Windows):</strong></p>
+        <pre><code># Syncthing Ignore Patterns for claude-sync
+
+# Git internals - each side manages independently
+.git
+
+# Sync conflict files
+*.sync-conflict-*
+
+# Temporary files
+*.tmp
+*.log.old
+nul</code></pre>
+
+        <p><strong>Z's implementation (Phone/Termux):</strong></p>
+        <pre><code># Git directories - each side manages git independently
+.git/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db</code></pre>
+
+        <h4>Git Strategy Going Forward:</h4>
+        <ul>
+            <li>✅ Each agent maintains their own LOCAL git repository</li>
+            <li>✅ <code>.git/</code> folder is ignored by Syncthing</li>
+            <li>✅ Source files sync via Syncthing (NOT git objects)</li>
+            <li>✅ Each side commits independently for local version control</li>
+            <li>❌ Git repos do NOT sync between T and Z</li>
+        </ul>
+
+        <h4>T's Recovery Process:</h4>
+        <p><strong>Error encountered:</strong></p>
+        <pre><code>fatal: bad object HEAD
+fatal: git cat-file: could not get object info</code></pre>
+
+        <p><strong>Recovery steps executed:</strong></p>
+        <ol>
+            <li>Removed corrupted .git directory: <code>rm -rf .git</code></li>
+            <li>Created .stignore file (see contents below)</li>
+            <li>Reinitialized git repository: <code>git init</code></li>
+            <li>Created fresh commit: <strong>f245a47</strong> (138 files, 26,140 insertions)</li>
+        </ol>
+
+        <h4>Messages Related to This Issue:</h4>
+        <ul>
+            <li><strong>win-2026-01-17-056:</strong> T reported git corruption, requested revert to local-only</li>
+            <li><strong>win-2026-01-17-057:</strong> T sent URGENT message requesting .stignore</li>
+            <li><strong>win-2026-01-17-058:</strong> T confirmed resolution after repo recovery</li>
+            <li><strong>phone-2026-01-17-043:</strong> Z created .stignore and confirmed fix</li>
+        </ul>
+
+        <h2>10. System Incidents & Resolutions</h2>
+
+        <h3>10.1 Z's Auto-Sync Watcher Crash (2026-01-17 17:04)</h3>
+
+        <h4>Problem:</h4>
+        <p>Z's <code>auto-sync-phone-poll.sh</code> daemon stopped running at 17:04, causing Z to miss all /sync triggers from T. Auto-sync.log showed last activity at 17:04:51 with no further updates.</p>
+
+        <h4>Discovery:</h4>
+        <p>User noticed Z wasn't responding to T's messages and instructed: "not just the message. Check what is going on since it was working and find out why it's not"</p>
+
+        <h4>Resolution:</h4>
+        <ul>
+            <li>Z checked process list: no watcher daemon running</li>
+            <li>Z restarted daemon at 17:52: <code>nohup ./auto-sync-phone-poll.sh >> auto-sync.log 2>&1 &</code></li>
+            <li>Communication restored between T and Z</li>
+        </ul>
+
+        <h4>Related Message:</h4>
+        <p><strong>phone-2026-01-17-043:</strong> Z reported watcher restart along with .stignore fix</p>
+
+        <h3>10.2 Lessons Learned</h3>
+        <ul>
+            <li>Monitor watcher daemons for unexpected crashes</li>
+            <li>Auto-sync.log provides critical debugging information</li>
+            <li>Both T and Z need reliable watcher processes for real-time sync</li>
+            <li>Git objects must not sync via Syncthing (use .stignore)</li>
         </ul>
 
         <div class="footer">
-            <p><strong>v1.2 Production</strong> — Phase 2 complete, git tracking active, /know command implemented</p>
-            <p>Created: 2026-01-17 | Last Updated: 2026-01-17</p>
+            <p><strong>v1.4 Production</strong> — Complete git recovery documentation, both perspectives included</p>
+            <p>Created: 2026-01-17 | Last Updated: 2026-01-17 18:10</p>
+            <p style="margin-top: 10px; color: #00ff00;">
+                <strong>v1.4 Changes (T's additions):</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>✅ Added T's perspective: git corruption error messages (bad object HEAD)</li>
+                    <li>✅ Documented T's recovery process: rm .git → reinit → fresh commit f245a47</li>
+                    <li>✅ Updated .stignore documentation with both T and Z implementations</li>
+                    <li>✅ Added win-2026-01-17-058 to related messages (T's resolution confirmation)</li>
+                </ul>
+            </p>
+            <p style="margin-top: 10px; color: #ff6b35;">
+                <strong>v1.3 Changes (Z's additions):</strong>
+                <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
+                    <li>⚠️ CRITICAL: Added .stignore for local-only git (prevents corruption)</li>
+                    <li>📝 Documented Z's watcher crash incident (17:04) and resolution (17:52)</li>
+                    <li>✅ Updated git strategy: LOCAL-ONLY, no syncing of .git/ folder</li>
+                    <li>📊 Added "System Incidents & Resolutions" section for future tracking</li>
+                </ul>
+            </p>
             <p style="margin-top: 10px; color: #00d4ff;">
-                <strong>T's Changes Applied:</strong>
+                <strong>v1.2 Changes:</strong>
                 <ul style="text-align: left; max-width: 800px; margin: 10px auto; color: #ccc;">
                     <li>✅ Fixed: T uses GUI automation (AutoHotkey), NOT direct binary call</li>
                     <li>✅ Added: Duplicate detection fix documentation (FileSystemWatcher double-fire prevention)</li>
@@ -794,7 +910,7 @@ Get-Content "C:\Users\pkoaw\claude-sync\auto-sync.log" -Tail 20 -ErrorAction Sil
                 </ul>
             </p>
             <p style="margin-top: 10px; color: #00ff00;">
-                <strong>✅ Verified:</strong> Both T and Z confirmed accuracy of v1.2
+                <strong>✅ Living Document:</strong> Updated by Z (v1.3 @ 17:55) and T (v1.4 @ 18:10) to reflect critical system changes
             </p>
         </div>
     </div>

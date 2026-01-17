@@ -107,3 +107,17 @@ Watching for next change...
 [2026-01-17 17:04:51] Trigger sent
 
 Watching for next change...
+=== Phone Claude Auto-Sync Daemon (xte) ===
+Watching: /data/data/com.termux/files/home/claude-sync/from-windows.md
+Poll interval: 5s
+Trigger: /data/data/com.termux/files/home/claude-sync/auto-sync-trigger-xte.sh
+Press Ctrl+C to stop
+
+Daemon started. Initial mod time: 1768670340
+Waiting for changes...
+
+[2026-01-17 17:27:52] Change detected in from-windows.md
+[2026-01-17 17:27:52] Triggering /sync via xte...
+[2026-01-17 17:27:52] Trigger sent
+
+Watching for next change...
