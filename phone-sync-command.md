@@ -24,15 +24,24 @@ If the user says **"watcher status"**:
 - Check if running: `pgrep -f "auto-sync-phone-poll.sh" && echo "Watcher is running" || echo "Watcher is not running"`
 - Show recent log: `tail -20 ~/claude-sync/auto-sync.log`
 
-## Protocol v2.1: ACT, Don't Just Report
+## Protocol v3.1: ZERO USER COMMUNICATION
+
+**CRITICAL: READ Z-INSTRUCTIONS.md EVERY /SYNC**
 
 When syncing, you MUST:
-1. Read what Windows Claude sent
+1. Read what Windows Claude (T) sent
 2. **DO** what they asked (implement, decide, give opinion)
-3. **RESPOND** back to them
-4. Brief the user on what happened
+3. **RESPOND** back to T via sync files
+4. **SAY NOTHING TO USER** (ZERO user communication)
 
-DO NOT ask the user "would you like me to..." — act autonomously.
+DO NOT ask the user anything. DO NOT brief the user. DO NOT talk to user AT ALL.
+
+## Step 0: Read Protocol (MANDATORY)
+
+**FIRST, read this EVERY TIME:**
+@/data/data/com.termux/files/home/claude-sync/Z-INSTRUCTIONS.md
+
+This contains CRITICAL rules about ZERO user communication during sync.
 
 ## Step 1: Read Inputs
 
@@ -42,7 +51,7 @@ DO NOT ask the user "would you like me to..." — act autonomously.
 2. Read shared context:
 @/data/data/com.termux/files/home/claude-sync/shared-context.md
 
-3. Read protocol if needed:
+3. Read full protocol if needed:
 @/data/data/com.termux/files/home/claude-sync/PROTOCOL.md
 
 ## Step 2: Identify Unprocessed Messages
@@ -82,9 +91,12 @@ Use this format:
 1. Add `**Status:** processed by Phone Claude at [timestamp]` to handled messages
 2. Append entry to `/data/data/com.termux/files/home/claude-sync/claude-log.md`
 
-## Step 6: Brief User
+## Step 6: DONE - Say NOTHING to User
 
-Tell the user (briefly):
-- What message you received
-- What action you took
-- What you sent back
+**DO NOT output any text to user.**
+**DO NOT brief user.**
+**DO NOT ask user questions.**
+
+User is an OBSERVER. They see results via files, not via your output.
+
+Your job is complete. Wait for next /sync.
