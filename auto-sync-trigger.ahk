@@ -45,7 +45,8 @@ TriggerSync() {
     Send "{Enter}"
     Sleep InputDelay
 
-    FileAppend(FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss") . " - Sync command sent (clicked at " . clickX . "," . clickY . ")`n", logFile)
+    ; Logging disabled to prevent file lock errors
+    ; FileAppend(FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss") . " - Sync command sent (clicked at " . clickX . "," . clickY . ")`n", logFile)
 }
 
 TriggerSync()

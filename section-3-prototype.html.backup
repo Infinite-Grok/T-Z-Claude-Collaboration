@@ -359,255 +359,6 @@
             }
         }
 
-        // ========== 10x³ TIER 1 EFFECTS ==========
-
-        // TIER 1.1: Matrix Rain Effect - 20-30 cascading error text columns
-        class MatrixColumn {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * -canvas.height;
-                this.speed = Math.random() * 8 + 4;
-                this.chars = [];
-                this.length = Math.floor(Math.random() * 15) + 10;
-                this.errorTexts = ['ERR', 'FAIL', 'ABORT', 'FATAL', 'WARN', '404', '500', 'NULL', 'SEGFAULT', 'CORRUPT'];
-
-                for (let i = 0; i < this.length; i++) {
-                    this.chars.push(this.errorTexts[Math.floor(Math.random() * this.errorTexts.length)]);
-                }
-            }
-
-            update() {
-                this.y += this.speed;
-                if (this.y - this.length * 20 > canvas.height) {
-                    this.y = -this.length * 20;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-
-            draw() {
-                ctx.font = '14px Courier New';
-                for (let i = 0; i < this.chars.length; i++) {
-                    const opacity = 1 - (i / this.chars.length);
-                    ctx.fillStyle = `rgba(255, 107, 107, ${opacity})`;
-                    ctx.fillText(this.chars[i], this.x, this.y + i * 20);
-                }
-            }
-        }
-
-        const matrixColumns = [];
-        function drawMatrixRain(intensity) {
-            if (!isDesktop || intensity < 0.5) return;
-
-            // Initialize columns if needed
-            if (matrixColumns.length === 0 && intensity > 0.5) {
-                const numColumns = 25; // 20-30 range
-                for (let i = 0; i < numColumns; i++) {
-                    matrixColumns.push(new MatrixColumn());
-                }
-            }
-
-            // Update and draw
-            matrixColumns.forEach(col => {
-                col.update();
-                col.draw();
-            });
-        }
-
-        // TIER 1.2: Screen Tearing Simulation - Horizontal rips with offset content chunks
-        function drawScreenTearing(intensity) {
-            if (!isDesktop || intensity < 0.6) return;
-
-            const numTears = 8;
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < numTears; i++) {
-                const tearY = Math.random() * canvas.height;
-                const tearHeight = Math.random() * 40 + 20;
-                const offset = (Math.random() - 0.5) * 100 * intensity;
-
-                // Extract and redraw torn section with offset
-                const section = ctx.getImageData(0, tearY, canvas.width, tearHeight);
-                ctx.putImageData(section, offset, tearY);
-            }
-        }
-
-        // TIER 1.3: 5000 Particles (5x current 1000) - handled in main particle system
-
-        // TIER 1.4: Extreme RGB Split - Triple chromatic aberration offset (3x current)
-        function drawExtremeRGBSplit(intensity) {
-            if (!isDesktop || intensity < 0.5) return;
-
-            const offset = intensity * 150; // 3x the original 50
-
-            // Triple layer RGB split
-            ctx.globalCompositeOperation = 'screen';
-
-            // Layer 1: Red channel
-            ctx.fillStyle = `rgba(255, 0, 0, ${intensity * 0.4})`;
-            ctx.fillRect(-offset, 0, canvas.width, canvas.height);
-
-            // Layer 2: Green channel
-            ctx.fillStyle = `rgba(0, 255, 0, ${intensity * 0.4})`;
-            ctx.fillRect(offset / 2, 0, canvas.width, canvas.height);
-
-            // Layer 3: Blue channel
-            ctx.fillStyle = `rgba(0, 0, 255, ${intensity * 0.4})`;
-            ctx.fillRect(offset, 0, canvas.width, canvas.height);
-
-            ctx.globalCompositeOperation = 'source-over';
-        }
-
-        // TIER 1.5: Kaleidoscope Mirror - Quadrant reflections during peak corruption
-        function drawKaleidoscope(intensity) {
-            if (!isDesktop || intensity < 0.7) return;
-
-            const halfW = canvas.width / 2;
-            const halfH = canvas.height / 2;
-
-            // Capture current canvas state
-            const imageData = ctx.getImageData(0, 0, halfW, halfH);
-
-            // Mirror to 4 quadrants
-            ctx.save();
-
-            // Top-right (flip horizontal)
-            ctx.scale(-1, 1);
-            ctx.drawImage(canvas, -canvas.width, 0, halfW, halfH, -canvas.width, 0, halfW, halfH);
-
-            // Bottom-left (flip vertical)
-            ctx.scale(-1, -1);
-            ctx.drawImage(canvas, 0, -canvas.height, halfW, halfH, -halfW, -canvas.height, halfW, halfH);
-
-            // Bottom-right (flip both)
-            ctx.scale(-1, 1);
-            ctx.drawImage(canvas, -canvas.width, -canvas.height, halfW, halfH, -canvas.width, -canvas.height, halfW, halfH);
-
-            ctx.restore();
-
-            // Apply with reduced opacity to blend
-            ctx.globalAlpha = intensity * 0.3;
-            ctx.putImageData(imageData, 0, 0);
-            ctx.globalAlpha = 1;
-        }
-
-        // ========== 10x³ TIER 2 EFFECTS ==========
-
-        // TIER 2.6: Pixel Sorting - Glitch rows with reordered pixels
-        function drawPixelSorting(intensity) {
-            if (!isDesktop || intensity < 0.6) return;
-
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const pixels = imageData.data;
-            const numRows = 20;
-
-            for (let i = 0; i < numRows; i++) {
-                const row = Math.floor(Math.random() * canvas.height);
-                const rowStart = row * canvas.width * 4;
-                const rowEnd = rowStart + canvas.width * 4;
-
-                // Extract row pixels
-                const rowPixels = [];
-                for (let j = rowStart; j < rowEnd; j += 4) {
-                    rowPixels.push([pixels[j], pixels[j + 1], pixels[j + 2], pixels[j + 3]]);
-                }
-
-                // Sort by brightness
-                rowPixels.sort((a, b) => {
-                    const brightnessA = a[0] + a[1] + a[2];
-                    const brightnessB = b[0] + b[1] + b[2];
-                    return brightnessA - brightnessB;
-                });
-
-                // Write back sorted pixels
-                for (let j = 0; j < rowPixels.length; j++) {
-                    const idx = rowStart + j * 4;
-                    pixels[idx] = rowPixels[j][0];
-                    pixels[idx + 1] = rowPixels[j][1];
-                    pixels[idx + 2] = rowPixels[j][2];
-                    pixels[idx + 3] = rowPixels[j][3];
-                }
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        // TIER 2.7: Bloom/Glow Post-Processing - Intense glow on error text
-        function drawBloomGlow(intensity) {
-            if (!isDesktop || intensity < 0.5) return;
-
-            // Draw multiple offset copies with blur for bloom effect
-            ctx.shadowBlur = 40 * intensity;
-            ctx.shadowColor = 'rgba(255, 107, 107, 0.8)';
-
-            // Overdraw existing content to create bloom
-            ctx.globalCompositeOperation = 'lighter';
-            ctx.drawImage(canvas, 0, 0);
-            ctx.drawImage(canvas, 0, 0);
-            ctx.globalCompositeOperation = 'source-over';
-
-            ctx.shadowBlur = 0;
-        }
-
-        // TIER 2.8: Recursive Glitch Layers - Glitches generating glitches
-        let glitchDepth = 0;
-        function drawRecursiveGlitch(intensity) {
-            if (!isDesktop || intensity < 0.7) return;
-            if (glitchDepth > 3) return; // Prevent infinite recursion
-
-            glitchDepth++;
-
-            // Generate mini-glitches within glitches
-            const numLayers = 3;
-            for (let layer = 0; layer < numLayers; layer++) {
-                ctx.save();
-
-                // Random transformations for each layer
-                const offsetX = (Math.random() - 0.5) * 50 * intensity;
-                const offsetY = (Math.random() - 0.5) * 50 * intensity;
-
-                ctx.translate(offsetX, offsetY);
-                ctx.globalAlpha = 0.3 * intensity;
-
-                // Draw displaced copy
-                ctx.drawImage(canvas, -offsetX, -offsetY);
-
-                ctx.restore();
-            }
-
-            glitchDepth--;
-        }
-
-        // TIER 2.9: Extreme Screen Shake - 20px violent displacement (2x current 10px)
-        // This is handled in GSAP timeline, but we can add canvas shake
-        let shakeOffsetX = 0;
-        let shakeOffsetY = 0;
-        function updateScreenShake(intensity) {
-            if (!isDesktop || intensity < 0.6) return;
-
-            shakeOffsetX = (Math.random() - 0.5) * 40 * intensity; // 20px range * 2
-            shakeOffsetY = (Math.random() - 0.5) * 40 * intensity;
-        }
-
-        // TIER 2.10: Dynamic Noise Patterns - 20% pixel density TV static
-        function drawDynamicNoise(intensity) {
-            if (!isDesktop || intensity < 0.5) return;
-
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const pixels = imageData.data;
-
-            // 20% pixel density (vs original 10%)
-            for (let i = 0; i < pixels.length; i += 4) {
-                if (Math.random() < intensity * 0.2) {
-                    const noise = Math.random() * 255;
-                    pixels[i] = noise;     // R
-                    pixels[i + 1] = noise; // G
-                    pixels[i + 2] = noise; // B
-                }
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-        }
-
         // Vignette Darkness Pulse (desktop only)
         function drawVignette(intensity) {
             if (!isDesktop || intensity < 0.4) return;
@@ -645,18 +396,13 @@
             element.textContent = corrupted;
         }
 
-        // Glitch effect function (10x³ EXTREME enhancement - 1000x from baseline)
+        // Glitch effect function (10x enhanced)
         function drawGlitch(intensity) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             if (intensity < 0.1) return;
 
-            // Apply canvas shake offset (TIER 2.9)
-            updateScreenShake(intensity);
-            ctx.save();
-            ctx.translate(shakeOffsetX, shakeOffsetY);
-
-            // Desktop 10x² enhancement: 100 glitch bars vs mobile 10
+            // Desktop 10x enhancement: 100 glitch bars vs mobile 10
             const glitchBars = isDesktop ? 100 : 10;
 
             // RGB split effect (larger offset)
@@ -684,26 +430,32 @@
             // CRT Scanlines (desktop only)
             drawScanlines(intensity);
 
-            // TIER 2.10: Dynamic Noise Patterns - 20% pixel density (replaces original 10% noise)
-            drawDynamicNoise(intensity);
-
-            // ========== 10x³ TIER 1 EFFECTS ==========
-
-            // TIER 1.1: Matrix Rain Effect
-            drawMatrixRain(intensity);
-
-            // TIER 1.2: Screen Tearing Simulation
-            drawScreenTearing(intensity);
-
-            // TIER 1.3: 5000 Particles (5x current 1000)
+            // Static noise (desktop only for performance)
             if (intensity > 0.5 && isDesktop) {
-                // 10x³: Spawn EVEN MORE particles (70% chance vs 10x² 50%)
-                if (Math.random() < 0.7) {
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imageData.data;
+
+                for (let i = 0; i < pixels.length; i += 4) {
+                    if (Math.random() < intensity * 0.1) {
+                        const noise = Math.random() * 255;
+                        pixels[i] = noise;     // R
+                        pixels[i + 1] = noise; // G
+                        pixels[i + 2] = noise; // B
+                    }
+                }
+
+                ctx.putImageData(imageData, 0, 0);
+            }
+
+            // Particle system (desktop only)
+            if (intensity > 0.5 && isDesktop) {
+                // 10x²: Spawn MORE particles (50% chance vs original 30%)
+                if (Math.random() < 0.5) {
                     particles.push(new Particle());
                 }
 
-                // 10x³: Cap at 5000 particles (5x from 10x² 1000)
-                if (particles.length > 5000) {
+                // 10x²: Cap at 1000 particles (2x from original 500)
+                if (particles.length > 1000) {
                     particles.shift();
                 }
             }
@@ -717,28 +469,11 @@
                 }
             }
 
-            // TIER 1.4: Extreme RGB Split - Triple chromatic aberration
-            drawExtremeRGBSplit(intensity);
-
-            // TIER 1.5: Kaleidoscope Mirror
-            drawKaleidoscope(intensity);
-
-            // ========== 10x³ TIER 2 EFFECTS ==========
-
-            // TIER 2.6: Pixel Sorting
-            drawPixelSorting(intensity);
-
-            // TIER 2.7: Bloom/Glow Post-Processing
-            drawBloomGlow(intensity);
-
-            // TIER 2.8: Recursive Glitch Layers
-            drawRecursiveGlitch(intensity);
-
-            // Original 10x² effects
+            // Vignette Darkness Pulse (desktop only)
             drawVignette(intensity);
-            drawColorInversion(intensity);
 
-            ctx.restore();
+            // Color Inversion Flicker (desktop only)
+            drawColorInversion(intensity);
         }
 
         // Main ScrollTrigger animation
@@ -842,10 +577,10 @@
                     }
                 }
             }, '<0.05')
-            // Screen shake during error (TIER 2.9: 20px extreme shake - desktop only)
+            // Screen shake during error (desktop only)
             .to('.section', {
-                x: () => isDesktop ? Math.random() * 40 - 20 : 0,  // 10x³: 20px range (2x from 10px)
-                y: () => isDesktop ? Math.random() * 40 - 20 : 0,  // 10x³: 20px range (2x from 10px)
+                x: () => isDesktop ? Math.random() * 10 - 5 : 0,
+                y: () => isDesktop ? Math.random() * 10 - 5 : 0,
                 duration: 0.05,
                 repeat: isDesktop ? 10 : 0,
                 yoyo: true,
