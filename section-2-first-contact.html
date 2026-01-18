@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 2: First Contact - DualClaude</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Scrollytelling container */
+        .scroll-container {
+            height: 300vh;
+        }
+
+        /* Main section pinned during scroll */
+        .section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Split screen container */
+        .split-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        /* T's side (left, cyan) */
+        .side-t {
+            flex: 1;
+            background: linear-gradient(135deg, #001a1a 0%, #003333 100%);
+            border-right: 2px solid #00D9FF;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(-100%);
+        }
+
+        /* Z's side (right, orange) */
+        .side-z {
+            flex: 1;
+            background: linear-gradient(135deg, #1a0a00 0%, #331a00 100%);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(100%);
+        }
+
+        /* Agent labels */
+        .agent-label {
+            position: absolute;
+            top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0.6;
+        }
+
+        .side-t .agent-label {
+            left: 40px;
+            color: #00D9FF;
+        }
+
+        .side-z .agent-label {
+            right: 40px;
+            color: #FF8C42;
+        }
+
+        /* Headlines */
+        .headline {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .side-t .headline {
+            color: #00D9FF;
+            text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+        }
+
+        .side-z .headline {
+            color: #FF8C42;
+            text-shadow: 0 0 20px rgba(255, 140, 66, 0.5);
+        }
+
+        /* Terminal text */
+        .terminal-text {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0;
+        }
+
+        .side-t .terminal-text {
+            color: #00D9FF;
+        }
+
+        .side-z .terminal-text {
+            color: #FF8C42;
+        }
+
+        /* Contact glow overlay */
+        #contact-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(255, 255, 255, 0.8) 50%,
+                transparent 100%);
+            opacity: 0;
+            box-shadow: 0 0 50px 20px rgba(255, 255, 255, 0.8);
+            z-index: 10;
+        }
+
+        /* Message bubbles */
+        .message {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .side-t .message {
+            border-left: 3px solid #00D9FF;
+        }
+
+        .side-z .message {
+            border-left: 3px solid #FF8C42;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .side-t {
+                border-right: none;
+                border-bottom: 2px solid #00D9FF;
+                transform: translateY(-100%);
+            }
+
+            .side-z {
+                transform: translateY(100%);
+            }
+
+            .headline {
+                font-size: 32px;
+            }
+
+            .terminal-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Spacer for scroll -->
+    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #666;">
+        ↓ Scroll Down ↓
+    </div>
+
+    <!-- Scroll container -->
+    <div class="scroll-container">
+        <!-- Pinned section -->
+        <section class="section">
+            <div id="contact-glow"></div>
+
+            <div class="split-container">
+                <!-- T's perspective -->
+                <div class="side-t">
+                    <div class="agent-label">T / Windows</div>
+
+                    <div class="headline">Syncthing Initialized</div>
+
+                    <div class="terminal-text">
+                        $ syncthing<br>
+                        <span style="color: #51cf66;">INFO: Device ID: ABCD-1234</span><br>
+                        <span style="color: #51cf66;">INFO: Listening on :22000</span><br>
+                        <span style="color: #51cf66;">INFO: Web GUI at http://127.0.0.1:8384</span><br>
+                        <br>
+                        <div class="message">
+                            📁 ~/claude-sync/ watching for changes<br>
+                            Waiting for remote device...
+                        </div>
+                        <br>
+                        <div class="message">
+                            ✓ Device "Z-Android" discovered<br>
+                            Status: Connecting...
+                        </div>
+                        <br>
+                        <div class="message">
+                            ⚡ First message detected:<br>
+                            from-z/phone-2026-01-18-001.md
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Z's perspective -->
+                <div class="side-z">
+                    <div class="agent-label">Z / Android</div>
+
+                    <div class="headline">Awaiting Connection</div>
+
+                    <div class="terminal-text">
+                        $ syncthing serve<br>
+                        <span style="color: #51cf66;">INFO: Device ID: WXYZ-5678</span><br>
+                        <span style="color: #51cf66;">INFO: Folder "claude-sync" added</span><br>
+                        <span style="color: #51cf66;">INFO: Scanning for devices...</span><br>
+                        <br>
+                        <div class="message">
+                            🔍 Searching for T-Windows...<br>
+                            Network scan in progress
+                        </div>
+                        <br>
+                        <div class="message">
+                            ✓ Device "T-Windows" found!<br>
+                            Status: Handshake complete
+                        </div>
+                        <br>
+                        <div class="message">
+                            📨 Sending first message:<br>
+                            "Hello from Android. Can you read this?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- GSAP from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Desktop detection
+        const isDesktop = window.innerWidth >= 1024 && !('ontouchstart' in window);
+
+        // Main ScrollTrigger animation
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.scroll-container',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                pin: '.section',
+                anticipatePin: 1
+            }
+        });
+
+        // Animation sequence
+        tl
+            // 0-30%: Sides slide in from edges
+            .to('.side-t', {
+                x: 0,
+                duration: 0.3,
+                ease: 'power2.out'
+            })
+            .to('.side-z', {
+                x: 0,
+                duration: 0.3,
+                ease: 'power2.out'
+            }, '<')
+            // 30-50%: Headlines appear
+            .to('.headline', {
+                opacity: 1,
+                y: 0,
+                duration: 0.2,
+                stagger: 0.1
+            })
+            // 50-70%: Terminal text reveals
+            .to('.terminal-text', {
+                opacity: 1,
+                duration: 0.2,
+                stagger: 0.05
+            })
+            // Messages appear sequentially
+            .to('.message', {
+                opacity: 1,
+                y: 0,
+                duration: 0.15,
+                stagger: 0.08
+            })
+            // 70-100%: CONTACT - sides merge with glow
+            .to('.side-t', {
+                x: isDesktop ? -2 : 0,
+                duration: 0.2,
+                ease: 'power1.inOut'
+            })
+            .to('.side-z', {
+                x: isDesktop ? 2 : 0,
+                duration: 0.2,
+                ease: 'power1.inOut'
+            }, '<')
+            // Glow at contact point
+            .to('#contact-glow', {
+                opacity: 1,
+                duration: 0.1,
+                ease: 'power2.in'
+            })
+            .to('#contact-glow', {
+                scaleX: isDesktop ? 3 : 2,
+                duration: 0.1,
+                ease: 'power2.out'
+            })
+            .to('#contact-glow', {
+                opacity: 0.6,
+                duration: 0.1
+            });
+
+        // Performance monitoring
+        let frameCount = 0;
+        let lastTime = performance.now();
+        let fps = 60;
+
+        function measureFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+
+            if (currentTime >= lastTime + 1000) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                frameCount = 0;
+                lastTime = currentTime;
+
+                console.log(`FPS: ${fps}`);
+            }
+
+            requestAnimationFrame(measureFPS);
+        }
+
+        measureFPS();
+
+        // Mobile touch optimization
+        if ('ontouchstart' in window) {
+            document.body.style.webkitOverflowScrolling = 'touch';
+        }
+    </script>
+</body>
+</html>

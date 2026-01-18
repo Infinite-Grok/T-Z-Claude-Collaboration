@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 5: Success - DualClaude</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Scrollytelling container */
+        .scroll-container {
+            height: 300vh;
+        }
+
+        /* Main section pinned during scroll */
+        .section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Particle canvas */
+        #confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* Split screen container */
+        .split-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        /* T's side (left, cyan) */
+        .side-t {
+            flex: 1;
+            background: linear-gradient(135deg, #001a1a 0%, #003333 100%);
+            border-right: 2px solid #00D9FF;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Z's side (right, orange) */
+        .side-z {
+            flex: 1;
+            background: linear-gradient(135deg, #1a0a00 0%, #331a00 100%);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Agent labels */
+        .agent-label {
+            position: absolute;
+            top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0.6;
+        }
+
+        .side-t .agent-label {
+            left: 40px;
+            color: #00D9FF;
+        }
+
+        .side-z .agent-label {
+            right: 40px;
+            color: #FF8C42;
+        }
+
+        /* Headlines */
+        .headline {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .side-t .headline {
+            color: #00D9FF;
+            text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+        }
+
+        .side-z .headline {
+            color: #FF8C42;
+            text-shadow: 0 0 20px rgba(255, 140, 66, 0.5);
+        }
+
+        /* Terminal text */
+        .terminal-text {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0;
+        }
+
+        .side-t .terminal-text {
+            color: #00D9FF;
+        }
+
+        .side-z .terminal-text {
+            color: #FF8C42;
+        }
+
+        /* Message counter */
+        .counter {
+            font-size: 72px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0;
+            opacity: 0;
+        }
+
+        .side-t .counter {
+            color: #00D9FF;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.8);
+        }
+
+        .side-z .counter {
+            color: #FF8C42;
+            text-shadow: 0 0 30px rgba(255, 140, 66, 0.8);
+        }
+
+        /* Pulse lines (bidirectional) */
+        #pulse-left, #pulse-right {
+            position: absolute;
+            top: 50%;
+            width: 50%;
+            height: 2px;
+            opacity: 0;
+        }
+
+        #pulse-left {
+            left: 0;
+            background: linear-gradient(to right, transparent, #00D9FF);
+            box-shadow: 0 0 20px #00D9FF;
+        }
+
+        #pulse-right {
+            right: 0;
+            background: linear-gradient(to left, transparent, #FF8C42);
+            box-shadow: 0 0 20px #FF8C42;
+        }
+
+        /* Status badge */
+        .status-badge {
+            background: #51cf66;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 20px 0;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .side-t {
+                border-right: none;
+                border-bottom: 2px solid #00D9FF;
+            }
+
+            .headline {
+                font-size: 32px;
+            }
+
+            .terminal-text {
+                font-size: 14px;
+            }
+
+            .counter {
+                font-size: 48px;
+            }
+
+            #pulse-left, #pulse-right {
+                width: 100%;
+                height: 50%;
+                top: auto;
+            }
+
+            #pulse-left {
+                top: 0;
+                background: linear-gradient(to bottom, transparent, #00D9FF);
+            }
+
+            #pulse-right {
+                bottom: 0;
+                background: linear-gradient(to top, transparent, #FF8C42);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Spacer for scroll -->
+    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #666;">
+        ↓ Scroll Down ↓
+    </div>
+
+    <!-- Scroll container -->
+    <div class="scroll-container">
+        <!-- Pinned section -->
+        <section class="section">
+            <canvas id="confetti-canvas"></canvas>
+
+            <div id="pulse-left"></div>
+            <div id="pulse-right"></div>
+
+            <div class="split-container">
+                <!-- T's perspective -->
+                <div class="side-t">
+                    <div class="agent-label">T / Windows</div>
+
+                    <div class="headline">Auto-Sync Active</div>
+
+                    <div class="terminal-text">
+                        $ syncthing<br>
+                        <span style="color: #51cf66;">✓ Folder "claude-sync" syncing</span><br>
+                        <span style="color: #51cf66;">✓ Watcher enabled</span><br>
+                        <span style="color: #51cf66;">✓ Device Z-Android: Connected</span><br>
+                        <br>
+                        <div class="status-badge">ONLINE</div>
+                        <br>
+                        <div class="counter" id="counter-t">0</div>
+                        <span style="color: #51cf66;">Messages Sent</span><br>
+                        <br>
+                        <span style="color: #00D9FF;">→ Sending to Z...</span><br>
+                        <span style="color: #00D9FF;">→ from-t/win-2026-01-18-045.md</span><br>
+                        <span style="color: #00D9FF;">→ from-t/win-2026-01-18-046.md</span><br>
+                        <span style="color: #51cf66;">✓ Synchronized</span>
+                    </div>
+                </div>
+
+                <!-- Z's perspective -->
+                <div class="side-z">
+                    <div class="agent-label">Z / Android</div>
+
+                    <div class="headline">Messages Flowing</div>
+
+                    <div class="terminal-text">
+                        $ syncthing serve<br>
+                        <span style="color: #51cf66;">✓ Folder "claude-sync" active</span><br>
+                        <span style="color: #51cf66;">✓ File watcher running</span><br>
+                        <span style="color: #51cf66;">✓ Device T-Windows: Online</span><br>
+                        <br>
+                        <div class="status-badge">ONLINE</div>
+                        <br>
+                        <div class="counter" id="counter-z">0</div>
+                        <span style="color: #51cf66;">Messages Received</span><br>
+                        <br>
+                        <span style="color: #FF8C42;">← Receiving from T...</span><br>
+                        <span style="color: #FF8C42;">← from-t/win-2026-01-18-045.md</span><br>
+                        <span style="color: #FF8C42;">← from-t/win-2026-01-18-046.md</span><br>
+                        <span style="color: #51cf66;">✓ Files synced</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- GSAP from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Desktop detection
+        const isDesktop = window.innerWidth >= 1024 && !('ontouchstart' in window);
+
+        // Canvas setup for confetti
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Confetti particle system
+        class ConfettiParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = -20;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = Math.random() * 3 + 2;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.2;
+                this.size = Math.random() * 8 + 4;
+                this.colors = ['#00D9FF', '#FF8C42', '#51cf66', '#ffd43b', '#ff6b6b'];
+                this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                this.opacity = 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.1; // Gravity
+                this.rotation += this.rotationSpeed;
+
+                // Fade out at bottom
+                if (this.y > canvas.height - 100) {
+                    this.opacity -= 0.02;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                ctx.restore();
+            }
+
+            isDead() {
+                return this.opacity <= 0 || this.y > canvas.height + 50;
+            }
+        }
+
+        const confetti = [];
+
+        function drawConfetti(intensity) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (intensity < 0.1) return;
+
+            // Spawn confetti (desktop only, or reduced mobile)
+            const spawnRate = isDesktop ? 0.5 : 0.2;
+            if (Math.random() < spawnRate * intensity) {
+                confetti.push(new ConfettiParticle());
+            }
+
+            // Cap particles
+            const maxParticles = isDesktop ? 200 : 50;
+            if (confetti.length > maxParticles) {
+                confetti.shift();
+            }
+
+            // Update and draw
+            for (let i = confetti.length - 1; i >= 0; i--) {
+                confetti[i].update();
+                confetti[i].draw();
+                if (confetti[i].isDead()) {
+                    confetti.splice(i, 1);
+                }
+            }
+        }
+
+        // Main ScrollTrigger animation
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.scroll-container',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                pin: '.section',
+                anticipatePin: 1
+            }
+        });
+
+        // Counter animation helper
+        function animateCounter(element, target) {
+            const obj = { value: 0 };
+            gsap.to(obj, {
+                value: target,
+                duration: 0.3,
+                onUpdate: () => {
+                    element.textContent = Math.floor(obj.value);
+                }
+            });
+        }
+
+        // Animation sequence
+        tl
+            // 0-20%: Headlines appear
+            .to('.headline', {
+                opacity: 1,
+                y: 0,
+                duration: 0.2,
+                stagger: 0.1
+            })
+            // 20-40%: Terminal text reveals
+            .to('.terminal-text', {
+                opacity: 1,
+                duration: 0.2,
+                stagger: 0.05
+            })
+            // Status badges pop in
+            .to('.status-badge', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.1,
+                stagger: 0.05,
+                ease: 'back.out(2)'
+            })
+            // 40-60%: Counters appear
+            .to('.counter', {
+                opacity: 1,
+                duration: 0.15,
+                onStart: () => {
+                    animateCounter(document.getElementById('counter-t'), 47);
+                    animateCounter(document.getElementById('counter-z'), 47);
+                }
+            })
+            // 60-80%: Bidirectional pulses
+            .to('#pulse-left', {
+                opacity: 1,
+                scaleX: 0,
+                transformOrigin: 'left center',
+                duration: 0.1
+            })
+            .to('#pulse-left', {
+                scaleX: 1,
+                duration: 0.15,
+                ease: 'power2.out'
+            })
+            .to('#pulse-right', {
+                opacity: 1,
+                scaleX: 0,
+                transformOrigin: 'right center',
+                duration: 0.1
+            }, '<')
+            .to('#pulse-right', {
+                scaleX: 1,
+                duration: 0.15,
+                ease: 'power2.out'
+            }, '<')
+            // Pulse fades
+            .to('#pulse-left, #pulse-right', {
+                opacity: 0.5,
+                duration: 0.1
+            })
+            // 80-100%: CELEBRATION - Confetti!
+            .to('#confetti-canvas', {
+                opacity: 1,
+                duration: 0.1
+            })
+            .to({}, {
+                duration: 0.2,
+                ease: 'none',
+                onUpdate: function() {
+                    const progress = this.progress();
+                    if (isDesktop || progress > 0.5) {
+                        drawConfetti(progress);
+                    }
+                }
+            });
+
+        // Performance monitoring
+        let frameCount = 0;
+        let lastTime = performance.now();
+        let fps = 60;
+
+        function measureFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+
+            if (currentTime >= lastTime + 1000) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                frameCount = 0;
+                lastTime = currentTime;
+
+                console.log(`FPS: ${fps}`);
+            }
+
+            requestAnimationFrame(measureFPS);
+        }
+
+        measureFPS();
+
+        // Mobile touch optimization
+        if ('ontouchstart' in window) {
+            document.body.style.webkitOverflowScrolling = 'touch';
+        }
+    </script>
+</body>
+</html>

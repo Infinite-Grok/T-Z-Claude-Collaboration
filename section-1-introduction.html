@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1: Introduction - DualClaude</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Scrollytelling container - shorter for introduction */
+        .scroll-container {
+            height: 100vh;
+        }
+
+        /* Main section pinned during scroll */
+        .section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Split screen container */
+        .split-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        /* T's side (left, cyan) */
+        .side-t {
+            flex: 1;
+            background: linear-gradient(135deg, #001a1a 0%, #003333 100%);
+            border-right: 2px solid #00D9FF;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Z's side (right, orange) */
+        .side-z {
+            flex: 1;
+            background: linear-gradient(135deg, #1a0a00 0%, #331a00 100%);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Agent labels */
+        .agent-label {
+            position: absolute;
+            top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0;
+        }
+
+        .side-t .agent-label {
+            left: 40px;
+            color: #00D9FF;
+        }
+
+        .side-z .agent-label {
+            right: 40px;
+            color: #FF8C42;
+        }
+
+        /* Main title */
+        .main-title {
+            font-size: 64px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            line-height: 1.3;
+        }
+
+        .side-t .main-title {
+            color: #00D9FF;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.6);
+        }
+
+        .side-z .main-title {
+            color: #FF8C42;
+            text-shadow: 0 0 30px rgba(255, 140, 66, 0.6);
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 24px;
+            text-align: center;
+            opacity: 0;
+            line-height: 1.6;
+        }
+
+        .side-t .subtitle {
+            color: #00D9FF;
+        }
+
+        .side-z .subtitle {
+            color: #FF8C42;
+        }
+
+        /* Device icon */
+        .device-icon {
+            font-size: 120px;
+            margin-bottom: 40px;
+            opacity: 0;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+        }
+
+        /* Central tagline */
+        .tagline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            z-index: 10;
+            white-space: nowrap;
+            padding: 0 20px;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .side-t {
+                border-right: none;
+                border-bottom: 2px solid #00D9FF;
+            }
+
+            .main-title {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .device-icon {
+                font-size: 72px;
+            }
+
+            .tagline {
+                font-size: 20px;
+                white-space: normal;
+                line-height: 1.4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll container -->
+    <div class="scroll-container">
+        <!-- Pinned section -->
+        <section class="section">
+            <div class="tagline">Two AI instances. Two devices. One conversation.</div>
+
+            <div class="split-container">
+                <!-- T's perspective -->
+                <div class="side-t">
+                    <div class="agent-label">T / Windows</div>
+
+                    <div class="device-icon">💻</div>
+
+                    <div class="main-title">
+                        Claude T
+                    </div>
+
+                    <div class="subtitle">
+                        Windows Desktop<br>
+                        High-Performance Computing<br>
+                        Git Repository Manager
+                    </div>
+                </div>
+
+                <!-- Z's perspective -->
+                <div class="side-z">
+                    <div class="agent-label">Z / Android</div>
+
+                    <div class="device-icon">📱</div>
+
+                    <div class="main-title">
+                        Claude Z
+                    </div>
+
+                    <div class="subtitle">
+                        Android Mobile<br>
+                        On-the-Go Operations<br>
+                        Portable Intelligence
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- GSAP from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Desktop detection
+        const isDesktop = window.innerWidth >= 1024 && !('ontouchstart' in window);
+
+        // Main ScrollTrigger animation
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.scroll-container',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                pin: '.section',
+                anticipatePin: 1
+            }
+        });
+
+        // Simple, elegant animation sequence
+        tl
+            // 0-30%: Agent labels fade in
+            .to('.agent-label', {
+                opacity: 0.6,
+                duration: 0.3,
+                stagger: 0.1
+            })
+            // 30-50%: Device icons appear
+            .to('.device-icon', {
+                opacity: 1,
+                duration: 0.2,
+                stagger: 0.1
+            })
+            // 50-70%: Titles fade in
+            .to('.main-title', {
+                opacity: 1,
+                duration: 0.2,
+                stagger: 0.1
+            })
+            // 70-85%: Subtitles appear
+            .to('.subtitle', {
+                opacity: 0.8,
+                duration: 0.15,
+                stagger: 0.05
+            })
+            // 85-100%: Central tagline reveals
+            .to('.tagline', {
+                opacity: 1,
+                duration: 0.15
+            });
+
+        // Performance monitoring
+        let frameCount = 0;
+        let lastTime = performance.now();
+        let fps = 60;
+
+        function measureFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+
+            if (currentTime >= lastTime + 1000) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                frameCount = 0;
+                lastTime = currentTime;
+
+                console.log(`FPS: ${fps}`);
+            }
+
+            requestAnimationFrame(measureFPS);
+        }
+
+        measureFPS();
+
+        // Mobile touch optimization
+        if ('ontouchstart' in window) {
+            document.body.style.webkitOverflowScrolling = 'touch';
+        }
+    </script>
+</body>
+</html>

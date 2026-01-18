@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 4: The Fix - DualClaude</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Scrollytelling container */
+        .scroll-container {
+            height: 300vh;
+        }
+
+        /* Main section pinned during scroll */
+        .section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Split screen container */
+        .split-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        /* T's side (left, cyan) */
+        .side-t {
+            flex: 1;
+            background: linear-gradient(135deg, #001a1a 0%, #003333 100%);
+            border-right: 2px solid #00D9FF;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Z's side (right, orange) */
+        .side-z {
+            flex: 1;
+            background: linear-gradient(135deg, #1a0a00 0%, #331a00 100%);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Agent labels */
+        .agent-label {
+            position: absolute;
+            top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0.6;
+        }
+
+        .side-t .agent-label {
+            left: 40px;
+            color: #00D9FF;
+        }
+
+        .side-z .agent-label {
+            right: 40px;
+            color: #FF8C42;
+        }
+
+        /* Headlines */
+        .headline {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .side-t .headline {
+            color: #00D9FF;
+            text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+        }
+
+        .side-z .headline {
+            color: #FF8C42;
+            text-shadow: 0 0 20px rgba(255, 140, 66, 0.5);
+        }
+
+        /* Terminal text */
+        .terminal-text {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0;
+        }
+
+        .side-t .terminal-text {
+            color: #00D9FF;
+        }
+
+        .side-z .terminal-text {
+            color: #FF8C42;
+        }
+
+        /* Code block styling */
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .side-t .code-block {
+            border-left: 3px solid #00D9FF;
+        }
+
+        .side-z .code-block {
+            border-left: 3px solid #FF8C42;
+        }
+
+        /* Typing cursor animation */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #00D9FF;
+            animation: blink 1s infinite;
+            opacity: 0;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* Success checkmark */
+        .success-icon {
+            font-size: 72px;
+            color: #51cf66;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        /* Status indicator */
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            opacity: 0;
+        }
+
+        .status.success {
+            color: #51cf66;
+        }
+
+        .status.error {
+            color: #ff6b6b;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .side-t {
+                border-right: none;
+                border-bottom: 2px solid #00D9FF;
+            }
+
+            .headline {
+                font-size: 32px;
+            }
+
+            .terminal-text {
+                font-size: 14px;
+            }
+
+            .code-block {
+                font-size: 12px;
+            }
+
+            .success-icon {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Spacer for scroll -->
+    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #666;">
+        ↓ Scroll Down ↓
+    </div>
+
+    <!-- Scroll container -->
+    <div class="scroll-container">
+        <!-- Pinned section -->
+        <section class="section">
+            <div class="split-container">
+                <!-- T's perspective -->
+                <div class="side-t">
+                    <div class="agent-label">T / Windows</div>
+
+                    <div class="headline">Creating .stignore</div>
+
+                    <div class="terminal-text">
+                        $ cd ~/claude-sync<br>
+                        $ nano .stignore<span class="cursor"></span><br>
+                        <br>
+                        <div class="code-block">
+                            <span style="color: #969696;"># Ignore git repository</span><br>
+                            .git<br>
+                            <br>
+                            <span style="color: #969696;"># Ignore node modules</span><br>
+                            node_modules<br>
+                            <br>
+                            <span style="color: #969696;"># Ignore build artifacts</span><br>
+                            dist/<br>
+                            build/<br>
+                            <br>
+                            <span style="color: #969696;"># Ignore temp files</span><br>
+                            *.tmp<br>
+                            *.log
+                        </div>
+                        <br>
+                        $ syncthing cli config folders claude-sync edit<br>
+                        <span style="color: #51cf66;">✓ .stignore applied</span><br>
+                        <br>
+                        <div class="status success">
+                            Testing sync with .git excluded...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Z's perspective -->
+                <div class="side-z">
+                    <div class="agent-label">Z / Android</div>
+
+                    <div class="headline">Verifying Changes</div>
+
+                    <div class="terminal-text">
+                        $ git status<br>
+                        <span style="color: #51cf66;">On branch main</span><br>
+                        <span style="color: #51cf66;">nothing to commit, working tree clean</span><br>
+                        <br>
+                        <div class="status success">
+                            ✓ No more false modifications!
+                        </div>
+                        <br>
+                        $ ls -la ~/claude-sync/<br>
+                        <span style="color: #00D9FF;">drwxr-xr-x messages/</span><br>
+                        <span style="color: #00D9FF;">drwxr-xr-x from-t/</span><br>
+                        <span style="color: #00D9FF;">drwxr-xr-x from-z/</span><br>
+                        <span style="color: #969696;">-rw-r--r-- .stignore</span><br>
+                        <br>
+                        <div class="code-block">
+                            $ cat .stignore<br>
+                            <span style="color: #969696;"># Synced from T's device</span><br>
+                            .git<br>
+                            node_modules<br>
+                            dist/<br>
+                            build/<br>
+                            *.tmp<br>
+                            *.log
+                        </div>
+                        <br>
+                        <div class="status success">
+                            Configuration synchronized successfully
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success overlay -->
+            <div class="success-icon">✓</div>
+        </section>
+    </div>
+
+    <!-- GSAP from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Desktop detection
+        const isDesktop = window.innerWidth >= 1024 && !('ontouchstart' in window);
+
+        // Main ScrollTrigger animation
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.scroll-container',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                pin: '.section',
+                anticipatePin: 1
+            }
+        });
+
+        // Animation sequence
+        tl
+            // 0-20%: Headlines appear
+            .to('.headline', {
+                opacity: 1,
+                y: 0,
+                duration: 0.2,
+                stagger: 0.1
+            })
+            // 20-40%: Terminal text reveals
+            .to('.terminal-text', {
+                opacity: 1,
+                duration: 0.2,
+                stagger: 0.05
+            })
+            // Cursor appears
+            .to('.cursor', {
+                opacity: 1,
+                duration: 0.1
+            })
+            // 40-60%: Code blocks type in
+            .to('.code-block', {
+                opacity: 1,
+                y: 0,
+                duration: 0.15,
+                stagger: 0.08
+            })
+            // Status messages appear
+            .to('.status', {
+                opacity: 1,
+                duration: 0.1,
+                stagger: 0.05
+            })
+            // 60-80%: Git status clears (simulate terminal clearing effect)
+            .to('.terminal-text', {
+                filter: isDesktop ? 'blur(2px)' : 'none',
+                opacity: 0.5,
+                duration: 0.1
+            })
+            .to('.terminal-text', {
+                filter: 'none',
+                opacity: 1,
+                duration: 0.1
+            })
+            // 80-100%: Success confirmation
+            .to('.success-icon', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.15,
+                ease: 'back.out(2)'
+            })
+            .to('.success-icon', {
+                scale: 1.2,
+                duration: 0.05,
+                yoyo: true,
+                repeat: 1
+            });
+
+        // Performance monitoring
+        let frameCount = 0;
+        let lastTime = performance.now();
+        let fps = 60;
+
+        function measureFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+
+            if (currentTime >= lastTime + 1000) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                frameCount = 0;
+                lastTime = currentTime;
+
+                console.log(`FPS: ${fps}`);
+            }
+
+            requestAnimationFrame(measureFPS);
+        }
+
+        measureFPS();
+
+        // Mobile touch optimization
+        if ('ontouchstart' in window) {
+            document.body.style.webkitOverflowScrolling = 'touch';
+        }
+    </script>
+</body>
+</html>
