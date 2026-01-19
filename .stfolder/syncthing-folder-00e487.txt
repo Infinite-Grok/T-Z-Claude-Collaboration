@@ -1,0 +1,5 @@
+# This directory is a Syncthing folder marker.
+# Do not delete.
+
+folderID: 8kren-ds3tg
+created: 2026-01-18T16:45:37-05:00

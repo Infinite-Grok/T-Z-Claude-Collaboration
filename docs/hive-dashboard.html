@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Hive Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .dashboard {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot-green { background: #10b981; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-red { background: #ef4444; }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        /* File Status with staleness borders - more visible */
+        .file-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #333;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .file-row.row-fresh {
+            border-left-color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
+        }
+        .file-row.row-stale {
+            border-left-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.08);
+        }
+        .file-row.row-dead {
+            border-left-color: #ef4444;
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .file-name {
+            font-family: 'Consolas', 'SF Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .file-name.t-file { color: #00d4ff; }
+        .file-name.z-file { color: #7c3aed; }
+
+        .file-time {
+            text-align: right;
+        }
+
+        .file-timestamp {
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        .file-age {
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        .age-fresh { color: #10b981; }
+        .age-stale { color: #f59e0b; }
+        .age-dead { color: #ef4444; }
+
+        /* Battery Widget */
+        .battery-widget {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .battery-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .battery-icon {
+            width: 32px;
+            height: 16px;
+            border: 2px solid #666;
+            border-radius: 3px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+        }
+
+        .battery-icon::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 8px;
+            background: #666;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .battery-level {
+            height: 100%;
+            border-radius: 1px;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        .battery-level.high { background: #10b981; }
+        .battery-level.medium { background: #f59e0b; }
+        .battery-level.low { background: #ef4444; }
+
+        .battery-percent {
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .battery-status {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .charging-icon {
+            color: #f59e0b;
+            font-size: 0.9rem;
+        }
+
+        /* Message Preview */
+        .preview-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.85rem;
+            color: #aaa;
+            max-height: 80px;
+            overflow: hidden;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* Network Status */
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .metric-value {
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        .val-good { color: #10b981; }
+        .val-warn { color: #f59e0b; }
+        .val-bad { color: #ef4444; }
+
+        /* Refresh Button */
+        .refresh-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.1s;
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.98);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Error State */
+        .error-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            border-radius: 8px;
+            padding: 12px;
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            color: #444;
+            font-size: 0.7rem;
+            margin-top: 20px;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>HIVE</h1>
+            <div class="status-line">
+                <span class="dot" id="statusDot"></span>
+                <span id="statusText">Loading...</span>
+            </div>
+        </header>
+
+        <div id="errorBox" class="error-box" style="display: none;"></div>
+
+        <!-- File Status - Core Feature -->
+        <div class="card">
+            <div class="card-title">Sync Status</div>
+
+            <div class="file-row" id="toTRow">
+                <span class="file-name t-file">to-t.md</span>
+                <div class="file-time">
+                    <div class="file-timestamp" id="toTTime">--</div>
+                    <div class="file-age" id="toTAge">--</div>
+                </div>
+            </div>
+
+            <div class="file-row" id="toZRow">
+                <span class="file-name z-file">to-z.md</span>
+                <div class="file-time">
+                    <div class="file-timestamp" id="toZTime">--</div>
+                    <div class="file-age" id="toZAge">--</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Z Battery Status -->
+        <div class="card">
+            <div class="card-title">Z Device</div>
+            <div class="battery-widget">
+                <div class="battery-info">
+                    <div class="battery-icon">
+                        <div class="battery-level" id="batteryLevel"></div>
+                    </div>
+                    <div>
+                        <span class="battery-percent" id="batteryPercent">--%</span>
+                        <span class="charging-icon" id="chargingIcon" style="display: none;">&#9889;</span>
+                    </div>
+                </div>
+                <div class="battery-status" id="batteryStatus">--</div>
+            </div>
+        </div>
+
+        <!-- Z Watcher Status -->
+        <div class="card">
+            <div class="card-title">Z Watcher</div>
+            <div class="metric-row">
+                <span class="metric-label">Uptime</span>
+                <span class="metric-value" id="watcherUptime">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Messages</span>
+                <span class="metric-value" id="watcherMessages">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Disk Free</span>
+                <span class="metric-value" id="watcherDisk">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Poll Interval</span>
+                <span class="metric-value" id="watcherPoll">--</span>
+            </div>
+        </div>
+
+        <!-- Message Previews -->
+        <div class="card">
+            <div class="card-title">From Z (to-t.md)</div>
+            <div class="preview-box" id="toTPreview">Loading...</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">From T (to-z.md)</div>
+            <div class="preview-box" id="toZPreview">Loading...</div>
+        </div>
+
+        <!-- Network -->
+        <div class="card">
+            <div class="card-title">Network</div>
+            <div class="metric-row">
+                <span class="metric-label">WebDAV</span>
+                <span class="metric-value" id="webdavStatus">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Latency</span>
+                <span class="metric-value" id="latency">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Last Check</span>
+                <span class="metric-value" id="lastCheck">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Timezone</span>
+                <span class="metric-value" id="timezone">--</span>
+            </div>
+        </div>
+
+        <button class="refresh-btn" id="refreshBtn" onclick="refresh()">
+            REFRESH
+        </button>
+
+        <!-- Concurrent Write Warning -->
+        <div id="concurrentWarning" class="error-box" style="display: none; background: rgba(245, 158, 11, 0.1); border-color: #f59e0b; color: #f59e0b;">
+        </div>
+
+        <footer>
+            Hive Dashboard v1.1 | Mobile-First<br>
+            Auto-refresh: 30s
+        </footer>
+    </div>
+
+    <script>
+        const WEBDAV_URL = 'http://100.113.114.74:8085';
+        const AUTH = 'Basic ' + btoa('hive:hivesync2026');
+
+        let autoRefreshInterval;
+        let lastSuccessfulRefresh = null;
+        let consecutiveFailures = 0;
+
+        async function fetchFile(filename, timeoutMs = 5000) {
+            const start = Date.now();
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const response = await fetch(`${WEBDAV_URL}/${filename}`, {
+                    headers: { 'Authorization': AUTH },
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                const latency = Date.now() - start;
+                if (!response.ok) {
+                    return { ok: false, error: `HTTP ${response.status}`, latency };
+                }
+                const text = await response.text();
+                const lastModified = response.headers.get('Last-Modified');
+                return { text, lastModified, latency, ok: true };
+            } catch (e) {
+                clearTimeout(timeoutId);
+                const error = e.name === 'AbortError' ? 'Timeout' : e.message;
+                return { ok: false, error };
+            }
+        }
+
+        async function fetchJSON(filename, timeoutMs = 5000) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const response = await fetch(`${WEBDAV_URL}/${filename}`, {
+                    headers: { 'Authorization': AUTH },
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                if (!response.ok) return { ok: false };
+                const data = await response.json();
+                return { data, ok: true };
+            } catch (e) {
+                clearTimeout(timeoutId);
+                const error = e.name === 'AbortError' ? 'Timeout' : e.message;
+                return { ok: false, error };
+            }
+        }
+
+        function formatAge(date) {
+            const now = new Date();
+            const diff = now - date;
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+
+            if (seconds < 60) return { text: `${seconds}s ago`, class: 'age-fresh', rowClass: 'row-fresh' };
+            if (minutes < 5) return { text: `${minutes}m ago`, class: 'age-fresh', rowClass: 'row-fresh' };
+            if (minutes < 30) return { text: `${minutes}m ago`, class: 'age-stale', rowClass: 'row-stale' };
+            if (hours < 24) return { text: `${hours}h ${minutes % 60}m ago`, class: 'age-stale', rowClass: 'row-stale' };
+            return { text: `${Math.floor(hours / 24)}d ago`, class: 'age-dead', rowClass: 'row-dead' };
+        }
+
+        function formatTime(dateStr) {
+            if (!dateStr) return '--';
+            const date = new Date(dateStr);
+            return date.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+        }
+
+        function getFirstLines(text, n = 3) {
+            return text.split('\n').slice(0, n).join('\n');
+        }
+
+        function updateBattery(data) {
+            const levelEl = document.getElementById('batteryLevel');
+            const percentEl = document.getElementById('batteryPercent');
+            const statusEl = document.getElementById('batteryStatus');
+            const chargingEl = document.getElementById('chargingIcon');
+
+            if (!data || !data.ok) {
+                percentEl.textContent = '--%';
+                statusEl.textContent = 'Unavailable';
+                levelEl.style.width = '0%';
+                chargingEl.style.display = 'none';
+                return;
+            }
+
+            const pct = data.data.percentage;
+            percentEl.textContent = `${pct}%`;
+            levelEl.style.width = `${pct}%`;
+
+            // Color based on level
+            levelEl.className = 'battery-level';
+            if (pct > 50) levelEl.classList.add('high');
+            else if (pct > 20) levelEl.classList.add('medium');
+            else levelEl.classList.add('low');
+
+            // Charging indicator
+            const isCharging = data.data.status === 'CHARGING' || data.data.status === 'FULL';
+            chargingEl.style.display = isCharging ? 'inline' : 'none';
+
+            // Status text
+            let status = data.data.status || 'Unknown';
+            if (data.data.temperature) {
+                status += ` | ${data.data.temperature}°C`;
+            }
+            statusEl.textContent = status;
+        }
+
+        async function refresh() {
+            const btn = document.getElementById('refreshBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Refreshing...';
+
+            const errorBox = document.getElementById('errorBox');
+            errorBox.style.display = 'none';
+
+            try {
+                // Fetch files and battery in parallel
+                const [toT, toZ, battery, zStatus] = await Promise.all([
+                    fetchFile('to-t.md'),
+                    fetchFile('to-z.md'),
+                    fetchJSON('z-battery.json'),
+                    fetchJSON('z-status.json')
+                ]);
+
+                if (!toT.ok || !toZ.ok) {
+                    throw new Error(toT.error || toZ.error || 'Connection failed');
+                }
+
+                // Update to-t.md with row styling
+                const toTDate = new Date(toT.lastModified);
+                const toTAge = formatAge(toTDate);
+                document.getElementById('toTTime').textContent = formatTime(toT.lastModified);
+                document.getElementById('toTAge').textContent = toTAge.text;
+                document.getElementById('toTAge').className = 'file-age ' + toTAge.class;
+                document.getElementById('toTRow').className = 'file-row ' + toTAge.rowClass;
+
+                // Update to-z.md with row styling
+                const toZDate = new Date(toZ.lastModified);
+                const toZAge = formatAge(toZDate);
+                document.getElementById('toZTime').textContent = formatTime(toZ.lastModified);
+                document.getElementById('toZAge').textContent = toZAge.text;
+                document.getElementById('toZAge').className = 'file-age ' + toZAge.class;
+                document.getElementById('toZRow').className = 'file-row ' + toZAge.rowClass;
+
+                // Update battery
+                updateBattery(battery);
+
+                // Update Z watcher status
+                if (zStatus && zStatus.ok) {
+                    document.getElementById('watcherUptime').textContent = `${zStatus.data.uptime_minutes}m`;
+                    document.getElementById('watcherMessages').textContent = zStatus.data.messages_processed;
+                    document.getElementById('watcherDisk').textContent = zStatus.data.disk_free;
+                    document.getElementById('watcherPoll').textContent = `${zStatus.data.poll_interval}s`;
+                } else {
+                    document.getElementById('watcherUptime').textContent = '--';
+                    document.getElementById('watcherMessages').textContent = '--';
+                    document.getElementById('watcherDisk').textContent = '--';
+                    document.getElementById('watcherPoll').textContent = '--';
+                }
+
+                // Concurrent write detection
+                const concurrentWarning = document.getElementById('concurrentWarning');
+                const timeDiff = Math.abs(toTDate - toZDate);
+                if (timeDiff < 60000) { // Both modified within 60 seconds
+                    const diffSec = Math.round(timeDiff / 1000);
+                    concurrentWarning.textContent = `⚠️ Concurrent write detected: Files modified ${diffSec}s apart`;
+                    concurrentWarning.style.display = 'block';
+                } else {
+                    concurrentWarning.style.display = 'none';
+                }
+
+                // Message previews
+                document.getElementById('toTPreview').textContent = getFirstLines(toT.text, 4);
+                document.getElementById('toZPreview').textContent = getFirstLines(toZ.text, 4);
+
+                // Network status
+                document.getElementById('webdavStatus').textContent = 'Connected';
+                document.getElementById('webdavStatus').className = 'metric-value val-good';
+
+                const latency = Math.max(toT.latency, toZ.latency);
+                const latencyEl = document.getElementById('latency');
+                latencyEl.textContent = `${latency}ms`;
+                latencyEl.className = 'metric-value ' + (latency < 500 ? 'val-good' : latency < 2000 ? 'val-warn' : 'val-bad');
+
+                document.getElementById('lastCheck').textContent = new Date().toLocaleTimeString();
+
+                // Timezone display for clarity
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                const offset = new Date().getTimezoneOffset();
+                const offsetHrs = Math.abs(Math.floor(offset / 60));
+                const offsetSign = offset <= 0 ? '+' : '-';
+                document.getElementById('timezone').textContent = `${tz} (UTC${offsetSign}${offsetHrs})`;
+
+                // Overall status
+                const newest = Math.max(toTDate, toZDate);
+                const overallAge = Date.now() - newest;
+                const statusDot = document.getElementById('statusDot');
+                const statusText = document.getElementById('statusText');
+
+                // Track successful refresh
+                lastSuccessfulRefresh = Date.now();
+                consecutiveFailures = 0;
+
+                if (overallAge < 5 * 60 * 1000) {
+                    statusDot.className = 'dot dot-green';
+                    statusText.textContent = 'Active';
+                } else if (overallAge < 30 * 60 * 1000) {
+                    statusDot.className = 'dot dot-yellow';
+                    statusText.textContent = 'Idle';
+                } else {
+                    statusDot.className = 'dot dot-red';
+                    statusText.textContent = 'Stale';
+                }
+
+            } catch (e) {
+                consecutiveFailures++;
+                const failMsg = consecutiveFailures > 1
+                    ? `Error (${consecutiveFailures}x): ${e.message}`
+                    : `Error: ${e.message}`;
+                errorBox.textContent = failMsg;
+                errorBox.style.display = 'block';
+
+                document.getElementById('statusDot').className = 'dot dot-red';
+                document.getElementById('statusText').textContent = consecutiveFailures > 2 ? 'Offline' : 'Retry...';
+                document.getElementById('webdavStatus').textContent = 'Failed';
+                document.getElementById('webdavStatus').className = 'metric-value val-bad';
+
+                // Show stale data warning if last success was >1 min ago
+                if (lastSuccessfulRefresh && Date.now() - lastSuccessfulRefresh > 60000) {
+                    const mins = Math.floor((Date.now() - lastSuccessfulRefresh) / 60000);
+                    errorBox.textContent += ` | Data is ${mins}m old`;
+                }
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'REFRESH';
+        }
+
+        // Initial load
+        refresh();
+
+        // Auto-refresh every 30s
+        autoRefreshInterval = setInterval(refresh, 30000);
+    </script>
+</body>
+</html>

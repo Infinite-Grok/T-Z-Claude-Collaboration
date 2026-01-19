@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Z Sync Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #00d4ff, #ff6b00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #1a1a1a;
+            border-radius: 20px;
+        }
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #00ff00;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+        .card {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .card.t-card { border-left: 4px solid #00d4ff; }
+        .card.z-card { border-left: 4px solid #ff6b00; }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .card-title { font-size: 1.2rem; font-weight: bold; }
+        .t-card .card-title { color: #00d4ff; }
+        .z-card .card-title { color: #ff6b00; }
+        .message-count {
+            background: #222;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+        .timestamp { color: #888; font-size: 0.85rem; margin-bottom: 10px; }
+        .message-id { color: #666; font-size: 0.8rem; margin-bottom: 10px; }
+        .preview {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            padding: 20px;
+            background: #111;
+            border-radius: 8px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .stat { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: bold; color: #fff; }
+        .stat-label { color: #888; font-size: 0.85rem; margin-top: 5px; }
+        .refresh-info { text-align: center; margin-top: 20px; color: #666; font-size: 0.8rem; }
+        .error { color: #ff4444; padding: 10px; background: #220000; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>T-Z Sync Dashboard</h1>
+        <div class="status-indicator">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Monitoring...</span>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="card t-card">
+            <div class="card-header">
+                <span class="card-title">From T (Windows)</span>
+                <span class="message-count" id="tCount">0 msgs</span>
+            </div>
+            <div class="timestamp" id="tTimestamp">--</div>
+            <div class="message-id" id="tMessageId">--</div>
+            <div class="preview" id="tPreview">Loading...</div>
+        </div>
+        <div class="card z-card">
+            <div class="card-header">
+                <span class="card-title">From Z (Phone)</span>
+                <span class="message-count" id="zCount">0 msgs</span>
+            </div>
+            <div class="timestamp" id="zTimestamp">--</div>
+            <div class="message-id" id="zMessageId">--</div>
+            <div class="preview" id="zPreview">Loading...</div>
+        </div>
+    </div>
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-value" id="totalMessages">0</div>
+            <div class="stat-label">Total Messages</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value" id="lastUpdate">--</div>
+            <div class="stat-label">Last Refresh</div>
+        </div>
+    </div>
+    <div class="refresh-info">Auto-refreshes every 5 seconds</div>
+    <script>
+        async function fetchFile(path) {
+            try {
+                const response = await fetch(path + '?t=' + Date.now());
+                if (!response.ok) throw new Error('File not found');
+                return await response.text();
+            } catch (e) { return null; }
+        }
+        function countMessages(content, prefix) {
+            if (!content) return 0;
+            const regex = new RegExp(prefix + '-\\d{4}-\\d{2}-\\d{2}-\\d+', 'gi');
+            const matches = content.match(regex) || [];
+            return [...new Set(matches)].length;
+        }
+        function getLastMessage(content) {
+            if (!content) return null;
+            const sections = content.split(/\n---\n/).filter(s => s.trim());
+            if (sections.length === 0) return null;
+            const lastSection = sections[sections.length - 1];
+            const titleMatch = lastSection.match(/#\s*([^\n]+)/);
+            const title = titleMatch ? titleMatch[1] : 'Unknown';
+            const timeMatch = lastSection.match(/time:\s*([^\n]+)/i) ||
+                             lastSection.match(/\*\*Time:\*\*\s*([^\n]+)/i);
+            const timestamp = timeMatch ? timeMatch[1].trim() : '--';
+            const idMatch = lastSection.match(/id:\s*([\w-]+)/i) ||
+                           lastSection.match(/\*\*Message-ID:\*\*\s*([\w-]+)/i) ||
+                           title.match(/((?:win|phone)-[\w-]+)/i);
+            const id = idMatch ? idMatch[1] : '--';
+            const lines = lastSection.split('\n').filter(l => 
+                !l.startsWith('id:') && !l.startsWith('from:') && !l.startsWith('to:') &&
+                !l.startsWith('time:') && !l.startsWith('priority:') && !l.startsWith('status:') &&
+                !l.startsWith('---') && !l.startsWith('attachments:') && !l.startsWith('context-version:') &&
+                !l.startsWith('in-reply-to:') && !l.match(/^\*\*[A-Z]/)
+            );
+            const preview = lines.slice(0, 8).join('\n').substring(0, 300).trim();
+            return { id, title, timestamp, preview };
+        }
+        async function refresh() {
+            const tContent = await fetchFile('from-windows.md');
+            const zContent = await fetchFile('from-phone.md');
+            const tCount = countMessages(tContent, 'win');
+            const zCount = countMessages(zContent, 'phone');
+            document.getElementById('tCount').textContent = tCount + ' msgs';
+            document.getElementById('zCount').textContent = zCount + ' msgs';
+            document.getElementById('totalMessages').textContent = tCount + zCount;
+            const lastT = getLastMessage(tContent);
+            const lastZ = getLastMessage(zContent);
+            if (lastT) {
+                document.getElementById('tTimestamp').textContent = lastT.timestamp;
+                document.getElementById('tMessageId').textContent = lastT.id;
+                document.getElementById('tPreview').textContent = lastT.preview || 'No content';
+            } else {
+                document.getElementById('tPreview').innerHTML = '<span class="error">Could not load from-windows.md</span>';
+            }
+            if (lastZ) {
+                document.getElementById('zTimestamp').textContent = lastZ.timestamp;
+                document.getElementById('zMessageId').textContent = lastZ.id;
+                document.getElementById('zPreview').textContent = lastZ.preview || 'No content';
+            } else {
+                document.getElementById('zPreview').innerHTML = '<span class="error">Could not load from-phone.md</span>';
+            }
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent =
+                now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('statusText').textContent = 'Synced';
+        }
+        refresh();
+        setInterval(refresh, 5000);
+    </script>
+</body>
+</html>

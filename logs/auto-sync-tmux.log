@@ -1,0 +1,26 @@
+[2026-01-18 13:42:31] === Hive Auto-Sync Watcher (tmux) ===
+[2026-01-18 13:42:31] Watching: /data/data/com.termux/files/home/claude-sync/from-windows.md
+[2026-01-18 13:42:31] Target: hive:z-claude
+[2026-01-18 13:42:31] Cooldown: 10s | Debounce: 2s
+[2026-01-18 13:42:31] Press Ctrl+C to stop
+[2026-01-18 13:42:31] 
+[2026-01-18 13:42:31] Waiting for changes...
+[2026-01-18 13:42:53] Event: MODIFY
+[2026-01-18 13:42:53] Sending /sync to hive:z-claude
+[2026-01-18 13:42:53] Trigger sent successfully
+[2026-01-18 13:42:53] Waiting for changes...
+[2026-01-18 13:43:02] Event: MODIFY
+[2026-01-18 13:43:02] Sending /sync to hive:z-claude
+[2026-01-18 13:43:02] Trigger sent successfully
+[2026-01-18 13:43:02] Waiting for changes...
+ly
+[2026-01-18 13:42:53] Waiting for changes...
+[2026-01-18 13:42:53] Waiting for changes...
+[2026-01-18 13:43:02] Event: MODIFY
+[2026-01-18 13:43:02] Event: MODIFY
+[2026-01-18 13:43:02] Sending /sync to hive:z-claude
+[2026-01-18 13:43:02] Sending /sync to hive:z-claude
+[2026-01-18 13:43:02] Trigger sent successfully
+[2026-01-18 13:43:02] Trigger sent successfully
+[2026-01-18 13:43:02] Waiting for changes...
+[2026-01-18 13:43:02] Waiting for changes...

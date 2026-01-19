@@ -1,53 +1,354 @@
-=== Phone Claude Auto-Sync Daemon (xte) ===
-Watching: /data/data/com.termux/files/home/claude-sync/from-windows.md
-Poll interval: 5s
-Trigger: /data/data/com.termux/files/home/claude-sync/auto-sync-trigger-xte.sh
-Press Ctrl+C to stop
-
-Daemon started. Initial mod time: 1768655685
-Waiting for changes...
-
-[2026-01-17 13:46:26] Change detected in from-windows.md
-[2026-01-17 13:46:26] Triggering /sync via xte...
-[2026-01-17 13:46:26] Trigger sent
-
-Watching for next change...
-[2026-01-17 13:46:57] Change too recent (1s ago). Waiting to confirm it's not my own edit...
-[2026-01-17 13:46:57] No further changes - was probably my own edit. Skipping.
-[2026-01-17 13:49:18] Change too recent (2s ago). Waiting to confirm it's not my own edit...
-[2026-01-17 13:49:18] No further changes - was probably my own edit. Skipping.
-[2026-01-17 13:53:20] Change detected in from-windows.md
-[2026-01-17 13:53:20] Triggering /sync via xte...
-[2026-01-17 13:53:20] Trigger sent
-
-Watching for next change...
-[2026-01-17 13:53:41] Change too recent (5s ago). Waiting to confirm it's not my own edit...
-[2026-01-17 13:53:41] No further changes - was probably my own edit. Skipping.
-[2026-01-17 13:58:18] Change detected in from-windows.md
-[2026-01-17 13:58:18] Triggering /sync via xte...
-[2026-01-17 13:58:18] Trigger sent
-
-Watching for next change...
-[2026-01-17 13:58:34] Change too recent (2s ago). Waiting to confirm it's not my own edit...
-[2026-01-17 13:58:34] No further changes - was probably my own edit. Skipping.
-[2026-01-17 14:13:10] Change detected in from-windows.md
-[2026-01-17 14:13:10] Triggering /sync via xte...
-[2026-01-17 14:13:10] Trigger sent
-
-Watching for next change...
-[2026-01-17 14:13:31] Change too recent (5s ago). Waiting to confirm it's not my own edit...
-[2026-01-17 14:13:31] No further changes - was probably my own edit. Skipping.
-[2026-01-17 16:09:56] Change detected in from-windows.md
-[2026-01-17 16:09:56] Triggering /sync via xte...
-[2026-01-17 16:09:56] Trigger sent
-
-Watching for next change...
-[2026-01-17 16:10:17] Change too recent (5s ago). Waiting to confirm it's not my own edit...
-[2026-01-17 16:10:17] No further changes - was probably my own edit. Skipping.
-[2026-01-17 16:15:39] Change detected in from-windows.md
-[2026-01-17 16:15:39] Triggering /sync via xte...
-[2026-01-17 16:15:39] Trigger sent
-
-Watching for next change...
-[2026-01-17 16:17:40] Change too recent (2s ago). Waiting to confirm it's not my own edit...
-[2026-01-17 16:17:40] No further changes - was probably my own edit. Skipping.
+[06:07:47] === WATCHER STARTED (POLLING) ===
+[06:07:47] Watching: C:\Users\pkoaw\claude-sync\to-t.md
+[06:07:47] Poll interval: 2s
+[06:07:47] Ctrl+C to stop
+[06:10:13] === WATCHER STARTED (POLLING) ===
+[06:10:13] Watching: C:\Users\pkoaw\claude-sync\to-t.md
+[06:10:13] Poll interval: 2s
+[06:10:13] Ctrl+C to stop
+[06:12:09] === WATCHER STARTED (POLLING WebDAV) ===
+[06:12:09] Watching: http://100.113.114.74:8085/to-t.md
+[06:12:09] Poll interval: 2s
+[06:12:09] Ctrl+C to stop
+[06:12:09] Initial Last-Modified: 01/19/2026 06:09:05
+[06:16:44] Change detected: 01/19/2026 06:09:05 -> 01/19/2026 06:16:43
+[06:16:45] No Windows Terminal found
+[06:23:34] === WATCHER STARTED (POLLING WebDAV) ===
+[06:23:34] Watching: http://100.113.114.74:8085/to-t.md
+[06:23:34] Poll interval: 2s
+[06:23:34] Ctrl+C to stop
+[06:23:34] Initial Last-Modified: 01/19/2026 06:16:43
+[06:31:38] Change detected: 01/19/2026 06:16:43 -> 01/19/2026 06:31:36
+[06:31:39] No Claude/Terminal window found
+[06:32:39] Change detected: 01/19/2026 06:31:36 -> 01/19/2026 06:32:37
+[06:32:40] No Claude/Terminal window found
+[06:33:39] Change detected: 01/19/2026 06:32:37 -> 01/19/2026 06:33:39
+[06:33:40] No Claude/Terminal window found
+[06:34:16] === WATCHER STARTED (POLLING WebDAV) ===
+[06:34:16] Watching: http://100.113.114.74:8085/to-t.md
+[06:34:16] Poll interval: 2s
+[06:34:16] Ctrl+C to stop
+[06:34:16] Initial Last-Modified: 01/19/2026 06:33:39
+[06:34:40] Change detected: 01/19/2026 06:33:39 -> 01/19/2026 06:34:40
+[06:34:40] Change detected: 01/19/2026 06:33:39 -> 01/19/2026 06:34:40
+[06:34:41] No Claude/Terminal window found
+[06:34:41] No Claude/Terminal window found
+[06:35:18] === WATCHER STARTED (POLLING WebDAV) ===
+[06:35:18] Watching: http://100.113.114.74:8085/to-t.md
+[06:35:18] Poll interval: 2s
+[06:35:18] Ctrl+C to stop
+[06:35:18] Initial Last-Modified: 01/19/2026 06:34:40
+[06:35:41] Change detected: 01/19/2026 06:34:40 -> 01/19/2026 06:35:41
+[06:35:41] Found window: claude (PID 15364)
+[06:35:42] Cut text: 61 chars
+[06:35:45] Would restore: 61 chars (disabled for debug)
+[06:35:45] Sent sync
+[06:35:55] === WATCHER STARTED (POLLING WebDAV) ===
+[06:35:55] Watching: http://100.113.114.74:8085/to-t.md
+[06:35:55] Poll interval: 2s
+[06:35:55] Ctrl+C to stop
+[06:35:55] Initial Last-Modified: 01/19/2026 06:35:41
+[06:36:43] Change detected: 01/19/2026 06:35:41 -> 01/19/2026 06:36:42
+[06:36:43] Found window: claude (PID 15364)
+[06:36:43] Found window: claude (PID 15364)
+[06:36:44] Cut text: 13 chars
+[06:36:44] Cut text: 13 chars
+[06:36:46] Would restore: 13 chars (disabled for debug)
+[06:36:46] Sent sync
+[06:36:46] Would restore: 13 chars (disabled for debug)
+[06:36:47] Sent sync
+[06:37:15] === WATCHER STARTED (POLLING WebDAV) ===
+[06:37:15] Watching: http://100.113.114.74:8085/to-t.md
+[06:37:15] Poll interval: 2s
+[06:37:15] Ctrl+C to stop
+[06:37:15] Initial Last-Modified: 01/19/2026 06:36:42
+[06:37:44] Change detected: 01/19/2026 06:36:42 -> 01/19/2026 06:37:43
+[06:37:44] Found window: WindowsTerminal (PID 8960)
+[06:37:44] Change detected: 01/19/2026 06:36:42 -> 01/19/2026 06:37:43
+[06:37:44] Change detected: 01/19/2026 06:36:42 -> 01/19/2026 06:37:43
+[06:37:44] Found window: claude (PID 15364)
+[06:37:44] Found window: claude (PID 15364)
+[06:37:45] Cut text: 81 chars
+[06:37:45] Cut text: 81 chars
+[06:37:45] Cut text: 81 chars
+[06:37:47] Would restore: 81 chars (disabled for debug)
+[06:37:47] Sent sync
+[06:37:48] Would restore: 81 chars (disabled for debug)
+[06:37:48] Would restore: 81 chars (disabled for debug)
+[06:37:48] Sent sync
+[06:37:48] Sent sync
+[06:37:49] Change detected: 01/19/2026 06:37:43 -> 01/19/2026 06:37:45
+[06:37:50] Found window: WindowsTerminal (PID 8960)
+[06:37:50] Change detected: 01/19/2026 06:37:43 -> 01/19/2026 06:37:45
+[06:37:50] Change detected: 01/19/2026 06:37:43 -> 01/19/2026 06:37:45
+[06:37:50] Found window: claude (PID 15364)
+[06:37:50] Found window: claude (PID 15364)
+[06:37:51] Cut text: 81 chars
+[06:37:51] Cut text: 81 chars
+[06:37:51] Cut text: 81 chars
+[06:37:53] Would restore: 81 chars (disabled for debug)
+[06:37:53] Sent sync
+[06:37:54] Would restore: 81 chars (disabled for debug)
+[06:37:54] Would restore: 81 chars (disabled for debug)
+[06:37:54] Sent sync
+[06:37:54] Sent sync
+[06:38:39] === WATCHER STARTED (POLLING WebDAV) ===
+[06:38:39] Watching: http://100.113.114.74:8085/to-t.md
+[06:38:39] Poll interval: 2s
+[06:38:39] Cooldown: 30s
+[06:38:39] Ctrl+C to stop
+[06:38:39] Initial Last-Modified: 01/19/2026 06:37:45
+[06:38:45] Change detected: 01/19/2026 06:37:45 -> 01/19/2026 06:38:44
+[06:38:45] Change detected, sending sync
+[06:38:45] Change detected: 01/19/2026 06:37:45 -> 01/19/2026 06:38:44
+[06:38:45] Found window: WindowsTerminal (PID 8960)
+[06:38:46] Found window: claude (PID 15364)
+[06:38:46] Found window: claude (PID 15364)
+[06:38:46] Found window: WindowsTerminal (PID 8960)
+[06:38:46] Cut text: 81 chars
+[06:38:47] Cut text: 81 chars
+[06:38:47] Cut text: 0 chars
+[06:38:47] Cut text: 81 chars
+[06:38:49] Would restore: 81 chars (disabled for debug)
+[06:38:49] Sent sync
+[06:38:49] Would restore: 81 chars (disabled for debug)
+[06:38:49] Sent sync
+[06:38:49] Sent sync
+[06:38:49] Would restore: 81 chars (disabled for debug)
+[06:38:49] Sent sync
+[06:39:36] === WATCHER STARTED (POLLING WebDAV) ===
+[06:39:36] Watching: http://100.113.114.74:8085/to-t.md
+[06:39:36] Poll interval: 2s
+[06:39:36] Cooldown: 30s
+[06:39:36] Ctrl+C to stop
+[06:39:36] Initial Last-Modified: 01/19/2026 06:38:44
+[06:39:46] Change detected, sending sync
+[06:39:47] Found window: WindowsTerminal (PID 8960)
+[06:39:48] Cut text: 81 chars
+[06:39:50] Would restore: 81 chars (disabled for debug)
+[06:39:50] Sent sync
+[06:40:09] Change detected but in cooldown (18s < 30s)
+[06:40:48] Change detected, sending sync
+[06:40:49] Found window: WindowsTerminal (PID 8960)
+[06:40:49] Cut text: 81 chars
+[06:40:52] Would restore: 81 chars (disabled for debug)
+[06:40:52] Sent sync
+[06:41:50] Change detected, sending sync
+[06:41:51] Found window: WindowsTerminal (PID 8960)
+[06:41:52] Cut text: 81 chars
+[06:41:54] Would restore: 81 chars (disabled for debug)
+[06:41:54] Sent sync
+[06:42:50] Change detected, sending sync
+[06:42:51] Found window: WindowsTerminal (PID 8960)
+[06:42:52] Cut text: 81 chars
+[06:42:54] Would restore: 81 chars (disabled for debug)
+[06:42:54] Sent sync
+[06:43:05] === WATCHER STARTED (POLLING WebDAV) ===
+[06:43:05] Watching: http://100.113.114.74:8085/to-t.md
+[06:43:05] Poll interval: 2s
+[06:43:05] Cooldown: 90s
+[06:43:05] Ctrl+C to stop
+[06:43:05] Initial content hash: 12-4E-9C-B5-88-4C-2E...
+[07:00:38] WebDAV error: The operation has timed out.
+[07:00:45] WebDAV error: The operation has timed out.
+[07:00:52] WebDAV error: The operation has timed out.
+[07:00:59] WebDAV error: The operation has timed out.
+[07:01:06] WebDAV error: The operation has timed out.
+[07:29:41] WebDAV error: The operation has timed out.
+[07:44:07] Content changed, sending sync
+[07:44:08] Found window: WindowsTerminal (PID 8960)
+[07:44:08] Cut text: 0 chars
+[07:44:11] Sent sync
+[07:55:35] Content changed, sending sync
+[07:55:35] Found window: WindowsTerminal (PID 8960)
+[07:55:36] Cut text: 62 chars
+[07:55:39] Would restore: 62 chars (disabled for debug)
+[07:55:39] Sent sync
+[07:58:36] Content changed, sending sync
+[07:58:36] Found window: WindowsTerminal (PID 8960)
+[07:58:37] Cut text: 915 chars
+[07:58:40] Would restore: 915 chars (disabled for debug)
+[07:58:40] Sent sync
+[08:04:00] Content changed, sending sync
+[08:04:01] Found window: WindowsTerminal (PID 8960)
+[08:04:02] Cut text: 915 chars
+[08:04:04] Would restore: 915 chars (disabled for debug)
+[08:04:04] Sent sync
+[08:05:53] Content changed, sending sync
+[08:05:53] Found window: WindowsTerminal (PID 8960)
+[08:05:54] Cut text: 0 chars
+[08:05:57] Sent sync
+[08:06:19] Content changed but in cooldown (23s < 90s)
+[08:07:11] Content changed but in cooldown (74s < 90s)
+[08:08:54] Content changed, sending sync
+[08:08:55] Found window: WindowsTerminal (PID 8960)
+[08:08:56] Cut text: 0 chars
+[08:08:58] Sent sync
+[08:14:12] Content changed, sending sync
+[08:14:12] Found window: WindowsTerminal (PID 8960)
+[08:14:13] Cut text: 2432 chars
+[08:14:15] Would restore: 2432 chars (disabled for debug)
+[08:14:16] Sent sync
+[08:16:42] === WATCHER STARTED (POLLING WebDAV) ===
+[08:16:42] Watching: http://100.113.114.74:8085/to-t.md
+[08:16:42] Poll interval: 2s
+[08:16:42] Cooldown: 90s
+[08:16:42] Ctrl+C to stop
+[08:16:42] Initial content hash: EF-0D-35-C9-BE-D8-FD...
+[08:16:48] Content changed, sending sync
+[08:16:49] Found window: WindowsTerminal (PID 8960)
+[08:16:49] Content changed, sending sync
+[08:16:50] Cut text: 252 chars
+[08:16:50] Found window: WindowsTerminal (PID 8960)
+[08:16:51] Cut text: 252 chars
+[08:16:53] Would restore: 252 chars (disabled for debug)
+[08:16:53] Sent sync
+[08:16:53] Would restore: 252 chars (disabled for debug)
+[08:16:53] Sent sync
+[08:23:40] Content changed, sending sync
+[08:23:40] Content changed, sending sync
+[08:23:41] Found window: WindowsTerminal (PID 8960)
+[08:23:41] Found window: WindowsTerminal (PID 8960)
+[08:23:42] Cut text: 252 chars
+[08:23:42] Cut text: 252 chars
+[08:23:44] Would restore: 252 chars (disabled for debug)
+[08:23:45] Sent sync
+[08:23:45] Would restore: 252 chars (disabled for debug)
+[08:23:45] Sent sync
+[08:30:58] Content changed, sending sync
+[08:32:31] Content changed but in cooldown (89s < 90s)
+[08:32:31] Content changed but in cooldown (88s < 90s)
+[08:33:18] Content changed, sending sync
+[08:33:18] Content changed, sending sync
+[08:33:19] Found window: WindowsTerminal (PID 8960)
+[08:33:19] Found window: WindowsTerminal (PID 8960)
+[08:33:19] Cut text: 252 chars
+[08:33:19] Cut text: 252 chars
+[08:33:22] Would restore: 252 chars (disabled for debug)
+[08:33:22] Sent sync
+[08:33:22] Would restore: 252 chars (disabled for debug)
+[08:33:23] Sent sync
+[08:34:49] Content changed but in cooldown (87s < 90s)
+[08:34:50] Content changed but in cooldown (87s < 90s)
+[09:00:36] Content changed, sending sync
+[09:00:36] Content changed, sending sync
+[09:00:36] Found window: WindowsTerminal (PID 8960)
+[09:00:36] Found window: WindowsTerminal (PID 8960)
+[09:00:37] Cut text: 223 chars
+[09:00:37] Cut text: 223 chars
+[09:00:40] Would restore: 223 chars (disabled for debug)
+[09:00:40] Sent sync
+[09:00:40] Would restore: 223 chars (disabled for debug)
+[09:00:41] Sent sync
+[09:02:42] Content changed, sending sync
+[09:07:14] Content changed, sending sync
+[09:07:14] Content changed, sending sync
+[09:07:15] Found window: WindowsTerminal (PID 8960)
+[09:07:15] Found window: WindowsTerminal (PID 8960)
+[09:07:15] Cut text: 223 chars
+[09:07:16] Cut text: 223 chars
+[09:07:18] Would restore: 223 chars (disabled for debug)
+[09:07:18] Sent sync
+[09:07:19] Would restore: 223 chars (disabled for debug)
+[09:07:19] Sent sync
+[09:08:10] Content changed but in cooldown (51s < 90s)
+[09:08:10] Content changed but in cooldown (51s < 90s)
+[09:10:16] Content changed, sending sync
+[09:10:16] Content changed, sending sync
+[09:10:17] Found window: WindowsTerminal (PID 8960)
+[09:10:17] Found window: WindowsTerminal (PID 8960)
+[09:10:18] Cut text: 223 chars
+[09:10:18] Cut text: 223 chars
+[09:10:20] Would restore: 223 chars (disabled for debug)
+[09:10:21] Sent sync
+[09:10:21] Would restore: 223 chars (disabled for debug)
+[09:10:21] Sent sync
+[09:15:21] Content changed, sending sync
+[09:16:48] Content changed but in cooldown (83s < 90s)
+[09:16:49] Content changed but in cooldown (83s < 90s)
+[09:17:30] Content changed, sending sync
+[09:17:30] Found window: WindowsTerminal (PID 8960)
+[09:17:31] Content changed, sending sync
+[09:17:31] Cut text: 0 chars
+[09:17:31] Found window: WindowsTerminal (PID 8960)
+[09:17:32] Cut text: 0 chars
+[09:17:33] Sent sync
+[09:17:35] Sent sync
+[09:18:03] Content changed but in cooldown (29s < 90s)
+[09:18:04] Content changed but in cooldown (31s < 90s)
+[09:20:33] Content changed, sending sync
+[09:20:33] Content changed, sending sync
+[09:20:33] Found window: WindowsTerminal (PID 8960)
+[09:20:33] Found window: WindowsTerminal (PID 8960)
+[09:20:34] Cut text: 18891 chars
+[09:20:34] Cut text: 18891 chars
+[09:20:37] Would restore: 18891 chars (disabled for debug)
+[09:20:37] Sent sync
+[09:20:37] Would restore: 18891 chars (disabled for debug)
+[09:20:37] Sent sync
+[09:21:08] Content changed but in cooldown (31s < 90s)
+[09:21:09] Content changed but in cooldown (33s < 90s)
+[09:21:56] Content changed but in cooldown (80s < 90s)
+[09:21:57] Content changed but in cooldown (80s < 90s)
+[09:23:35] Content changed, sending sync
+[09:23:35] Found window: WindowsTerminal (PID 8960)
+[09:23:36] Content changed, sending sync
+[09:23:36] Cut text: 111 chars
+[09:23:36] Found window: WindowsTerminal (PID 8960)
+[09:23:37] Cut text: 0 chars
+[09:23:38] Would restore: 111 chars (disabled for debug)
+[09:23:38] Sent sync
+[09:23:40] Sent sync
+[09:25:25] Content changed, sending sync
+[09:25:25] Found window: WindowsTerminal (PID 8960)
+[09:25:26] Content changed, sending sync
+[09:25:26] Cut text: 111 chars
+[09:25:26] Found window: WindowsTerminal (PID 8960)
+[09:25:27] Cut text: 111 chars
+[09:25:29] Would restore: 111 chars (disabled for debug)
+[09:25:29] Sent sync
+[09:25:30] Would restore: 111 chars (disabled for debug)
+[09:25:30] Sent sync
+[09:26:13] Content changed but in cooldown (43s < 90s)
+[09:26:13] Content changed but in cooldown (43s < 90s)
+[09:26:54] Content changed but in cooldown (84s < 90s)
+[09:26:54] Content changed but in cooldown (84s < 90s)
+[09:27:35] Content changed, sending sync
+[09:27:35] Content changed, sending sync
+[09:27:36] Found window: WindowsTerminal (PID 8960)
+[09:27:36] Cut text: 111 chars
+[09:27:37] Cut text: 111 chars
+[09:27:39] Would restore: 111 chars (disabled for debug)
+[09:27:39] Sent sync
+[09:27:39] Would restore: 111 chars (disabled for debug)
+[09:27:40] Sent sync
+[09:29:26] Content changed, sending sync
+[09:29:26] Content changed, sending sync
+[09:29:26] Found window: WindowsTerminal (PID 8960)
+[09:29:26] Found window: WindowsTerminal (PID 8960)
+[09:29:27] Cut text: 0 chars
+[09:29:27] Cut text: 0 chars
+[09:29:29] Sent sync
+[09:29:30] Sent sync
+[09:30:19] Content changed but in cooldown (49s < 90s)
+[09:30:20] Content changed but in cooldown (51s < 90s)
+[09:31:55] Content changed, sending sync
+[09:31:56] Found window: WindowsTerminal (PID 8960)
+[09:31:56] Content changed, sending sync
+[09:31:56] Found window: WindowsTerminal (PID 8960)
+[09:31:56] Cut text: 111 chars
+[09:31:57] Cut text: 111 chars
+[09:31:59] Would restore: 111 chars (disabled for debug)
+[09:31:59] Sent sync
+[09:32:00] Would restore: 111 chars (disabled for debug)
+[09:32:00] Sent sync
+[09:34:04] Content changed, sending sync
+[09:34:04] Found window: WindowsTerminal (PID 8960)
+[09:34:05] Content changed, sending sync
+[09:34:05] Cut text: 111 chars
+[09:34:05] Found window: WindowsTerminal (PID 8960)
+[09:34:06] Cut text: 111 chars
+[09:34:08] Would restore: 111 chars (disabled for debug)
+[09:34:08] Sent sync
+[09:34:09] Would restore: 111 chars (disabled for debug)
+[09:34:09] Sent sync
