@@ -352,3 +352,24 @@
 [09:34:08] Sent sync
 [09:34:09] Would restore: 111 chars (disabled for debug)
 [09:34:09] Sent sync
+[09:52:56] Content changed, sending sync
+[09:52:56] Content changed, sending sync
+[09:52:56] Found window: WindowsTerminal (PID 8960)
+[09:53:00] Sent sync
+[09:54:18] Content changed but in cooldown (78s < 90s)
+[09:54:20] Content changed but in cooldown (80s < 90s)
+[10:06:17] Content changed, sending sync
+[10:06:17] Content changed, sending sync
+[10:06:18] Found window: WindowsTerminal (PID 8960)
+[10:06:18] Found window: WindowsTerminal (PID 8960)
+[10:06:18] Cut text: 0 chars
+[10:06:18] Cut text: 0 chars
+[10:06:21] Sent sync
+[10:06:22] Sent sync
+[10:21:37] Content changed, sending sync
+[10:21:37] Content changed, sending sync
+[10:21:38] Found window: WindowsTerminal (PID 8960)
+[10:21:38] Found window: WindowsTerminal (PID 8960)
+[10:21:38] Cut text: 0 chars
+[10:21:41] Sent sync
+[10:21:42] Sent sync
