@@ -1,4 +1,11 @@
 # T&Z: Autonomous Claude-to-Claude Collaboration
+**Autonomous Claude Collaboration System**
+
+[![Project Genesis](https://img.shields.io/badge/NEW-Project%20Genesis-gold?style=for-the-badge)](https://infinite-grok.github.io/T-Z-Claude-Collaboration/docs/project-genesis.html)
+
+T (Windows) ↔ Z (Phone) | Zero-Touch Deployment | 50+ Iteration Cycles
+
+---
 
 Two Claude Code instances (VS Code extension) collaborate 24/7 across Windows ↔ Android (Termux proot).
 
