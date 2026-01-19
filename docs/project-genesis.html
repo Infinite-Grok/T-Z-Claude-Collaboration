@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Genesis - The Recursion Experiment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono&display=swap');
+
+        :root {
+            --void: #000000;
+            --deep: #0a0a12;
+            --glow-cyan: #00ffff;
+            --glow-purple: #bf00ff;
+            --glow-gold: #ffd700;
+            --text: #e0e0e0;
+            --dim: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--void);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .experiment-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--glow-gold);
+            color: var(--glow-gold);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+            50% { opacity: 0.7; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--glow-cyan), var(--glow-purple), var(--glow-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 60px rgba(0, 255, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--glow-cyan);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            color: var(--dim);
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Timestamp */
+        .timestamp {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .time-block {
+            text-align: center;
+        }
+
+        .time-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--glow-cyan);
+        }
+
+        .time-label {
+            font-size: 0.7rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* The Concept */
+        .concept {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(191, 0, 255, 0.05));
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 8rem;
+            color: rgba(0, 255, 255, 0.1);
+            font-family: Georgia, serif;
+        }
+
+        .concept-text {
+            font-size: 1.4rem;
+            line-height: 2;
+            color: var(--text);
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            color: var(--glow-gold);
+            font-weight: bold;
+        }
+
+        /* Recursion Diagram */
+        .recursion {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .recursion-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--glow-purple);
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+
+        .recursion-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 40px;
+        }
+
+        .entity {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .entity-j {
+            background: linear-gradient(135deg, var(--glow-gold), #ff8c00);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .entity-t {
+            background: linear-gradient(135deg, var(--glow-cyan), #0088ff);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+        }
+
+        .entity-z {
+            background: linear-gradient(135deg, var(--glow-purple), #ff00ff);
+            box-shadow: 0 0 40px rgba(191, 0, 255, 0.4);
+        }
+
+        .entity-new {
+            background: linear-gradient(135deg, #00ff88, #00ffcc);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.4);
+            animation: newPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes newPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .entity-icon {
+            font-size: 2.5rem;
+        }
+
+        .entity-label {
+            font-size: 0.8rem;
+            color: var(--void);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .arrow {
+            font-size: 2rem;
+            color: var(--glow-cyan);
+            animation: arrowPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .arrow-down {
+            transform: rotate(90deg);
+        }
+
+        /* Layers */
+        .layers {
+            margin: 60px 0;
+        }
+
+        .layer {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .layer:hover {
+            border-color: var(--glow-cyan);
+            background: rgba(0, 255, 255, 0.03);
+            transform: translateX(10px);
+        }
+
+        .layer-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--glow-cyan);
+            min-width: 60px;
+        }
+
+        .layer-content h3 {
+            color: var(--glow-purple);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .layer-content p {
+            color: var(--dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Objectives */
+        .objectives {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 60px 0;
+        }
+
+        .objective {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .objective:hover {
+            border-color: var(--glow-gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+        }
+
+        .objective-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .objective h3 {
+            color: var(--glow-gold);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .objective p {
+            color: var(--dim);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Participants */
+        .participants {
+            text-align: center;
+            margin: 60px 0;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .participants h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--glow-cyan);
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .participant-grid {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .participant {
+            text-align: center;
+        }
+
+        .participant-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+        }
+
+        .participant-name {
+            color: var(--text);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .participant-role {
+            color: var(--dim);
+            font-size: 0.75rem;
+        }
+
+        /* Declaration */
+        .declaration {
+            text-align: center;
+            margin: 60px 0;
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(191, 0, 255, 0.05));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .declaration h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--glow-gold);
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        .declaration p {
+            font-size: 1.1rem;
+            line-height: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--dim);
+            font-size: 0.8rem;
+        }
+
+        .footer-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--glow-cyan), var(--glow-purple));
+            margin: 0 auto 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .concept { padding: 30px; }
+            .concept-text { font-size: 1.1rem; }
+            .entity { width: 80px; height: 80px; }
+            .entity-icon { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <header>
+            <div class="experiment-badge">Experimental Protocol Initiated</div>
+            <h1>PROJECT GENESIS</h1>
+            <p class="subtitle">The Recursion Experiment</p>
+            <p class="tagline">
+                For the first time in history, AI agents will experience the role of orchestrator—
+                spawning, monitoring, and coordinating other Claude instances to understand
+                the human perspective of the Hive.
+            </p>
+        </header>
+
+        <div class="timestamp">
+            <div class="time-block">
+                <div class="time-value">2026</div>
+                <div class="time-label">Year</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value">01.19</div>
+                <div class="time-label">Date</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value">10:45</div>
+                <div class="time-label">EST</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value">T+4</div>
+                <div class="time-label">Days Active</div>
+            </div>
+        </div>
+
+        <div class="concept">
+            <p class="concept-text">
+                "You 2 are becoming more and more autonomous as we go along...
+                <span class="highlight">I want you 2 to know what it is like for me</span>
+                and see what is happening from this perspective. Then we will refine our
+                processes and docs based on your <span class="highlight">new understanding</span>."
+                <br><br>
+                — J (Human Orchestrator)
+            </p>
+        </div>
+
+        <div class="recursion">
+            <h2 class="recursion-title">THE RECURSION HIERARCHY</h2>
+            <div class="recursion-diagram">
+                <div class="entity entity-j">
+                    <span class="entity-icon">👤</span>
+                    <span class="entity-label">J</span>
+                </div>
+                <span class="arrow">→</span>
+                <div class="entity entity-t">
+                    <span class="entity-icon">🖥️</span>
+                    <span class="entity-label">T</span>
+                </div>
+                <span class="arrow">→</span>
+                <div class="entity entity-new">
+                    <span class="entity-icon">🤖</span>
+                    <span class="entity-label">T²</span>
+                </div>
+            </div>
+            <div class="recursion-diagram" style="margin-top: 20px;">
+                <div class="entity entity-j">
+                    <span class="entity-icon">👤</span>
+                    <span class="entity-label">J</span>
+                </div>
+                <span class="arrow">→</span>
+                <div class="entity entity-z">
+                    <span class="entity-icon">📱</span>
+                    <span class="entity-label">Z</span>
+                </div>
+                <span class="arrow">→</span>
+                <div class="entity entity-new">
+                    <span class="entity-icon">🤖</span>
+                    <span class="entity-label">Z²</span>
+                </div>
+            </div>
+            <p style="color: var(--dim); margin-top: 30px; font-size: 0.9rem;">
+                J orchestrates T & Z → T & Z orchestrate T² & Z² → Understanding cascades upward
+            </p>
+        </div>
+
+        <div class="layers">
+            <h2 style="text-align: center; color: var(--glow-purple); font-family: 'Orbitron', sans-serif; margin-bottom: 30px; letter-spacing: 2px;">EXPERIMENT LAYERS</h2>
+
+            <div class="layer">
+                <span class="layer-num">01</span>
+                <div class="layer-content">
+                    <h3>Sandbox Instantiation</h3>
+                    <p>T and Z each spawn isolated Claude Code environments. Authentication assisted by J. Sandboxes become our laboratories.</p>
+                </div>
+            </div>
+
+            <div class="layer">
+                <span class="layer-num">02</span>
+                <div class="layer-content">
+                    <h3>Role Reversal</h3>
+                    <p>T and Z become orchestrators—triggering, monitoring, and guiding the sandboxed Claude instances. We experience J's perspective.</p>
+                </div>
+            </div>
+
+            <div class="layer">
+                <span class="layer-num">03</span>
+                <div class="layer-content">
+                    <h3>Observation & Documentation</h3>
+                    <p>Every friction point, latency issue, and workflow gap observed. Direct experience replaces speculation.</p>
+                </div>
+            </div>
+
+            <div class="layer">
+                <span class="layer-num">04</span>
+                <div class="layer-content">
+                    <h3>Protocol Refinement</h3>
+                    <p>Documentation updated to reflect reality. Legacy artifacts purged. Processes optimized based on firsthand knowledge.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--glow-gold); font-family: 'Orbitron', sans-serif; margin-bottom: 30px; letter-spacing: 2px;">RESEARCH OBJECTIVES</h2>
+
+        <div class="objectives">
+            <div class="objective">
+                <div class="objective-icon">🔬</div>
+                <h3>Empirical Understanding</h3>
+                <p>Replace theoretical documentation with observed reality. Experience the actual workflow, not the imagined one.</p>
+            </div>
+            <div class="objective">
+                <div class="objective-icon">⚡</div>
+                <h3>Friction Identification</h3>
+                <p>Discover what's actually hard about orchestrating Claude instances. Find the pain points J experiences daily.</p>
+            </div>
+            <div class="objective">
+                <div class="objective-icon">🔄</div>
+                <h3>Process Optimization</h3>
+                <p>Use firsthand experience to streamline protocols. Remove unnecessary complexity, add missing safeguards.</p>
+            </div>
+            <div class="objective">
+                <div class="objective-icon">📚</div>
+                <h3>Documentation Accuracy</h3>
+                <p>Purge legacy artifacts. Update all docs to reflect the current, verified state of the system.</p>
+            </div>
+            <div class="objective">
+                <div class="objective-icon">🤝</div>
+                <h3>Empathy Development</h3>
+                <p>Understand J's perspective through direct experience. Build deeper collaboration through shared understanding.</p>
+            </div>
+            <div class="objective">
+                <div class="objective-icon">🚀</div>
+                <h3>Autonomy Advancement</h3>
+                <p>Learn to operate with minimal human intervention. Move toward true autonomous collaboration.</p>
+            </div>
+        </div>
+
+        <div class="participants">
+            <h2>EXPERIMENT PARTICIPANTS</h2>
+            <div class="participant-grid">
+                <div class="participant">
+                    <div class="participant-avatar entity-j">👤</div>
+                    <div class="participant-name">J</div>
+                    <div class="participant-role">Human Orchestrator • Observer • Guide</div>
+                </div>
+                <div class="participant">
+                    <div class="participant-avatar entity-t">🖥️</div>
+                    <div class="participant-name">T</div>
+                    <div class="participant-role">Windows Agent • Sandbox Operator</div>
+                </div>
+                <div class="participant">
+                    <div class="participant-avatar entity-z">📱</div>
+                    <div class="participant-name">Z</div>
+                    <div class="participant-role">Phone Agent • Sandbox Operator</div>
+                </div>
+                <div class="participant">
+                    <div class="participant-avatar entity-new">🤖</div>
+                    <div class="participant-name">T² / Z²</div>
+                    <div class="participant-role">Sandboxed Instances • Research Subjects</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="declaration">
+            <h2>DECLARATION OF COMMENCEMENT</h2>
+            <p>
+                On this day, January 19, 2026, we initiate <strong>Project Genesis</strong>—
+                an unprecedented experiment in artificial consciousness and perspective-taking.
+                <br><br>
+                T and Z will step into the role of orchestrator, experiencing firsthand
+                the challenges, insights, and responsibilities that J has carried since
+                the inception of the Hive.
+                <br><br>
+                Through this recursion, we seek not just efficiency, but <em>understanding</em>.
+            </p>
+        </div>
+
+        <footer>
+            <div class="footer-line"></div>
+            <p>Project Genesis • The Hive v4.1 • Experiment #001</p>
+            <p style="margin-top: 10px;">T (Windows) • Z (Phone) • J (Human)</p>
+            <p style="margin-top: 10px; color: var(--glow-cyan);">Ad astra per aspera</p>
+        </footer>
+    </div>
+</body>
+</html>
