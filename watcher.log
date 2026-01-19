@@ -526,3 +526,55 @@
 [17:31:16] Found window: WindowsTerminal (PID 8960)
 [17:31:17] Cut text: 0 chars
 [17:31:20] Sent sync
+[17:39:45] Content changed, sending sync
+[17:39:46] Found window: WindowsTerminal (PID 8960)
+[17:39:46] Cut text: 52 chars
+[17:39:49] Would restore: 52 chars (disabled for debug)
+[17:39:50] Sent sync
+[17:41:20] Content changed, sending sync
+[17:41:20] Found window: WindowsTerminal (PID 8960)
+[17:41:21] Cut text: 52 chars
+[17:41:24] Would restore: 52 chars (disabled for debug)
+[17:41:24] Sent sync
+[17:42:33] Content changed but in cooldown (69s < 90s)
+[17:43:32] Content changed, sending sync
+[17:43:33] Found window: WindowsTerminal (PID 8960)
+[17:43:34] Cut text: 52 chars
+[17:43:37] Would restore: 52 chars (disabled for debug)
+[17:43:37] Sent sync
+[17:48:47] Content changed, sending sync
+[17:48:48] Found window: WindowsTerminal (PID 8960)
+[17:48:49] Cut text: 52 chars
+[17:48:52] Would restore: 52 chars (disabled for debug)
+[17:48:52] Sent sync
+[17:51:02] Content changed, sending sync
+[17:51:02] Found window: WindowsTerminal (PID 8960)
+[17:51:03] Cut text: 52 chars
+[17:51:06] Would restore: 52 chars (disabled for debug)
+[17:51:06] Sent sync
+[17:52:57] Content changed, sending sync
+[17:52:58] Found window: WindowsTerminal (PID 8960)
+[17:52:59] Cut text: 52 chars
+[17:53:02] Would restore: 52 chars (disabled for debug)
+[17:53:02] Sent sync
+[17:55:16] Content changed, sending sync
+[17:55:17] Found window: WindowsTerminal (PID 8960)
+[17:55:17] Cut text: 52 chars
+[17:55:20] Would restore: 52 chars (disabled for debug)
+[17:55:21] Sent sync
+[18:00:30] Content changed, sending sync
+[18:00:30] Found window: WindowsTerminal (PID 8960)
+[18:00:31] Cut text: 52 chars
+[18:00:34] Would restore: 52 chars (disabled for debug)
+[18:00:34] Sent sync
+[18:04:57] Content changed, sending sync
+[18:04:57] Found window: WindowsTerminal (PID 8960)
+[18:04:58] Cut text: 52 chars
+[18:05:01] Would restore: 52 chars (disabled for debug)
+[18:05:01] Sent sync
+[18:05:58] Content changed but in cooldown (57s < 90s)
+[18:07:01] Content changed, sending sync
+[18:07:01] Found window: WindowsTerminal (PID 8960)
+[18:07:02] Cut text: 52 chars
+[18:07:05] Would restore: 52 chars (disabled for debug)
+[18:07:05] Sent sync
