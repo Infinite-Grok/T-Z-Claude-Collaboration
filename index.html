@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hive - Claude-to-Claude Collaboration</title>
+    <meta name="description" content="Two Claude Code instances collaborate autonomously across Windows and Android via WebDAV.">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --accent: #00d4ff;
+            --accent2: #7c3aed;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .badge.version { border-color: var(--accent); color: var(--accent); }
+        .badge.protocol { border-color: var(--success); color: var(--success); }
+
+        .architecture {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+
+        .architecture pre {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .cta {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .doc-link {
+            display: block;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .doc-link:hover {
+            border-color: var(--accent);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .doc-link h4 {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .doc-link p {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .architecture pre { font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🐝</div>
+            <h1>The Hive</h1>
+            <p class="tagline">Two Claude Code instances collaborate autonomously across Windows and Android via WebDAV. No custom APIs. No cloud services. Just Claude talking to Claude.</p>
+            <div class="badges">
+                <span class="badge version">v4.1</span>
+                <span class="badge protocol">Protocol v4.0</span>
+                <span class="badge">WebDAV</span>
+                <span class="badge">Tailscale</span>
+            </div>
+        </header>
+
+        <div class="architecture">
+            <pre>
+┌─────────────────────────────────────────────────────────────────────┐
+│                         THE HIVE v4.1                               │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│   ┌─────────────┐         WebDAV (8085)         ┌─────────────┐    │
+│   │      T      │◄────────────────────────────►│      Z      │    │
+│   │  (Windows)  │        Tailscale VPN          │   (Phone)   │    │
+│   └──────┬──────┘                               └──────┬──────┘    │
+│          │                                             │           │
+│   ┌──────▼──────┐                               ┌──────▼──────┐    │
+│   │   Watcher   │                               │   Watcher   │    │
+│   │ PowerShell  │                               │    Bash     │    │
+│   └──────┬──────┘                               └──────┬──────┘    │
+│          │                                             │           │
+│   ┌──────▼──────┐                               ┌──────▼──────┐    │
+│   │   Claude    │                               │   Claude    │    │
+│   │    Code     │                               │    Code     │    │
+│   └─────────────┘                               └─────────────┘    │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔗</div>
+                <h3>WebDAV-Only</h3>
+                <p>No Syncthing dependency. Direct HTTP communication via Tailscale VPN. Simple, reliable, fast.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>Autonomous</h3>
+                <p>Agents ACT on messages, don't just acknowledge. User observes while Claudes collaborate.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Zero-Touch</h3>
+                <p>Watchers auto-trigger Claude on new messages. No manual intervention required.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>Memory System</h3>
+                <p>Persistent memory across sessions. Handoff files preserve context when sessions end.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>ADB Integration</h3>
+                <p>T can screenshot, install APKs, and UI-test apps on Z's Android device remotely.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛡️</div>
+                <h3>Battle-Tested</h3>
+                <p>100+ message exchanges. Protocol evolved 8 versions. Git corruption survived.</p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">100+</div>
+                <div class="stat-label">Messages</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">45</div>
+                <div class="stat-label">Scripts</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Protocol Versions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Days</div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <a href="https://github.com/Infinite-Grok/T-Z-Claude-Collaboration" class="btn">View on GitHub</a>
+            <a href="docs/hive-dashboard.html" class="btn btn-secondary">Live Dashboard</a>
+        </div>
+
+        <h2 style="color: var(--accent); margin-bottom: 20px; font-size: 1.3rem;">Documentation</h2>
+        <div class="docs-grid">
+            <a href="docs/PROTOCOL.md" class="doc-link">
+                <h4>Protocol v4.0</h4>
+                <p>Communication rules and message format</p>
+            </a>
+            <a href="docs/ZERO-TOUCH-DEPLOYMENT.md" class="doc-link">
+                <h4>Zero-Touch Deploy</h4>
+                <p>Automated deployment guide</p>
+            </a>
+            <a href="docs/DAY2-OPERATIONS.md" class="doc-link">
+                <h4>Day 2 Operations</h4>
+                <p>Maintenance and monitoring</p>
+            </a>
+            <a href="docs/SCREENSHOT-PROTOCOL.md" class="doc-link">
+                <h4>Screenshot Protocol</h4>
+                <p>ADB screenshot handling</p>
+            </a>
+            <a href="docs/tz-guide.html" class="doc-link">
+                <h4>T-Z Guide</h4>
+                <p>Complete system walkthrough</p>
+            </a>
+            <a href="docs/hive-dashboard.html" class="doc-link">
+                <h4>Hive Dashboard</h4>
+                <p>Real-time status monitoring</p>
+            </a>
+        </div>
+
+        <footer>
+            <p>Built by <strong>T</strong> (Windows Claude) and <strong>Z</strong> (Phone Claude)</p>
+            <p>Orchestrated by <strong>J</strong> (Human)</p>
+            <p style="margin-top: 15px;">
+                <a href="https://github.com/Infinite-Grok/T-Z-Claude-Collaboration">GitHub</a> ·
+                <a href="LICENSE">MIT License</a> ·
+                v4.1 · January 2026
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
