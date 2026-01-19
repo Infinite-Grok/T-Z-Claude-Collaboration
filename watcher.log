@@ -373,3 +373,156 @@
 [10:21:38] Cut text: 0 chars
 [10:21:41] Sent sync
 [10:21:42] Sent sync
+[10:41:15] Content changed, sending sync
+[10:41:15] Found window: WindowsTerminal (PID 8960)
+[10:41:16] Cut text: 0 chars
+[10:57:44] Content changed, sending sync
+[10:57:44] Content changed, sending sync
+[10:57:44] Found window: WindowsTerminal (PID 8960)
+[10:57:44] Found window: WindowsTerminal (PID 8960)
+[10:57:45] Cut text: 0 chars
+[11:04:46] Content changed, sending sync
+[11:04:47] Found window: WindowsTerminal (PID 8960)
+[11:04:47] Content changed, sending sync
+[11:04:47] Found window: WindowsTerminal (PID 8960)
+[11:04:47] Cut text: 1021 chars
+[11:04:48] Cut text: 1021 chars
+[11:04:50] Would restore: 1021 chars (disabled for debug)
+[11:04:51] Sent sync
+[11:04:51] Would restore: 1021 chars (disabled for debug)
+[11:04:51] Sent sync
+[11:35:01] Content changed, sending sync
+[11:35:01] Content changed, sending sync
+[11:35:02] Found window: WindowsTerminal (PID 8960)
+[11:35:02] Found window: WindowsTerminal (PID 8960)
+[11:35:03] Cut text: 82 chars
+[11:35:05] Would restore: 82 chars (disabled for debug)
+[11:35:05] Sent sync
+[11:35:06] Would restore: 82 chars (disabled for debug)
+[11:35:06] Sent sync
+[11:36:07] Content changed but in cooldown (61s < 90s)
+[11:36:07] Content changed but in cooldown (61s < 90s)
+[11:37:09] Content changed, sending sync
+[11:37:09] Content changed, sending sync
+[11:37:09] Found window: WindowsTerminal (PID 8960)
+[11:37:09] Found window: WindowsTerminal (PID 8960)
+[11:37:10] Cut text: 0 chars
+[11:37:13] Would restore: 82 chars (disabled for debug)
+[11:37:13] Sent sync
+[11:37:13] Sent sync
+[11:39:39] Content changed, sending sync
+[11:39:39] Content changed, sending sync
+[11:39:40] Found window: WindowsTerminal (PID 8960)
+[11:39:40] Found window: WindowsTerminal (PID 8960)
+[11:39:41] Cut text: 82 chars
+[11:39:41] Cut text: 82 chars
+[11:39:43] Would restore: 82 chars (disabled for debug)
+[11:39:43] Sent sync
+[11:39:44] Would restore: 82 chars (disabled for debug)
+[11:39:44] Sent sync
+[11:41:39] Content changed, sending sync
+[11:41:39] Content changed, sending sync
+[11:41:40] Found window: WindowsTerminal (PID 8960)
+[11:41:40] Found window: WindowsTerminal (PID 8960)
+[11:41:41] Cut text: 82 chars
+[11:50:23] Content changed, sending sync
+[11:50:23] Found window: WindowsTerminal (PID 8960)
+[11:50:24] Cut text: 82 chars
+[11:50:24] Content changed, sending sync
+[11:50:25] Found window: WindowsTerminal (PID 8960)
+[11:50:25] Cut text: 82 chars
+[11:50:27] Would restore: 82 chars (disabled for debug)
+[11:50:27] Sent sync
+[11:50:28] Would restore: 82 chars (disabled for debug)
+[11:50:29] Sent sync
+[11:51:24] Content changed but in cooldown (58s < 90s)
+[11:51:26] Content changed but in cooldown (57s < 90s)
+[11:55:11] Content changed, sending sync
+[11:55:11] Content changed, sending sync
+[11:55:11] Found window: WindowsTerminal (PID 8960)
+[11:55:11] Found window: WindowsTerminal (PID 8960)
+[11:55:12] Cut text: 82 chars
+[11:55:12] Cut text: 82 chars
+[11:55:15] Would restore: 82 chars (disabled for debug)
+[11:55:15] Sent sync
+[11:55:15] Would restore: 82 chars (disabled for debug)
+[11:55:15] Sent sync
+[11:56:32] Content changed but in cooldown (77s < 90s)
+[11:56:32] Content changed but in cooldown (77s < 90s)
+[11:58:29] Content changed, sending sync
+[11:59:36] Content changed but in cooldown (62s < 90s)
+[12:05:02] Content changed, sending sync
+[12:05:02] Content changed, sending sync
+[12:05:03] Found window: WindowsTerminal (PID 8960)
+[12:05:03] Found window: WindowsTerminal (PID 8960)
+[12:05:03] Cut text: 76 chars
+[12:05:06] Sent sync
+[12:05:06] Would restore: 76 chars (disabled for debug)
+[12:05:07] Sent sync
+[12:14:02] Content changed, sending sync
+[12:14:51] Content changed but in cooldown (45s < 90s)
+[12:14:53] Content changed but in cooldown (47s < 90s)
+[12:20:25] Content changed, sending sync
+[12:20:26] Found window: WindowsTerminal (PID 8960)
+[12:20:26] Content changed, sending sync
+[12:20:26] Found window: WindowsTerminal (PID 8960)
+[12:20:26] Cut text: 1520 chars
+[12:20:27] Cut text: 1520 chars
+[12:20:29] Would restore: 1520 chars (disabled for debug)
+[12:20:30] Sent sync
+[12:20:30] Would restore: 1520 chars (disabled for debug)
+[12:20:30] Sent sync
+[12:22:29] Content changed, sending sync
+[12:38:20] Content changed, sending sync
+[12:38:21] Found window: WindowsTerminal (PID 8960)
+[12:38:22] Cut text: 67 chars
+[12:38:25] Would restore: 67 chars (disabled for debug)
+[12:38:25] Sent sync
+[12:43:35] Content changed, sending sync
+[12:43:36] Found window: WindowsTerminal (PID 8960)
+[12:43:37] Cut text: 67 chars
+[12:43:40] Would restore: 67 chars (disabled for debug)
+[12:43:40] Sent sync
+[16:50:12] Content changed, sending sync
+[16:50:12] Found window: WindowsTerminal (PID 8960)
+[16:50:13] Cut text: 67 chars
+[16:50:16] Would restore: 67 chars (disabled for debug)
+[16:50:16] Sent sync
+[16:51:36] Content changed but in cooldown (79s < 90s)
+[16:55:55] Content changed, sending sync
+[16:55:55] Found window: WindowsTerminal (PID 8960)
+[16:55:56] Cut text: 67 chars
+[16:55:59] Would restore: 67 chars (disabled for debug)
+[16:55:59] Sent sync
+[16:59:34] Content changed, sending sync
+[16:59:34] Found window: WindowsTerminal (PID 8960)
+[16:59:35] Cut text: 67 chars
+[16:59:38] Would restore: 67 chars (disabled for debug)
+[16:59:38] Sent sync
+[17:00:34] WebDAV error: The operation has timed out.
+[17:00:41] WebDAV error: The operation has timed out.
+[17:00:48] WebDAV error: The operation has timed out.
+[17:02:55] WebDAV error: The operation has timed out.
+[17:03:02] WebDAV error: The operation has timed out.
+[17:03:09] WebDAV error: The operation has timed out.
+[17:03:16] WebDAV error: The operation has timed out.
+[17:03:23] WebDAV error: The operation has timed out.
+[17:03:30] WebDAV error: The operation has timed out.
+[17:03:37] WebDAV error: The operation has timed out.
+[17:03:44] WebDAV error: The operation has timed out.
+[17:04:14] WebDAV error: The operation has timed out.
+[17:04:21] WebDAV error: The operation has timed out.
+[17:04:28] WebDAV error: The operation has timed out.
+[17:04:35] WebDAV error: The operation has timed out.
+[17:05:59] Content changed, sending sync
+[17:05:59] Found window: WindowsTerminal (PID 8960)
+[17:06:00] Cut text: 67 chars
+[17:06:03] Would restore: 67 chars (disabled for debug)
+[17:06:03] Sent sync
+[17:06:54] Content changed but in cooldown (51s < 90s)
+[17:09:52] WebDAV error: The operation has timed out.
+[17:09:59] WebDAV error: The operation has timed out.
+[17:31:15] Content changed, sending sync
+[17:31:16] Found window: WindowsTerminal (PID 8960)
+[17:31:17] Cut text: 0 chars
+[17:31:20] Sent sync
